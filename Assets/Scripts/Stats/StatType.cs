@@ -10,6 +10,7 @@ namespace RPGGame.Stats
     {
         public string ID;
         public string Name;
+        [Range(0, 100)] public float LevelUpMultiplier = 10;
     }
 }
 

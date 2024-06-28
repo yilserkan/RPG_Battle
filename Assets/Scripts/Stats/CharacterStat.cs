@@ -21,7 +21,6 @@ namespace RPGGame.Stats
                 characterAttribute.AddAttributeModifier(modifier);
                 OnCharacterAttributesChanged?.Invoke();
             }
-
         }
 
         public void RemoveModifier(AttributeModifier modifier)
@@ -32,6 +31,15 @@ namespace RPGGame.Stats
                 characterAttribute.RemoveAttributeModifier(modifier);
                 OnCharacterAttributesChanged?.Invoke();
             }
+        }
+
+        public void HandleOnPlayerLeveldUp()
+        {
+            for (int i = 0; i < _characterAttributes.Count; i++)
+            {
+                _characterAttributes[i].IncreaseBaseValue();
+            }
+            OnCharacterAttributesChanged?.Invoke();
         }
 
         public CharacterAttribute FindAttribute(StatType statType)

@@ -47,6 +47,12 @@ namespace RPGGame.Stats
             }
         }
 
+        public void IncreaseBaseValue()
+        {
+            BaseValue *= (100 + StatType.LevelUpMultiplier) / 100;
+            CalculateAttributeValue();
+        }
+
         public float CalculateAttributeValue()
         {
             _attributeValue = BaseValue;
