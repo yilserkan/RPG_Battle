@@ -47,10 +47,11 @@ namespace RPGGame.Extensions
             return gameObject;
         }
 
-        public static async Task<T> LoadAddressableAsync<T>(this AssetReferenceT<T> reference) where T : Object
+        public static async Task<AsyncOperationHandle<T>> LoadAddressableAsync<T>(this AssetReferenceT<T> reference) where T : Object
         {
-            var obj = await reference.LoadAssetAsync<T>().Task;
-            return obj;
+            var handle = reference.LoadAssetAsync<T>();
+            await handle.Task;
+            return handle;
         }
     }
 }

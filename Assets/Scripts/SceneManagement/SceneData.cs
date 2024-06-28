@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace RPGGame.SceneManagement
 {
@@ -8,5 +9,6 @@ namespace RPGGame.SceneManagement
     {
         public AssetReference SceneReference;
         public SceneType SceneType;
+        public AsyncOperationHandle OperationHandle;
     }
 }

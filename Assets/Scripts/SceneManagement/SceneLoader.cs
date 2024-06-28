@@ -8,13 +8,14 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using RPGGame.Singleton;
+using System.Collections.Generic;
 
 namespace RPGGame.SceneManagement
 {
     public class SceneLoader : AbstractMonoSingleton<SceneLoader>
     {
         [SerializeField] private SceneLoaderUIHelper _uiHelper;
-        [SerializeField] private AssetReferenceScriptableObject[] _sceneDatas;
+        [SerializeField] private SceneDataContainer _sceneDatas;
 
         private AsyncOperationHandle<SceneInstance> _activeAddressableSceneHandle;
         private AsyncOperationHandle<SceneInstance> _prevAddressableSceneHandle;
@@ -31,6 +32,12 @@ namespace RPGGame.SceneManagement
         public void LoadInitialScene()
         {
             LoadScene(SceneType.InitializationScene);
+        }
+
+        [ContextMenu("LoadTestScene")]
+        public void LoadTestScene()
+        {
+            LoadScene(SceneType.Test);
         }
 
         public async Task LoadScene(SceneType type)
@@ -61,14 +68,15 @@ namespace RPGGame.SceneManagement
 
             while (!handle.isDone)
             {
-                progress?.Report(handle.progress);
+                progress?.Report
+                    (handle.progress);
                 await Task.Delay(100);
             }
         }
 
         private async Task LoadAddressableScene(SceneType type, IProgress<float> progress)
         {
-            var sceneReference = await GetAddressableSceneReference(type);
+            var sceneReference = await _sceneDatas.GetAddressableSceneReference(type);
             if (sceneReference == null) { return; }
 
             _activeAddressableSceneHandle = sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
@@ -109,7 +117,9 @@ namespace RPGGame.SceneManagement
         {
             if (!_prevAddressableSceneHandle.IsValid()) { return; }
 
+            Debug.Log("Unloading Scene " + _prevAddressableSceneHandle.DebugName);
             var handle = Addressables.UnloadSceneAsync(_prevAddressableSceneHandle);
+            
             while (!handle.IsDone)
             {
                 await Task.Delay(100);
@@ -117,21 +127,7 @@ namespace RPGGame.SceneManagement
 
             Resources.UnloadUnusedAssets();
         }
-
-        private async Task<AssetReference> GetAddressableSceneReference(SceneType type)
-        {
-            for (int i = 0; i < _sceneDatas.Length; i++)
-            {
-                var sceneData = await _sceneDatas[i].LoadAddressableAsync() as SceneData;
-                if (sceneData != null && sceneData.SceneType == type)
-                {
-                    return sceneData.SceneReference;
-                }
-            }
-
-            return null;
-        }
     }
 
-    public enum SceneType { InitializationScene, GameScene }
+    public enum SceneType { InitializationScene, GameScene, Test }
 }
