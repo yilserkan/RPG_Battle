@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Character Base Stats Container
   m_EditorClassIdentifier: 
   BaseStats:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
