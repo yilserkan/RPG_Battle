@@ -16,6 +16,19 @@ namespace RPGGame.Stats
 
         private float _attributeValue;
 
+        public CharacterAttribute(CharacterBaseAttribute characterBaseAttribute, int level)
+        {
+            StatType = characterBaseAttribute.StatType;
+            BaseValue = CalculateBaseValueFromLevel(characterBaseAttribute.BaseValue, level);
+        }
+
+        private float CalculateBaseValueFromLevel(float baseValue, int level)
+        {
+            var multiplierPercentage = (100 + StatType.LevelUpMultiplier) / 100;
+            var mulitplier = Mathf.Pow(multiplierPercentage, level-1);
+            return mulitplier * baseValue;
+        }
+
         public void AddAttributeModifier(AttributeModifier attributeModifier)
         {
             if (attributeModifier == null) { return; }

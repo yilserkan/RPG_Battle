@@ -1,3 +1,4 @@
+using RPGGame.Hero;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,13 +6,25 @@ using UnityEngine;
 
 namespace RPGGame.Stats
 {
-    [CreateAssetMenu(menuName ="ScriptableObjects/Stats/CharacterStats")]
-    public class CharacterStat : ScriptableObject
+    //[CreateAssetMenu(menuName ="ScriptableObjects/Stats/CharacterStats")]
+    [Serializable]
+    public class CharacterStat
     {
-        [SerializeField] private List<CharacterAttribute> _characterAttributes = new List<CharacterAttribute>();
-        public List<CharacterAttribute> CharacterAttributes { get => _characterAttributes; }
+        public List<CharacterAttribute> _characterAttributes;
+        //public List<CharacterAttribute> CharacterAttributes { get => _characterAttributes; }
 
         public event Action OnCharacterAttributesChanged;
+
+        public CharacterStat(CharacterBaseStats baseStats, int level)
+        {
+            _characterAttributes = new List<CharacterAttribute>();
+
+            var attributes = baseStats.BaseAttributes;
+            for (int i = 0; i < attributes.Length; i++)
+            {
+                _characterAttributes.Add(new CharacterAttribute(attributes[i], level));
+            }
+        }
 
         public void AddModifier(AttributeModifier modifier)
         {

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: STAT_ATT
   Name: Attack
+  LevelUpMultiplier: 10
