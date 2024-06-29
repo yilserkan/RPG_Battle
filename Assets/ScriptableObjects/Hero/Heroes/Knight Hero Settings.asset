@@ -15,3 +15,4 @@ MonoBehaviour:
   _id: HERO_KNIGHT
   _name: Knight
   _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _heroSprite: {fileID: 21300000, guid: 4fb265aad4bb6e74a91a50909427597e, type: 3}

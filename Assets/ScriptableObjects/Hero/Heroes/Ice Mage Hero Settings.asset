@@ -15,3 +15,4 @@ MonoBehaviour:
   _id: HERO_ICE_MAGE
   _name: Ice Mage
   _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _heroSprite: {fileID: 21300000, guid: 3c538296f865b954c9e652e726fd02cf, type: 3}

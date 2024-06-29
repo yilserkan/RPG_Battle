@@ -15,3 +15,4 @@ MonoBehaviour:
   _id: HERO_KING
   _name: King
   _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _heroSprite: {fileID: 21300000, guid: 207db969432fb2a469cde477d02e1aa9, type: 3}
