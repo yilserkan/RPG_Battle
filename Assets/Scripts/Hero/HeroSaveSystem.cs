@@ -62,9 +62,9 @@ namespace RPGGame.Hero
 
         public HeroData(Hero hero)
         {
-            ID = hero._settings.ID;
-            Level = hero._level;
-            Experience = hero._experience;
+            ID = hero.Settings.ID;
+            Level = hero.Level;
+            Experience = hero.Experience;
         }
     }
 }
