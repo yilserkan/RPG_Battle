@@ -1,3 +1,4 @@
+using RPGGame.Player;
 using RPGGame.SaveSystem;
 using System;
 using System.Collections;
@@ -16,8 +17,9 @@ namespace RPGGame.Hero
             _heroSaveSystem = new JSONSaveSystem<HeroDataWrapper>(HERO_SAVE_SYSTEM_FILE_NAME);
         }
 
-        public void Save(Hero[] heroes)
+        public void Save()
         {
+            var heroes = PlayerData.GetPlayerHeroes();
             var heroesWrapper = new HeroDataWrapper(heroes);
             _heroSaveSystem.Save(heroesWrapper);
         }
