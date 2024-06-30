@@ -1539,6 +1539,7 @@ MonoBehaviour:
   - {fileID: 210075325}
   - {fileID: 1180007096}
   - {fileID: 88764826}
+  _playButton: {fileID: 1533139907}
 --- !u!1 &466477530
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,6 +3051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1b524d0456f9b4faa85ed5e740e605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Interactable: 1
 --- !u!114 &1102472474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4245,6 +4247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1b524d0456f9b4faa85ed5e740e605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Interactable: 1
 --- !u!114 &1533139908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4685,6 +4688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1b524d0456f9b4faa85ed5e740e605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Interactable: 0
 --- !u!1 &1725553099
 GameObject:
   m_ObjectHideFlags: 0

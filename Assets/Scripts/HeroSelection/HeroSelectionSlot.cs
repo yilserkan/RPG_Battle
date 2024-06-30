@@ -8,15 +8,20 @@ using UnityEngine.UI;
 
 namespace RPGGame.HeroSelection
 {
-    public class HeroSelectionSlot : MonoBehaviour
+    public class HeroSelectionSlot : MonoBehaviour, Utils.IObserver<bool>
     {
         [SerializeField] private HeroSelectionSlotUI _slotUI;
-        [SerializeField] private Image _heroIcon;
-        [SerializeField] private TextMeshProUGUI _heroNameText;
+     
         [SerializeField] private CustomHoldableButton _customHoldableButton;
 
         private Hero.Hero _hero;
+        private bool _isSelected;
+        private bool _canSelect;
+
         public static event Action<Hero.Hero> RequestHeroPopupEvent;
+        public static event Action<HeroSelectionSlot> OnSlotSelectedEvent;
+        public static event Action<HeroSelectionSlot> OnSlotUnselectedEvent;
+
 
         private void OnEnable()
         {
@@ -31,28 +36,52 @@ namespace RPGGame.HeroSelection
         public void SetupSlot(Hero.Hero hero)
         {
             _hero = hero;
-            var isSlotOccupied = hero != null;
+            _slotUI.SetupUI(hero);
+            _canSelect = true;
+        }
 
-            if (isSlotOccupied)
+        public void Notify(bool hasSelectedAllHeroes)
+        {
+            _canSelect = !hasSelectedAllHeroes;
+
+            if(hasSelectedAllHeroes && !_isSelected)
             {
-                SetupOccupiedSlot(hero);
+                _slotUI.ShowUnselectableUI();
+                _customHoldableButton.Interactable = false;
+            }
+            else if (!hasSelectedAllHeroes)
+            {
+                _slotUI.ShowSelectableUI();
+                _customHoldableButton.Interactable = true;
+            }
+        }
+
+        private void HandleOnSlotClicked()
+        {
+            if (_isSelected)
+            {
+                UnselectSlot();
             }
             else
             {
-                SetupEmptySlot();
+                SelectSlot();
             }
         }
 
-        private void SetupOccupiedSlot(Hero.Hero hero)
+        private void SelectSlot()
         {
-            _heroIcon.gameObject.SetActive(true);
-            _heroIcon.sprite = hero.Settings.HeroSprite;
-            _heroNameText.text = hero.Settings.Name;
+            if (!_canSelect){return;}
+
+            _isSelected = true;
+            _slotUI.ShowSelectedUI();
+            OnSlotSelectedEvent?.Invoke(this);
         }
 
-        private void SetupEmptySlot()
+        private void UnselectSlot()
         {
-            _heroIcon.gameObject.SetActive(false);
+            _isSelected = false;
+            _slotUI.ShowUnselectedUI();
+            OnSlotUnselectedEvent?.Invoke(this);
         }
 
         private void RequestHeroPopup()
@@ -62,11 +91,13 @@ namespace RPGGame.HeroSelection
 
         private void AddListeners()
         {
+            _customHoldableButton.OnClick += HandleOnSlotClicked;
             _customHoldableButton.OnHold += RequestHeroPopup;
         }
 
         private void RemoveListeners()
         {
+            _customHoldableButton.OnClick -= HandleOnSlotClicked;
             _customHoldableButton.OnHold -= RequestHeroPopup;
         }
     }

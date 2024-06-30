@@ -48,10 +48,16 @@ namespace RPGGame.Hero
 
         public HeroSettings[] GetRandomHeroes()
         { 
-            var heroSettings = new HeroSettings[3];
-            heroSettings[0] = _heroSettings[0];
-            heroSettings[1] = _heroSettings[1];
-            heroSettings[2] = _heroSettings[2];
+            //var heroSettings = new HeroSettings[3];
+            //heroSettings[0] = _heroSettings[0];
+            //heroSettings[1] = _heroSettings[1];
+            //heroSettings[2] = _heroSettings[2];
+
+            var heroSettings = new HeroSettings[_heroSettings.Length];
+            for (int i = 0; i < _heroSettings.Length; i++)
+            {
+                heroSettings[i] = _heroSettings[i];
+            }
 
             return heroSettings;
         }

@@ -163,7 +163,6 @@ GameObject:
   - component: {fileID: 6017440777247919745}
   - component: {fileID: 3850698054576780098}
   - component: {fileID: 825477132335305517}
-  - component: {fileID: 4398436797862697313}
   m_Layer: 0
   m_Name: ui_image_hero_slot_bg
   m_TagString: Untagged
@@ -214,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9398438, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.94644845, b: 0.08962262, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -243,18 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02d75b6305c0ae4e9a0d8f497f53453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4398436797862697313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190510476950610827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be1b524d0456f9b4faa85ed5e740e605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Interactable: 1
 --- !u!1 &3360513478678614551
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5892745f812ffc647bb30020a49d68f4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8418a5cc42e7df40b993d894939c818, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -340,6 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2094620065935907149}
   - component: {fileID: 4579583653578260255}
+  - component: {fileID: 9123344070593125462}
   m_Layer: 0
   m_Name: ui_hero_slot
   m_TagString: Untagged
@@ -379,10 +368,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff45fa172700f04a9a73ffcc114fd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slotUI: {fileID: 0}
+  _slotUI: {fileID: 9123344070593125462}
+  _customHoldableButton: {fileID: 825477132335305517}
+--- !u!114 &9123344070593125462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703881691907182411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2876bfe74d80abc4193489d744bd30ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiSettings: {fileID: 11400000, guid: 169ad0f725302164aa52d687e317e784, type: 2}
+  _selectedSlotFrameImg: {fileID: 4807148820402845667}
+  _selectedSlotBgImg: {fileID: 3850698054576780098}
   _heroIcon: {fileID: 135955081210959698}
   _heroNameText: {fileID: 4883175972384979259}
-  _customHoldableButton: {fileID: 825477132335305517}
 --- !u!1 &3927098131076040087
 GameObject:
   m_ObjectHideFlags: 0
