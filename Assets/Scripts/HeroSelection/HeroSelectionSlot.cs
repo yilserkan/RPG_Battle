@@ -38,6 +38,7 @@ namespace RPGGame.HeroSelection
             _hero = hero;
             _slotUI.SetupUI(hero);
             _canSelect = true;
+            ToggleSlotButtonInteractable(true);
         }
 
         public void Notify(bool hasSelectedAllHeroes)
@@ -47,12 +48,12 @@ namespace RPGGame.HeroSelection
             if(hasSelectedAllHeroes && !_isSelected)
             {
                 _slotUI.ShowUnselectableUI();
-                _customHoldableButton.Interactable = false;
+                ToggleSlotButtonInteractable(false);
             }
             else if (!hasSelectedAllHeroes)
             {
                 _slotUI.ShowSelectableUI();
-                _customHoldableButton.Interactable = true;
+                ToggleSlotButtonInteractable(true);
             }
         }
 
@@ -87,6 +88,11 @@ namespace RPGGame.HeroSelection
         private void RequestHeroPopup()
         {
             RequestHeroPopupEvent?.Invoke(_hero);
+        }
+
+        private void ToggleSlotButtonInteractable(bool toggle)
+        {
+            _customHoldableButton.Interactable = toggle && _hero != null;
         }
 
         private void AddListeners()
