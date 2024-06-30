@@ -8,6 +8,12 @@ namespace RPGGame.Stats
     public class StatTypeContainer : ScriptableObject
     {
         public StatType[] StatTypes;
+
+        [ContextMenu("Generate Stat Constants")]
+        public void GenerateStatConstants()
+        {
+            StatConstantsGenerator.CreateScript(StatTypes);
+        }
     }
 }
 
