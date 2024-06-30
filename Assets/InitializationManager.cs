@@ -1,4 +1,6 @@
 using RPGGame.Hero;
+using RPGGame.Player;
+using RPGGame.SaveSystem;
 using RPGGame.SceneManagement;
 using RPGGame.Utils;
 using System;
@@ -10,7 +12,7 @@ namespace RPGGame.Initialization
 {
     public class InitializationManager : MonoBehaviour
     {
-        [SerializeField] private HeroCreator _heroCreator;
+        [SerializeField] private HeroSettingsContainer _heroSettings;
         [SerializeField] private ScriptableObjectBase[] _scriptableObjectBases;
 
         void Start()
@@ -25,7 +27,8 @@ namespace RPGGame.Initialization
                 await _scriptableObjectBases[i].Initialize();
             }
 
-            _heroCreator.CreateHeroes();
+            PlayerData.Initialize(_heroSettings);
+            SaveSystemManager.Instance.LoadAllSystems();
 
             SceneLoader.Instance.LoadScene(SceneType.GameScene);
         }

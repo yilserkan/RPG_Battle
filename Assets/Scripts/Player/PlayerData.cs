@@ -3,16 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPGGame.Hero;
 using RPGGame.SaveSystem;
+using RPGGame.Game;
+using System.Linq;
 
 namespace RPGGame.Player
 {
     public static class PlayerData 
     {
-        private static List<Hero.Hero> _playerHeroes = new List<Hero.Hero>();
+        private static GameData _gameData;
+        private static HeroSettingsContainer _heroSettingsContainer;
 
-        public static void SetPlayerHeroes(List<Hero.Hero> heroes)
+        private static List<Hero.Hero> _playerHeroes = new List<Hero.Hero>();
+        private static IHeroFactory _heroFactory = new HeroFactory();
+
+        public static void Initialize(HeroSettingsContainer heroSettingsContainer)
         {
-            _playerHeroes = heroes;
+            _heroSettingsContainer = heroSettingsContainer;
+        }
+
+        public static void SetPlayerHeroes(HeroDataWrapper heroDatasWrapper)
+        {
+            var heroeDatas = heroDatasWrapper.HeroDatas;
+            var heroes = new Hero.Hero[heroeDatas.Length];
+            for (int i = 0; i < heroeDatas.Length; i++)
+            {
+                if (_heroSettingsContainer.TryGetHeroSettings(heroeDatas[i].ID, out var settings))
+                {
+                    heroes[i] = _heroFactory.Create(settings, heroeDatas[i]);
+                }
+            }
+
+            _playerHeroes = heroes.ToList();
             SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
@@ -25,6 +46,33 @@ namespace RPGGame.Player
         public static List<Hero.Hero> GetPlayerHeroes()
         {
             return _playerHeroes;
+        }
+
+        public static void CreateInitialHeroes()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                var heroSettings = _heroSettingsContainer.GetRandomHero();
+                var hero = _heroFactory.Create(heroSettings);
+                AddHero(hero);
+            }
+        }
+
+        public static void SetGameData(GameData gameData)
+        {
+            _gameData = gameData;
+            SaveSystemManager.Instance.GameSaveSystem.Save();
+        }
+
+        public static GameData GetGameData()
+        {
+            return _gameData;
+        }
+
+        public static void CreateInitialGameData()
+        {
+            _gameData = new GameData();
+            SaveSystemManager.Instance.GameSaveSystem.Save();
         }
     }
 }

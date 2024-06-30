@@ -3,6 +3,7 @@ using RPGGame.SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RPGGame.Hero
@@ -24,10 +25,17 @@ namespace RPGGame.Hero
             _heroSaveSystem.Save(heroesWrapper);
         }
 
-        public HeroDataWrapper Load()
+        public void Load()
         {
-            _heroSaveSystem.Load(out HeroDataWrapper hero);
-            return hero;
+            if(HasSaveFile())
+            {
+                _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
+                PlayerData.SetPlayerHeroes(heroDatasWrapper);
+            }
+            else
+            {
+                PlayerData.CreateInitialHeroes();
+            }
         }
 
         public bool HasSaveFile() 

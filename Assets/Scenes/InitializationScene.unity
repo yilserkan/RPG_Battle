@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1f71d67450d344fa12c786dacdb17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroCreator: {fileID: 1815141711}
+  _heroSettings: {fileID: 11400000, guid: 5dae795b7e4a9ab43a0fd88293ed8224, type: 2}
   _scriptableObjectBases:
   - {fileID: 11400000, guid: 5dae795b7e4a9ab43a0fd88293ed8224, type: 2}
   - {fileID: 11400000, guid: ff6b80a48b238064e9f148e2dc8e62bf, type: 2}
@@ -1050,7 +1050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fc09efff3e1274f83edf4a1602ecf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroSettings: {fileID: 11400000, guid: 5dae795b7e4a9ab43a0fd88293ed8224, type: 2}
 --- !u!1 &1833689792
 GameObject:
   m_ObjectHideFlags: 0
