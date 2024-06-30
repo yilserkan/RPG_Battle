@@ -38,7 +38,7 @@ namespace RPGGame.HeroSelection
 
             for (int i = 0; i < _heroSlots.Length; i++)
             {
-                var hero = heroes.Length > i ? heroes[i] : null;
+                var hero = heroes.Count > i ? heroes[i] : null;
                 _heroSlots[i].SetupSlot(hero);
                 _hasSelectedAllHeroes.AddListener(_heroSlots[i]);
             }

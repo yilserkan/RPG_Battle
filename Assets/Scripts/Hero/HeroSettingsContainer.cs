@@ -1,6 +1,8 @@
+using RPGGame.Player;
 using RPGGame.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -46,20 +48,27 @@ namespace RPGGame.Hero
             return false;
         }
 
-        public HeroSettings[] GetRandomHeroes()
-        { 
-            //var heroSettings = new HeroSettings[3];
-            //heroSettings[0] = _heroSettings[0];
-            //heroSettings[1] = _heroSettings[1];
-            //heroSettings[2] = _heroSettings[2];
+        public HeroSettings GetRandomHero()
+        {
+            var availableHeroes = GetAvailableHeroes();
+            var randomIndex = Random.Range(0, availableHeroes.Length);
+            return availableHeroes[randomIndex];
+        }
 
-            var heroSettings = new HeroSettings[_heroSettings.Length];
-            for (int i = 0; i < _heroSettings.Length; i++)
+        private HeroSettings[] GetAvailableHeroes()
+        {
+            var playerHeroes = PlayerData.GetPlayerHeroes();
+            Dictionary<string, HeroSettings> availableHeroes = new Dictionary<string, HeroSettings>(_heroSettingsDict);
+
+            if(playerHeroes != null)
             {
-                heroSettings[i] = _heroSettings[i];
+                for (int i = 0; i < playerHeroes.Count; i++)
+                {
+                    availableHeroes.Remove(playerHeroes[i].Settings.ID);
+                }
             }
 
-            return heroSettings;
+            return availableHeroes.Values.ToArray();
         }
     }
 }

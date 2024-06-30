@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPGGame.SaveSystem;
 using RPGGame.Player;
+using System.Linq;
 
 namespace RPGGame.Hero
 {
@@ -26,14 +27,13 @@ namespace RPGGame.Hero
         }
 
         private void CreateNewHeroes()
-        { 
-            var heroSettings = _heroSettings.GetRandomHeroes();
-            var heroes = new Hero[heroSettings.Length];
-            for (int i = 0; i < heroSettings.Length; i++)
+        {
+            for (int i = 0; i < 3; i++)
             {
-                heroes[i] = _heroFactory.Create(heroSettings[i]);
+                var heroSettings = _heroSettings.GetRandomHero();
+                var hero = _heroFactory.Create(heroSettings);
+                PlayerData.AddHero(hero);
             }
-            PlayerData.SetPlayerHeroes(heroes);
         }
 
         private void LoadHeroes()
@@ -48,7 +48,7 @@ namespace RPGGame.Hero
                     heroes[i] = _heroFactory.Create(settings, heroeDatas[i]);
                 }
             }
-            PlayerData.SetPlayerHeroes(heroes);
+            PlayerData.SetPlayerHeroes(heroes.ToList());
         }
     }
 }

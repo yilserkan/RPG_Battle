@@ -41,10 +41,10 @@ namespace RPGGame.Hero
     {
         public HeroData[] HeroDatas;
 
-        public HeroDataWrapper(Hero[] heroes)
+        public HeroDataWrapper(List<Hero> heroes)
         {
-            HeroDatas = new HeroData[heroes.Length];
-            for (int i = 0; i < heroes.Length; i++)
+            HeroDatas = new HeroData[heroes.Count];
+            for (int i = 0; i < heroes.Count; i++)
             {
                 HeroDatas[i] = new HeroData(heroes[i]);
             }

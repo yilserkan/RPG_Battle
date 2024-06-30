@@ -8,15 +8,21 @@ namespace RPGGame.Player
 {
     public static class PlayerData 
     {
-        private static Hero.Hero[] _playerHeroes;
+        private static List<Hero.Hero> _playerHeroes = new List<Hero.Hero>();
 
-        public static void SetPlayerHeroes(Hero.Hero[] heroes)
+        public static void SetPlayerHeroes(List<Hero.Hero> heroes)
         {
             _playerHeroes = heroes;
             SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
-        public static Hero.Hero[] GetPlayerHeroes()
+        public static void AddHero(Hero.Hero hero)
+        {
+            _playerHeroes.Add(hero);
+            SaveSystemManager.Instance.HeroSaveSystem.Save();
+        }
+
+        public static List<Hero.Hero> GetPlayerHeroes()
         {
             return _playerHeroes;
         }
