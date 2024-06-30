@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,9 +13,12 @@ namespace RPGGame.Utils
         public event Action OnClick;
 
         protected bool _hasExitedBorders;
+        public bool Interactable = true;
 
         public virtual void OnPointerDown(PointerEventData eventData)
         {
+            if (!Interactable) { return; }
+            PlayPointerDownAnimation();
             Debug.Log("Pointer Down");
             _hasExitedBorders = false;
         }
@@ -23,13 +27,25 @@ namespace RPGGame.Utils
         {
             Debug.Log("Pointer Exit");
             _hasExitedBorders = true;
+            PlayPointerUpAnimation();
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
             Debug.Log("Pointer Up");
-            if (_hasExitedBorders) { return; }
+            if (_hasExitedBorders || !Interactable) { return; }
+            PlayPointerUpAnimation();
             OnClick?.Invoke();
+        }
+
+        private void PlayPointerDownAnimation()
+        {
+            transform.DOScale(.9f, .1f);
+        }
+
+        private void PlayPointerUpAnimation()
+        {
+            transform.DOScale(1, .1f);
         }
     }
 

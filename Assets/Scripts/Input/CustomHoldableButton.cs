@@ -38,7 +38,7 @@ namespace RPGGame.Utils
         private IEnumerator HoldTimer()
         {
             float passedTime = 0;
-            while (passedTime < 2)
+            while (passedTime < 1)
             {
                 yield return new WaitForEndOfFrame();
                 passedTime += Time.deltaTime;
