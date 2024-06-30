@@ -56,10 +56,15 @@ namespace RPGGame.Stats
         }
 
         public CharacterAttribute FindAttribute(StatType statType)
-        { 
+        {
+            return FindAttribute(statType.ID);
+        }
+
+        public CharacterAttribute FindAttribute(string statId)
+        {
             for (int i = 0; i < _characterAttributes.Count; i++)
             {
-                if (_characterAttributes[i].StatType.ID== statType.ID)
+                if (_characterAttributes[i].StatType.ID == statId)
                 {
                     return _characterAttributes[i];
                 }
@@ -70,13 +75,23 @@ namespace RPGGame.Stats
 
         public float GetAttributeValue(StatType statType)
         {
-            var attr = FindAttribute(statType);
+            return GetAttributeValue(statType.ID);
+        }
+
+        public float GetAttributeValue(string statId)
+        {
+            var attr = FindAttribute(statId);
             return attr.GetAttributeValue();
         }
 
         public float CalculateAttributeValue(StatType statType)
         {
-            var attr = FindAttribute(statType);
+            return CalculateAttributeValue(statType.ID);
+        }
+
+        public float CalculateAttributeValue(string statId)
+        {
+            var attr = FindAttribute(statId);
             return attr.CalculateAttributeValue();
         }
     }
