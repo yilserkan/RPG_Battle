@@ -37,6 +37,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff6b80a48b238064e9f148e2dc8e62bf
+    m_Address: Assets/ScriptableObjects/SceneDatas/SceneDataContainer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 169ad0f725302164aa52d687e317e784
+    m_Address: Assets/ScriptableObjects/HeroSelection/Hero Selection Slot UI Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a095d4686121b0e4daa592e7572c43ed, type: 2}
   m_SchemaSet:

@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Stats
+  m_EditorClassIdentifier: 
+  m_GroupName: Stats
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 408e263c1d9b227428a4a2bad3fecaf0
+  m_SerializeEntries:
+  - m_GUID: 6ced0a10d9f4eb14fa6b6c90438b3443
+    m_Address: Assets/ScriptableObjects/Stats/CharacterAttribute/Character Base Stats.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bade5bed672c6c4b9267ed1455a6a8d
+    m_Address: Assets/ScriptableObjects/Stats/CharacterAttribute/Character Base Stats
+      Container.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7a40e4772bc8204992f67a5aa810e94
+    m_Address: Assets/ScriptableObjects/Stats/Stats/Attack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2223dd6c66852514aa1a8c62b84c7be0
+    m_Address: Assets/ScriptableObjects/Stats/Stats/Critical.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb7aafd101cf66c4ca4ff4e9fb58c460
+    m_Address: Assets/ScriptableObjects/Stats/Stats/Intelligence.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8dbac49329e74b5448b78c6ce3b8825f
+    m_Address: Assets/ScriptableObjects/Stats/Stats/Stat Type Container.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba540e8eff348014f8e9fec1ced8dc87
+    m_Address: Assets/ScriptableObjects/Stats/Stats/Vitality.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a095d4686121b0e4daa592e7572c43ed, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 74f79981fea867f4e8f08c15528cf335, type: 2}
+    - {fileID: 11400000, guid: 0a46cf4aeaeae574faf35809c099a763, type: 2}

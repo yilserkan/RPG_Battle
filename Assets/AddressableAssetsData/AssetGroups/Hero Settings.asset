@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Hero Settings
+  m_EditorClassIdentifier: 
+  m_GroupName: Hero Settings
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 30b02cd3df1675946aa28f71c92bbd95
+  m_SerializeEntries:
+  - m_GUID: 43fea40dd38d2bc46a54706d8a837a01
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Dark Mage Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23f5a998354d360408e09e03d42e1ee2
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Fencer Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 587b0ebfb547dbe4d9cad762e9d40819
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Fire Mage Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3545dee10cc8d4498b9d7c33bb4a46e
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Ice Mage Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c972e76f929e9b4bb71339f66a4a543
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/King Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c74d8d0b106e5cb4cbd90128d6fd2be6
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Knight Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07a950563308f7a4084588ca50b0da99
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Peasant Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 300989deb9f815b468d053cd7f9073d8
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Prince Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9987ea1f666332949b4c768c16422016
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Samurai Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 517dbe723ad204d47aaf493077c80632
+    m_Address: Assets/ScriptableObjects/Hero/Heroes/Warrior Hero Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5dae795b7e4a9ab43a0fd88293ed8224
+    m_Address: Assets/ScriptableObjects/Hero/Hero Settings Container.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a095d4686121b0e4daa592e7572c43ed, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0d4e68a3524ba694998d8b993d2840a1, type: 2}
+    - {fileID: 11400000, guid: 4eaa9b61bf7069e4e961046d77c7b029, type: 2}
