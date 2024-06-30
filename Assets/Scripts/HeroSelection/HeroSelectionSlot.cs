@@ -12,15 +12,15 @@ namespace RPGGame.HeroSelection
     {
         [SerializeField] private HeroSelectionSlotUI _slotUI;
      
-        [SerializeField] private CustomHoldableButton _customHoldableButton;
+        [SerializeField] private CustomHoldableButton _slotButton;
 
         private Hero.Hero _hero;
         private bool _isSelected;
         private bool _canSelect;
 
         public static event Action<Hero.Hero> RequestHeroPopupEvent;
-        public static event Action<HeroSelectionSlot> OnSlotSelectedEvent;
-        public static event Action<HeroSelectionSlot> OnSlotUnselectedEvent;
+        public static event Action<Hero.Hero> OnSlotSelectedEvent;
+        public static event Action<Hero.Hero> OnSlotUnselectedEvent;
 
 
         private void OnEnable()
@@ -75,14 +75,14 @@ namespace RPGGame.HeroSelection
 
             _isSelected = true;
             _slotUI.ShowSelectedUI();
-            OnSlotSelectedEvent?.Invoke(this);
+            OnSlotSelectedEvent?.Invoke(_hero);
         }
 
         private void UnselectSlot()
         {
             _isSelected = false;
             _slotUI.ShowUnselectedUI();
-            OnSlotUnselectedEvent?.Invoke(this);
+            OnSlotUnselectedEvent?.Invoke(_hero);
         }
 
         private void RequestHeroPopup()
@@ -92,19 +92,19 @@ namespace RPGGame.HeroSelection
 
         private void ToggleSlotButtonInteractable(bool toggle)
         {
-            _customHoldableButton.Interactable = toggle && _hero != null;
+            _slotButton.Interactable = toggle && _hero != null;
         }
 
         private void AddListeners()
         {
-            _customHoldableButton.OnClick += HandleOnSlotClicked;
-            _customHoldableButton.OnHold += RequestHeroPopup;
+            _slotButton.OnClick += HandleOnSlotClicked;
+            _slotButton.OnHold += RequestHeroPopup;
         }
 
         private void RemoveListeners()
         {
-            _customHoldableButton.OnClick -= HandleOnSlotClicked;
-            _customHoldableButton.OnHold -= RequestHeroPopup;
+            _slotButton.OnClick -= HandleOnSlotClicked;
+            _slotButton.OnHold -= RequestHeroPopup;
         }
     }
 }

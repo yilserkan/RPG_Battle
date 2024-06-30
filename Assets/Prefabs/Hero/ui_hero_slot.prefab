@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slotUI: {fileID: 9123344070593125462}
-  _customHoldableButton: {fileID: 825477132335305517}
+  _slotButton: {fileID: 825477132335305517}
 --- !u!114 &9123344070593125462
 MonoBehaviour:
   m_ObjectHideFlags: 0
