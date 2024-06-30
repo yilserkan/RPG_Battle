@@ -10,6 +10,8 @@ namespace RPGGame.Hero
     {
         [SerializeField] private HeroSettingsContainer _heroSettings;
 
+        private IHeroFactory _heroFactory = new HeroFactory();
+
         [ContextMenu("CreateHeroes")]
         public void CreateHeroes()
         {
@@ -29,7 +31,7 @@ namespace RPGGame.Hero
             var heroes = new Hero[heroSettings.Length];
             for (int i = 0; i < heroSettings.Length; i++)
             {
-                heroes[i] = new Hero(heroSettings[i]);
+                heroes[i] = _heroFactory.Create(heroSettings[i]);
             }
             PlayerData.SetPlayerHeroes(heroes);
         }
@@ -43,7 +45,7 @@ namespace RPGGame.Hero
             {
                 if (_heroSettings.TryGetHeroSettings(heroeDatas[i].ID, out var settings))
                 {
-                    heroes[i] = new Hero(settings, heroeDatas[i]);
+                    heroes[i] = _heroFactory.Create(settings, heroeDatas[i]);
                 }
             }
             PlayerData.SetPlayerHeroes(heroes);

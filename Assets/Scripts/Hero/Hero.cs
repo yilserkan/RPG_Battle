@@ -14,18 +14,20 @@ namespace RPGGame.Hero
         public HeroSettings Settings;
         public CharacterStat Stats;
 
-        public Hero(HeroSettings heroSettings)
+        public Hero(HeroSettings heroSettings, HeroData heroData = null)
         {
-            Level = 1;
-            Experience = 0;
-            Settings = heroSettings;
-            Stats = new CharacterStat(Settings.BaseStats, Level);
-        }
+            if(heroData == null)
+            {
+                Level = 1;
+                Experience = 0;
+            }
+            else
+            {
+                Level = heroData.Level;
+                Experience = heroData.Experience;
+            }
 
-        public Hero(HeroSettings heroSettings, HeroData heroData)
-        {
-            Level = heroData.Level;
-            Experience = heroData.Experience;
+         
             Settings = heroSettings;
             Stats = new CharacterStat(Settings.BaseStats, Level);
         }
