@@ -1,5 +1,7 @@
+using RPGGame.Game;
 using RPGGame.Player;
 using RPGGame.SaveSystem;
+using RPGGame.Stats;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,14 +67,37 @@ namespace RPGGame.Hero
         public string ID;
         public int Level;
         public int Experience;
+        public int HeroTeam;
 
-        public HeroData(){}
+        public HeroData(string id, HeroTeam team)
+        {
+            ID = id;
+            Level = 1;
+            Experience = 0;
+            HeroTeam = (int)team;
+        }
 
         public HeroData(Hero hero)
         {
             ID = hero.Settings.ID;
             Level = hero.Level;
             Experience = hero.Experience;
+            HeroTeam = hero.HeroTeam;
+        }
+    }
+
+    [Serializable]
+    public class GameHeroData : HeroData
+    {
+        public float RemainingVitality;
+
+        public GameHeroData(string id, HeroTeam team) : base(id, team)
+        {
+        }
+
+        public GameHeroData(Hero hero) : base(hero)
+        {
+            RemainingVitality = hero.Stats.GetAttributeValue(StatConstants.Vitality);
         }
     }
 }

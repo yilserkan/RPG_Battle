@@ -12,13 +12,20 @@ namespace RPGGame.Player
     {
         private static GameData _gameData;
         private static HeroSettingsContainer _heroSettingsContainer;
+        private static HeroSettingsContainer _enemySettingsContainer;
+
+
+        public static HeroSettingsContainer HeroSettingsContainer = _heroSettingsContainer;
+        public static HeroSettingsContainer EnemySettingsContainer => _enemySettingsContainer;
+
 
         private static List<Hero.Hero> _playerHeroes = new List<Hero.Hero>();
         private static IHeroFactory _heroFactory = new HeroFactory();
 
-        public static void Initialize(HeroSettingsContainer heroSettingsContainer)
+        public static void Initialize(HeroSettingsContainer heroSettingsContainer, HeroSettingsContainer enemySettingsContainer)
         {
             _heroSettingsContainer = heroSettingsContainer;
+            _enemySettingsContainer = enemySettingsContainer;   
         }
 
         public static void SetPlayerHeroes(HeroDataWrapper heroDatasWrapper)
@@ -27,10 +34,8 @@ namespace RPGGame.Player
             var heroes = new Hero.Hero[heroeDatas.Length];
             for (int i = 0; i < heroeDatas.Length; i++)
             {
-                if (_heroSettingsContainer.TryGetHeroSettings(heroeDatas[i].ID, out var settings))
-                {
-                    heroes[i] = _heroFactory.Create(settings, heroeDatas[i]);
-                }
+              
+                heroes[i] = _heroFactory.Create(_heroSettingsContainer, heroeDatas[i]);
             }
 
             _playerHeroes = heroes.ToList();
@@ -52,8 +57,7 @@ namespace RPGGame.Player
         {
             for (int i = 0; i < 3; i++)
             {
-                var heroSettings = _heroSettingsContainer.GetRandomHero();
-                var hero = _heroFactory.Create(heroSettings);
+                var hero = _heroFactory.CreateRandomHero(_heroSettingsContainer, HeroTeam.Player);
                 AddHero(hero);
             }
         }

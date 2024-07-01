@@ -1,3 +1,4 @@
+using RPGGame.Game;
 using RPGGame.Player;
 using RPGGame.Utils;
 using System.Collections;
@@ -48,14 +49,7 @@ namespace RPGGame.Hero
             return false;
         }
 
-        public HeroSettings GetRandomHero()
-        {
-            var availableHeroes = GetAvailableHeroes();
-            var randomIndex = Random.Range(0, availableHeroes.Length);
-            return availableHeroes[randomIndex];
-        }
-
-        private HeroSettings[] GetAvailableHeroes()
+        public HeroSettings[] GetAvailableHeroes()
         {
             var playerHeroes = PlayerData.GetPlayerHeroes();
             Dictionary<string, HeroSettings> availableHeroes = new Dictionary<string, HeroSettings>(_heroSettingsDict);
