@@ -1,4 +1,6 @@
 ﻿using RPGGame.Game;
+using System;
+using System.Collections.Generic;
 
 namespace RPGGame.StateMachine
 {
@@ -18,8 +20,14 @@ namespace RPGGame.StateMachine
         {
             var levelData = _stateMachine.LevelData;
 
-            _stateMachine.HeroSpawner.CreateHeroes(levelData.PlayerHeroes);
-            _stateMachine.HeroSpawner.CreateHeroes(levelData.EnemyHeroes);
+            var playerHeroes = _stateMachine.HeroSpawner.CreateHeroes(levelData.PlayerHeroes);
+            var enemyHeroes = _stateMachine.HeroSpawner.CreateHeroes(levelData.EnemyHeroes);
+
+            var heroesDict = new Dictionary<HeroTeam, GameHero[]>();
+            heroesDict.Add(HeroTeam.Player, playerHeroes);
+            heroesDict.Add(HeroTeam.Enemy, enemyHeroes);
+
+            _stateMachine.SetGameHeroesDict(heroesDict);
 
             var nextState = GetNextState(levelData);
             _stateMachine.SwitchState(nextState);
@@ -29,7 +37,7 @@ namespace RPGGame.StateMachine
         {
             if(levelData.CurrentState == (int)GameStates.None)
             {
-                return GameStates.None;
+                return GameStates.PlayerTurn;
             }
 
             return (GameStates)levelData.CurrentState;
