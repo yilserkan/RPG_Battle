@@ -1,4 +1,5 @@
 using RPGGame.Game;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,7 @@ namespace RPGGame.Level
         }
     }
 
+    [Serializable]
     public class SpawnPointData
     {
         public HeroTeam HeroTeam;
