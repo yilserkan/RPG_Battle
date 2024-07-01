@@ -1,3 +1,4 @@
+using DG.Tweening;
 using RPGGame.Game;
 using RPGGame.Level;
 using System.Collections;
@@ -47,6 +48,11 @@ namespace RPGGame.StateMachine
             _currentState?.OnExit();
             _currentState = _states[newState];
             _currentState?.OnEnter();
+        }
+
+        public void DelayedSwitchState(GameStates newState, float delay)
+        {
+            DOVirtual.DelayedCall(delay, () => SwitchState(newState));
         }
 
         private void OnStateEnter()
