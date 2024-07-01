@@ -16,7 +16,7 @@ namespace RPGGame.Pool
         {
             var instantiated = Instantiate(Prefab);
             instantiated.gameObject.SetActive(true);
-            instantiated.FlyweightSettings = this;
+            instantiated.ObjectPoolSettings = this;
 
             return instantiated;
         }

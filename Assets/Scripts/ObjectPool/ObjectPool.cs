@@ -10,34 +10,34 @@ namespace RPGGame.Pool
     {
         private Dictionary<int, IObjectPool<Poolable>> _objectPools = new Dictionary<int, IObjectPool<Poolable>>();
 
-        public static Poolable Spawn(ObjectPoolSettings flyweightSettings, Transform parent = null)
+        public static Poolable Spawn(ObjectPoolSettings poolableSettings, Transform parent = null)
         {
-            var pooled = Instance.GetPoolFor(flyweightSettings)?.Get();
+            var pooled = Instance.GetPoolFor(poolableSettings)?.Get();
             if(pooled.transform.parent != parent)
                 pooled.transform.SetParent(parent);
 
             return pooled;
         }
-        public static void ReturnToPool(Poolable flyweight) => Instance.GetPoolFor(flyweight.FlyweightSettings)?.Release(flyweight);
+        public static void ReturnToPool(Poolable poolabe) => Instance.GetPoolFor(poolabe.ObjectPoolSettings)?.Release(poolabe);
 
-        IObjectPool<Poolable> GetPoolFor(ObjectPoolSettings flyweightSettings)
+        IObjectPool<Poolable> GetPoolFor(ObjectPoolSettings poolableSettings)
         {
             IObjectPool<Poolable> pool;
 
-            if(_objectPools.TryGetValue(flyweightSettings.GetInstanceID(), out pool)) return pool;
+            if(_objectPools.TryGetValue(poolableSettings.GetInstanceID(), out pool)) return pool;
 
             pool = new ObjectPool<Poolable>
                 (
-                   flyweightSettings.Create,
-                   flyweightSettings.OnGet,
-                   flyweightSettings.OnRelease,
-                   flyweightSettings.OnDestroyPooledObject,
-                   flyweightSettings.CollectionCheck,
-                   flyweightSettings.DefaultCapacity,
-                   flyweightSettings.MaxCapacity
+                   poolableSettings.Create,
+                   poolableSettings.OnGet,
+                   poolableSettings.OnRelease,
+                   poolableSettings.OnDestroyPooledObject,
+                   poolableSettings.CollectionCheck,
+                   poolableSettings.DefaultCapacity,
+                   poolableSettings.MaxCapacity
                 );
 
-            _objectPools.Add(flyweightSettings.GetInstanceID(), pool);
+            _objectPools.Add(poolableSettings.GetInstanceID(), pool);
             return pool;
         }
     }
