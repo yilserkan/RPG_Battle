@@ -1,19 +1,22 @@
 using RPGGame.Player;
 using RPGGame.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGGame.HeroSelection
 {
-    public class HeroSelectionManager : MonoBehaviour, IObserver<bool>
+    public class HeroSelectionManager : MonoBehaviour, Utils.IObserver<bool>
     {
         [SerializeField] private HeroSelectionSlot[] _heroSlots;
         [SerializeField] private CustomButton _playButton;
 
-        private List<HeroSelectionSlot> _selectedSlots;
+        private List<Hero.Hero> _selectedHeroes;
         private Observable<bool> _hasSelectedAllHeroes;
         private const int MAX_SELECTABLE_HEROES_COUNT = 3;
+
+        public static event Action<List<Hero.Hero>> OnStartGameEvent;
 
         private void OnEnable()
         {
@@ -29,7 +32,7 @@ namespace RPGGame.HeroSelection
         {
             _hasSelectedAllHeroes = new Observable<bool>(false, this);
             InitializeSlots();
-            _selectedSlots = new List<HeroSelectionSlot>();
+            _selectedHeroes = new List<Hero.Hero>();
         }
 
         private void InitializeSlots()
@@ -44,18 +47,23 @@ namespace RPGGame.HeroSelection
             }
         }
 
-        private void HandleOnSlotSelected(HeroSelectionSlot slot)
+        private void HandleOnSlotSelected(Hero.Hero hero)
         {
-            _selectedSlots.Add(slot);
+            _selectedHeroes.Add(hero);
 
-            _hasSelectedAllHeroes.Value = _selectedSlots.Count == MAX_SELECTABLE_HEROES_COUNT;
+            _hasSelectedAllHeroes.Value = _selectedHeroes.Count == MAX_SELECTABLE_HEROES_COUNT;
         }
 
-        private void HandleOnSlotUnselected(HeroSelectionSlot slot)
+        private void HandleOnSlotUnselected(Hero.Hero hero)
         {
-            _selectedSlots.Remove(slot);
+            _selectedHeroes.Remove(hero);
 
-            _hasSelectedAllHeroes.Value = _selectedSlots.Count == MAX_SELECTABLE_HEROES_COUNT;
+            _hasSelectedAllHeroes.Value = _selectedHeroes.Count == MAX_SELECTABLE_HEROES_COUNT;
+        }
+
+        private void HandleOnPlayButtonClicked()
+        {
+            OnStartGameEvent?.Invoke(_selectedHeroes);
         }
 
         public void Notify(bool hasSelectedAllHeroes)
@@ -67,12 +75,14 @@ namespace RPGGame.HeroSelection
         {
             HeroSelectionSlot.OnSlotSelectedEvent += HandleOnSlotSelected;
             HeroSelectionSlot.OnSlotUnselectedEvent += HandleOnSlotUnselected;
+            _playButton.OnClick += HandleOnPlayButtonClicked;
         }
 
         private void RemoveListeners()
         {
             HeroSelectionSlot.OnSlotSelectedEvent -= HandleOnSlotSelected;
             HeroSelectionSlot.OnSlotUnselectedEvent -= HandleOnSlotUnselected;
+            _playButton.OnClick -= HandleOnPlayButtonClicked;
         }
 
     }
