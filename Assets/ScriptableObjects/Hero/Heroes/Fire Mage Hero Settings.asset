@@ -18,3 +18,4 @@ MonoBehaviour:
   _heroSprite: {fileID: 21300000, guid: 5dac5dacec34d924e9123afa144f26c3, type: 3}
   _animatorOverrideController: {fileID: 22100000, guid: 19cb4023b25311045b0a266533038df7,
     type: 2}
+  _skill: {fileID: 11400000, guid: 3c43d2c463fbef74cb1eb458e1055147, type: 2}
