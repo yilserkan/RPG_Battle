@@ -8,6 +8,7 @@ namespace RPGGame.Game
 {
     public class GameHero : Pool.Poolable
     {
+        [SerializeField] private GameHeroAnimationController _animationController;
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private float _vitality;
@@ -16,22 +17,28 @@ namespace RPGGame.Game
 
         public Hero.Hero Hero => _hero;
         public float Vitality => _vitality;
+        public HeroTeam Team => _team;
 
         public void Initialize(Hero.Hero hero)
         {
             _team = (HeroTeam)hero.HeroTeam;
             _hero = hero;
-            _vitality = _hero.Stats.GetAttributeValue(StatConstants.Vitality);
-            _spriteRenderer.sprite = _hero.Settings.HeroSprite;
+            _vitality = _hero.Stats.CalculateAttributeValue(StatConstants.Vitality);
+            _animationController.SetupAnimator(hero.Settings.AnimatorOverrideController);
+            _animationController.PlayAnimation(GameHeroAnimationController.AnimationType.Idle);
+            SetSpriteOrientation();
         }
 
-        private void Update()
+        private void SetSpriteOrientation()
         {
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                ObjectPool.ReturnToPool(this);
-            }
+            _spriteRenderer.flipX = _team == HeroTeam.Enemy;
         }
+    
+        public void Attack(GameHero gameHero)
+        {
+            Debug.LogWarning($"{Hero.Settings.Name} attacked {gameHero.Hero.Settings.Name}");
+        }
+
     }
 
     public enum HeroTeam
