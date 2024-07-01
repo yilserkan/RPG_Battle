@@ -16,3 +16,5 @@ MonoBehaviour:
   _name: Samurai
   _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
   _heroSprite: {fileID: 21300000, guid: bc199c7f98d51d84db7b6228c4abd5a4, type: 3}
+  _animatorOverrideController: {fileID: 22100000, guid: 30dbf7e154ec48d42b5bf0024b47a6a1,
+    type: 2}
