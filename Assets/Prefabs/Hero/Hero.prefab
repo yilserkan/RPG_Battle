@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1686958819952913453}
   - component: {fileID: 7157719128208325596}
-  - component: {fileID: 7376079806498931031}
   - component: {fileID: 4051306317372150115}
   m_Layer: 0
   m_Name: Hero
@@ -47,21 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f48f8de0077714438104878fa043ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationController: {fileID: 7376079806498931031}
+  _animationController: {fileID: 6347031550028583093}
   _spriteRenderer: {fileID: 3716816599837526094}
---- !u!114 &7376079806498931031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4837545608807948715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b215d780c952d5d40bdb728c4c33ecf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 2843748272428112275}
 --- !u!114 &4051306317372150115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +75,7 @@ GameObject:
   - component: {fileID: 2843748272428112275}
   - component: {fileID: 6242832421775604998}
   - component: {fileID: 1076016875413338137}
+  - component: {fileID: 6347031550028583093}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -151,7 +138,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 4723107735738678597, guid: 6fc66c021eec74942b4e71a3fde4dc04,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -174,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 9086658066547929026}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 19cb4023b25311045b0a266533038df7, type: 2}
+  m_Controller: {fileID: 22100000, guid: 9566b88a2af961e458882ca3bf089e22, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -244,3 +231,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Interactable: 1
   PlayAnimations: 0
+--- !u!114 &6347031550028583093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086658066547929026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b215d780c952d5d40bdb728c4c33ecf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameHero: {fileID: 7157719128208325596}
+  _animator: {fileID: 2843748272428112275}
+  _attackerOffsetToTarget: {x: -2.5, y: 0, z: 0}
