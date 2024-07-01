@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9860bd0f736d94db4f480237556909, type: 3}
+  m_Name: Ice Mage Projectile Skill Settings
+  m_EditorClassIdentifier: 
+  AnimationName: Attack
+  PoolSettings: {fileID: 11400000, guid: b3b4f14f9bb2c5b408ab1d8bee9e460d, type: 2}
+  SkillAnimatorOverrideController: {fileID: 22100000, guid: 60a784b8f99f5474fb2ed2d852dbf5e4,
+    type: 2}
+  ProjectileDuration: 1.1
+  Dir: {x: 0, y: 0, z: 1}
