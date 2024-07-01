@@ -1,3 +1,4 @@
+using RPGGame.Game;
 using RPGGame.HeroSelection;
 using RPGGame.Utils;
 using System.Collections;
@@ -60,12 +61,14 @@ namespace RPGGame.Stats
         private void AddListeners()
         {
             HeroSelectionSlot.RequestHeroPopupEvent += HandleOnInfoPopupRequested;
+            GameHeroSelectionController.RequestHeroPopupEvent += HandleOnInfoPopupRequested;
             _closeButton.OnClick += HandleOnCloseButtonClicked;
         }
 
         private void RemoveListeners()
         {
             HeroSelectionSlot.RequestHeroPopupEvent -= HandleOnInfoPopupRequested;
+            GameHeroSelectionController.RequestHeroPopupEvent -= HandleOnInfoPopupRequested;
             _closeButton.OnClick -= HandleOnCloseButtonClicked;
         }
     }
