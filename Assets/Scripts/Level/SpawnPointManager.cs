@@ -25,9 +25,9 @@ namespace RPGGame.Level
             }
         }
 
-        public Vector3 GetSpawnPoint(HeroTeam team)
+        public SpawnPoint GetSpawnPoint(HeroTeam team)
         {
-            if (!_spawPointDataDict.ContainsKey(team)) return Vector3.zero;
+            if (!_spawPointDataDict.ContainsKey(team)) return null;
 
             var spawnPoints = _spawPointDataDict[team].SpawnPoints;
             for (int i = 0; i < spawnPoints.Length; i++)
@@ -36,11 +36,11 @@ namespace RPGGame.Level
                 {
 
                     spawnPoints[i].SetOccupied(true);
-                    return spawnPoints[i].GetPosition();
+                    return spawnPoints[i];
                 }
             }
 
-            return Vector3.zero;
+            return null;
         }
     }
 

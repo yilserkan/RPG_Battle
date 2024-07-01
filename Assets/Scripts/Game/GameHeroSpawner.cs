@@ -32,7 +32,8 @@ namespace RPGGame.Level
             {
                 var gameHero = _heroFactory.Create(settings, gameHeroDatas[i]);
                 heroes[i] = gameHero;
-                heroes[i].transform.position = _spawnPointManager.GetSpawnPoint(heroTeam);
+                var spawnPoint = _spawnPointManager.GetSpawnPoint(heroTeam);
+                heroes[i].SetSpawnPoint(spawnPoint);
             }
 
             return heroes;

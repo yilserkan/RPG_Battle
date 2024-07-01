@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPGGame.Stats;
 using RPGGame.Pool;
+using RPGGame.Level;
+using System;
 
 namespace RPGGame.Game
 {
@@ -14,10 +16,15 @@ namespace RPGGame.Game
         private float _vitality;
         private Hero.Hero _hero;
         private HeroTeam _team;
+        private SpawnPoint _spawnPoint;
 
         public Hero.Hero Hero => _hero;
         public float Vitality => _vitality;
         public HeroTeam Team => _team;
+        public SpawnPoint SpawnPoint => _spawnPoint;
+        public GameHeroAnimationController AnimationController => _animationController;
+
+        public static event Action OnHeroCompletedAttack;
 
         public void Initialize(Hero.Hero hero)
         {
@@ -29,6 +36,12 @@ namespace RPGGame.Game
             SetSpriteOrientation();
         }
 
+        public void SetSpawnPoint(SpawnPoint spawnPoint)
+        {
+            _spawnPoint = spawnPoint;
+            transform.position = spawnPoint.GetPosition();
+        }
+
         private void SetSpriteOrientation()
         {
             _spriteRenderer.flipX = _team == HeroTeam.Enemy;
@@ -37,6 +50,12 @@ namespace RPGGame.Game
         public void Attack(GameHero gameHero)
         {
             Debug.LogWarning($"{Hero.Settings.Name} attacked {gameHero.Hero.Settings.Name}");
+            Hero.Settings.Skill.ExecuteSkill(this, gameHero);
+        }
+
+        public void OnAttackCompleted()
+        {
+            OnHeroCompletedAttack?.Invoke();
         }
 
     }
