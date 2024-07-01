@@ -48,5 +48,4 @@ namespace RPGGame.Utils
             transform.DOScale(1, .1f);
         }
     }
-
 }
