@@ -231,7 +231,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiHelper: {fileID: 1686667154}
-  _sceneDatas: {fileID: 11400000, guid: ff6b80a48b238064e9f148e2dc8e62bf, type: 2}
+  _sceneDataAddressableReference:
+    m_AssetGUID: ff6b80a48b238064e9f148e2dc8e62bf
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &457925850
 GameObject:
   m_ObjectHideFlags: 0
