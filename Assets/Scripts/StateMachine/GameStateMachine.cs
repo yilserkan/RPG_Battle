@@ -17,16 +17,14 @@ namespace RPGGame.StateMachine
     {
         [SerializeField] private GameHeroSpawner _heroSpawner;
 
-        public GameHeroSpawner HeroSpawner => _heroSpawner;
-
-        private BaseState _currentState;
-        private GameStates _currentStateType = GameStates.None;
-
-        private Dictionary<GameStates, BaseState> _states;
-
         private LevelData _levelData;
-        public LevelData LevelData => _levelData;
+        private BaseState _currentState;    
+        private GameStates _currentStateType = GameStates.None;
+        private Dictionary<GameStates, BaseState> _states;
         private Dictionary<HeroTeam, GameHero[]> _gameHeroesDict;
+
+        public LevelData LevelData => _levelData;
+        public GameHeroSpawner HeroSpawner => _heroSpawner;
         public Dictionary<HeroTeam, GameHero[]> GameHeroesDic => _gameHeroesDict;
 
         private void OnEnable()
@@ -41,8 +39,17 @@ namespace RPGGame.StateMachine
 
         private void Awake()
         {
-            _states =
-            new Dictionary<GameStates, BaseState>()
+            InitializeDictionaries();
+        }
+
+        private void Update()
+        {
+            _currentState?.OnUpdate();
+        }
+
+        private void InitializeDictionaries()
+        {
+            _states = new Dictionary<GameStates, BaseState>()
             {
                 { GameStates.Initial, new InitializationState(this) },
                 { GameStates.PlayerTurn, new PlayerTurnState(this) },
@@ -51,11 +58,6 @@ namespace RPGGame.StateMachine
             };
 
             _gameHeroesDict = new Dictionary<HeroTeam, GameHero[]>();
-        }
-
-        private void Update()
-        {
-            _currentState?.OnUpdate();
         }
 
         public void StartLevel(LevelData levelData)
@@ -102,6 +104,14 @@ namespace RPGGame.StateMachine
             return aliveHeroes.Length == 0;
         }
 
+        public void SaveGame()
+        {
+            var playerHeroeDatas = CreateGameHeroDataForTeam(HeroTeam.Player);
+            var enemyHeroeDatas = CreateGameHeroDataForTeam(HeroTeam.Enemy);
+            var levelData = new LevelData(playerHeroeDatas, enemyHeroeDatas, _currentStateType);
+            PlayerData.SetActiveLevelData(levelData);
+        }
+
         private void ResetGame()
         {
             foreach (var gameHeroes in _gameHeroesDict)
@@ -117,14 +127,6 @@ namespace RPGGame.StateMachine
             _levelData = null;
             _currentState = null;
             _currentStateType = GameStates.None;
-        }
-
-        public void SaveGame()
-        {
-            var playerHeroeDatas = CreateGameHeroDataForTeam(HeroTeam.Player);
-            var enemyHeroeDatas = CreateGameHeroDataForTeam(HeroTeam.Enemy);
-            var levelData = new LevelData(playerHeroeDatas, enemyHeroeDatas, _currentStateType);
-            PlayerData.SetActiveLevelData(levelData);
         }
 
         private GameHeroData[] CreateGameHeroDataForTeam(HeroTeam team)
