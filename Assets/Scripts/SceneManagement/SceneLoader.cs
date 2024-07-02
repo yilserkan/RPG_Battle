@@ -15,12 +15,19 @@ namespace RPGGame.SceneManagement
     public class SceneLoader : AbstractMonoSingleton<SceneLoader>
     {
         [SerializeField] private SceneLoaderUIHelper _uiHelper;
-        [SerializeField] private SceneDataContainer _sceneDatas;
+        [SerializeField] private AssetReferenceScriptableObject _sceneDataAddressableReference;
 
         private AsyncOperationHandle<SceneInstance> _activeAddressableSceneHandle;
         private AsyncOperationHandle<SceneInstance> _prevAddressableSceneHandle;
 
         private const string INITIALIZATION_SCENE_NAME = "InitializationScene";
+
+        private SceneDataContainer _sceneDatas;
+        private async void Start()
+        {
+            var result = await _sceneDataAddressableReference.LoadAddressableAsync();
+            _sceneDatas = (SceneDataContainer)result.Result;
+        }
 
         [ContextMenu("LoadGameScene")]
         public void LoadGameScene()
