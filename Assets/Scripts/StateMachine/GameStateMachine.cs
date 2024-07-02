@@ -78,7 +78,7 @@ namespace RPGGame.StateMachine
         public GameHero GetRandomGameHero(HeroTeam team)
         {
             var enemyHeroes = GameHeroesDic[team];
-            var heroes = enemyHeroes.Where(hero => hero.Vitality > 0).ToArray();
+            var heroes = enemyHeroes.Where(hero => !hero.HealthController.IsDead).ToArray();
             int randIndex = Random.Range(0, heroes.Length);
             return heroes[randIndex];
         }
