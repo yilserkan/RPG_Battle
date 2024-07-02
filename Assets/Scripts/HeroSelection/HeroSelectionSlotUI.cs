@@ -28,16 +28,28 @@ namespace RPGGame.HeroSelection
             }
         }
 
+        public void ResetUI()
+        {
+            _heroNameText.text = $"";
+            _heroIcon.sprite = null;
+            SetupEmptySlot();
+        }
+
         private void SetupOccupiedSlot(Hero.Hero hero)
         {
             _heroIcon.gameObject.SetActive(true);
             _heroIcon.sprite = hero.Settings.HeroSprite;
             _heroNameText.text = hero.Settings.Name;
+
+            ShowUnselectedUI();
+            ShowSelectableUI();
         }
 
         private void SetupEmptySlot()
         {
             _heroIcon.gameObject.SetActive(false);
+            ShowUnselectedUI();
+            ShowUnselectableUI();
         }
 
         public void ShowSelectedUI()

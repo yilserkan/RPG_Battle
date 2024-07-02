@@ -38,7 +38,16 @@ namespace RPGGame.HeroSelection
             _hero = hero;
             _slotUI.SetupUI(hero);
             _canSelect = true;
+            _isSelected = false;
             ToggleSlotButtonInteractable(true);
+        }
+
+        public void ResetSlot()
+        {
+            _hero = null;
+            _slotUI.ResetUI();
+            _isSelected = false;
+            _canSelect = true;
         }
 
         public void Notify(bool hasSelectedAllHeroes)

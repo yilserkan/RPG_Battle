@@ -1,4 +1,5 @@
 using RPGGame.Player;
+using RPGGame.ResultScreen;
 using RPGGame.Utils;
 using System;
 using System.Collections;
@@ -11,6 +12,7 @@ namespace RPGGame.HeroSelection
     {
         [SerializeField] private HeroSelectionSlot[] _heroSlots;
         [SerializeField] private CustomButton _playButton;
+        [SerializeField] private GameObject _parent; 
 
         private List<Hero.Hero> _selectedHeroes;
         private Observable<bool> _hasSelectedAllHeroes;
@@ -45,6 +47,8 @@ namespace RPGGame.HeroSelection
                 _heroSlots[i].SetupSlot(hero);
                 _hasSelectedAllHeroes.AddListener(_heroSlots[i]);
             }
+
+            EnableHeroSelectionPanel(true);
         }
 
         private void HandleOnSlotSelected(Hero.Hero hero)
@@ -64,6 +68,30 @@ namespace RPGGame.HeroSelection
         private void HandleOnPlayButtonClicked()
         {
             OnStartGameEvent?.Invoke(_selectedHeroes);
+            ResetSelections();
+            EnableHeroSelectionPanel(false);
+        }
+
+        private void ResetSelections()
+        {
+            _selectedHeroes.Clear();
+
+            for (int i = 0; i < _heroSlots.Length; i++)
+            {
+                _heroSlots[i].ResetSlot();
+                _hasSelectedAllHeroes.RemoveListener(_heroSlots[i]);
+            }
+            _hasSelectedAllHeroes.Value = false;
+        }
+
+        private void EnableHeroSelectionPanel(bool enabled)
+        {
+            _parent.SetActive(enabled);
+        }
+
+        private void HandleOnReturnToSelectionScreen()
+        {
+            InitializeSlots();
         }
 
         public void Notify(bool hasSelectedAllHeroes)
@@ -75,6 +103,7 @@ namespace RPGGame.HeroSelection
         {
             HeroSelectionSlot.OnSlotSelectedEvent += HandleOnSlotSelected;
             HeroSelectionSlot.OnSlotUnselectedEvent += HandleOnSlotUnselected;
+            ResultScreenUIManager.OnReturnToHeroSelectionScreen += HandleOnReturnToSelectionScreen;
             _playButton.OnClick += HandleOnPlayButtonClicked;
         }
 
@@ -82,9 +111,9 @@ namespace RPGGame.HeroSelection
         {
             HeroSelectionSlot.OnSlotSelectedEvent -= HandleOnSlotSelected;
             HeroSelectionSlot.OnSlotUnselectedEvent -= HandleOnSlotUnselected;
+            ResultScreenUIManager.OnReturnToHeroSelectionScreen -= HandleOnReturnToSelectionScreen;
             _playButton.OnClick -= HandleOnPlayButtonClicked;
         }
-
     }
 }
 

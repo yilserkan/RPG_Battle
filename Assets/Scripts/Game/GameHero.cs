@@ -37,6 +37,8 @@ namespace RPGGame.Game
             _animationController.SetupAnimator(hero.Settings.AnimatorOverrideController);
             _animationController.PlayAnimation(GameHeroAnimationController.AnimationType.Idle);
 
+            HealthController.Initialize();
+
             SetSpriteOrientation();
         }
 
@@ -55,6 +57,13 @@ namespace RPGGame.Game
         public float GetHeroStat(string statId)
         {
             return _hero.Stats.CalculateAttributeValue(statId);
+        }
+
+        public void ResetHero()
+        {
+            SpawnPoint.SetOccupied(false);
+            _spawnPoint = null;
+            ObjectPool.ReturnToPool(this);
         }
     }
 
