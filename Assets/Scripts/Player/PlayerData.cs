@@ -110,7 +110,8 @@ namespace RPGGame.Player
 
         public static bool HasActiveLevelData()
         {
-            return _gameData.ActiveLevelData != null;
+            var levelData = _gameData.ActiveLevelData;
+            return levelData.PlayerHeroes.Length > 0 && levelData.EnemyHeroes.Length > 0;
         }
 
         public static void ResetActiveLevelData()
