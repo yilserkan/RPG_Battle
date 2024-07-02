@@ -49,12 +49,12 @@ namespace RPGGame.Hero
             return false;
         }
 
-        public HeroSettings[] GetAvailableHeroes()
+        public HeroSettings[] GetAvailableHeroes(bool removeObtained = true)
         {
             var playerHeroes = PlayerData.GetPlayerHeroes();
             Dictionary<string, HeroSettings> availableHeroes = new Dictionary<string, HeroSettings>(_heroSettingsDict);
 
-            if(playerHeroes != null)
+            if(removeObtained && playerHeroes != null)
             {
                 for (int i = 0; i < playerHeroes.Count; i++)
                 {

@@ -15,9 +15,12 @@ namespace RPGGame.Hero
         }
 
 
-        public Hero CreateRandomHero(HeroSettingsContainer heroSettingsContainer, HeroTeam team)
+        public Hero CreateRandomHero(HeroSettingsContainer heroSettingsContainer, HeroTeam team, bool removeObtainedHeroes = true)
         {
-            var availableHeroes = heroSettingsContainer.GetAvailableHeroes();
+            var availableHeroes = heroSettingsContainer.GetAvailableHeroes(removeObtainedHeroes);
+            if(availableHeroes == null || availableHeroes.Length == 0)
+                return null;
+
             var randomIndex = Random.Range(0, availableHeroes.Length);
             var heroSettings = availableHeroes[randomIndex];
             var heroData = new HeroData(heroSettings.ID, team);
@@ -29,7 +32,7 @@ namespace RPGGame.Hero
     public interface IHeroFactory
     {
         Hero Create(HeroSettingsContainer heroSettingsContainer, HeroData heroData);
-        Hero CreateRandomHero(HeroSettingsContainer heroSettingsContainer, HeroTeam team);
+        Hero CreateRandomHero(HeroSettingsContainer heroSettingsContainer, HeroTeam team, bool removeObtainedHeroes = true);
     }
 }
 
