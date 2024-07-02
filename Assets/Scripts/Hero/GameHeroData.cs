@@ -20,7 +20,7 @@ namespace RPGGame.Hero
 
         public GameHeroData(GameHero gameHero) : base(gameHero.Hero)
         {
-            RemainingVitality = gameHero.Vitality;
+            RemainingVitality = gameHero.HealthController.Vitality;
         }
     }
 }
