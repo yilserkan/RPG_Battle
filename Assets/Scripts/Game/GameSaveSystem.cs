@@ -8,7 +8,7 @@ namespace RPGGame.Game
 {
     public class GameSaveSystem
     {
-        private JSONSaveSystem<GameData> _gameSaveSystem;
+        private ISaveSystem<GameData> _gameSaveSystem;
         private const string GAME_SAVE_SYSTEM_FILE_NAME = "GAMEDATA";
 
         public GameSaveSystem()
@@ -43,13 +43,13 @@ namespace RPGGame.Game
 
     public class GameData
     {
-        public int CurrentLevel;
         public int PlayerMatchCount;
+        public LevelData ActiveLevelData;
 
         public GameData()
         {
-            CurrentLevel = 0;
             PlayerMatchCount = 0;
+            ActiveLevelData = null;
         }
     }
 }

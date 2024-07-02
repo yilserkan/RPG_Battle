@@ -1,5 +1,6 @@
 using RPGGame.Player;
 using RPGGame.ResultScreen;
+using RPGGame.StateMachine;
 using RPGGame.Utils;
 using System;
 using System.Collections;
@@ -69,7 +70,7 @@ namespace RPGGame.HeroSelection
         {
             OnStartGameEvent?.Invoke(_selectedHeroes);
             ResetSelections();
-            EnableHeroSelectionPanel(false);
+           
         }
 
         private void ResetSelections()
@@ -94,6 +95,12 @@ namespace RPGGame.HeroSelection
             InitializeSlots();
         }
 
+
+        private void HandleOnGameInitialized()
+        {
+            EnableHeroSelectionPanel(false);
+        }
+
         public void Notify(bool hasSelectedAllHeroes)
         {
             _playButton.Interactable = hasSelectedAllHeroes;
@@ -104,6 +111,7 @@ namespace RPGGame.HeroSelection
             HeroSelectionSlot.OnSlotSelectedEvent += HandleOnSlotSelected;
             HeroSelectionSlot.OnSlotUnselectedEvent += HandleOnSlotUnselected;
             ResultScreenUIManager.OnReturnToHeroSelectionScreen += HandleOnReturnToSelectionScreen;
+            InitializationState.OnGameInitialized += HandleOnGameInitialized;
             _playButton.OnClick += HandleOnPlayButtonClicked;
         }
 
@@ -112,6 +120,7 @@ namespace RPGGame.HeroSelection
             HeroSelectionSlot.OnSlotSelectedEvent -= HandleOnSlotSelected;
             HeroSelectionSlot.OnSlotUnselectedEvent -= HandleOnSlotUnselected;
             ResultScreenUIManager.OnReturnToHeroSelectionScreen -= HandleOnReturnToSelectionScreen;
+            InitializationState.OnGameInitialized -= HandleOnGameInitialized;
             _playButton.OnClick -= HandleOnPlayButtonClicked;
         }
     }

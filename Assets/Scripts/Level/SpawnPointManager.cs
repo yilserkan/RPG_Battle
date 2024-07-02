@@ -12,7 +12,7 @@ namespace RPGGame.Level
 
         private Dictionary<HeroTeam, SpawnPointData> _spawPointDataDict;
 
-        private void Start()
+        private void Awake()
         {
             _spawPointDataDict = new Dictionary<HeroTeam, SpawnPointData>();
 

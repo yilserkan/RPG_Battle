@@ -28,26 +28,32 @@ namespace RPGGame.Game
         {
             _levelText.text = $"{_gameHero.Hero.Level}";
             SetVitality();
-            _isDead = false;
+            CheckIfHeroDied();
         }
 
         private void SetVitality()
         {
-            var startVitality = _gameHero.GetHeroStat(StatConstants.Vitality);
+            var startVitality = _gameHero.HeroData.RemainingVitality;
             _vitality = startVitality;
-            _maxVitality = startVitality;
+            _maxVitality = _gameHero.Hero.Stats.CalculateAttributeValue(StatConstants.Vitality);
             UpdateHealthUI();
         }
 
         public void TakeDamage(float damage)
         {
             _vitality -= damage;
-            if (_vitality <= 0)
+            CheckIfHeroDied();
+            UpdateHealthUI();
+            RequestTakeDamageFeedback(damage);
+        }
+
+        private void CheckIfHeroDied()
+        {
+            _isDead = Vitality <= 0;
+            if (_isDead)
             {
                 Die();
             }
-            UpdateHealthUI();
-            RequestTakeDamageFeedback(damage);
         }
 
         private void RequestTakeDamageFeedback(float damage)
@@ -66,7 +72,6 @@ namespace RPGGame.Game
         private void Die()
         {
             _vitality = 0;
-            _isDead = true;
             _gameHero.AnimationController.PlayAnimation(GameHeroAnimationController.AnimationType.Death);
         }
 

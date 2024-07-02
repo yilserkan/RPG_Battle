@@ -30,6 +30,12 @@ namespace RPGGame.Game
             RemoveListeners();
         }
 
+        private void Start()
+        {
+            if (PlayerData.HasActiveLevelData())
+                _stateManager.StartLevel(PlayerData.GetGameData().ActiveLevelData);
+        }
+
         private void HandleOnStartGame(List<Hero.Hero> selectedHeroes)
         {
             var enemy = CreateEnemies(2);
@@ -51,8 +57,8 @@ namespace RPGGame.Game
         {
             var levelData = new LevelData(
                 CreateGameHeroDatas(playerHeroes), 
-                CreateGameHeroDatas(enemyHeroes), 
-                1);
+                CreateGameHeroDatas(enemyHeroes)
+                );
 
             return levelData;
         }

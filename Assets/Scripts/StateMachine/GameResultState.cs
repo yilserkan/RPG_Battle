@@ -1,4 +1,5 @@
 ﻿using RPGGame.Game;
+using RPGGame.Player;
 using System;
 
 namespace RPGGame.StateMachine
@@ -15,19 +16,22 @@ namespace RPGGame.StateMachine
 
         public override void OnEnter()
         {
-            _winnerTeam = GetWinnerTeam();
+            bool hasPlayerWon = _winnerTeam == GetWinnerTeam();
 
-            if(_winnerTeam == HeroTeam.Player)
+            if(hasPlayerWon)
             {
                 PlayerWon();
             }
 
+            PlayerData.UpdateGameData();
             ShowResultScreen();
+            PlayerData.ResetActiveLevelData();
         }
 
         private void PlayerWon()
         {
-
+            var heroes = _stateMachine.GetAliveHeroesOfTeam(HeroTeam.Player);
+            PlayerData.IncreaseHeroExperience(heroes);
         }
   
         private void ShowResultScreen()

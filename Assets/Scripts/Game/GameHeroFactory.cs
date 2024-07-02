@@ -25,7 +25,7 @@ namespace RPGGame.Hero
             if (!heroContainerSettings.TryGetHeroSettings(heroData.ID, out var heroSettings)) { return null; }
 
             var newHero = new Hero(heroSettings, heroData);
-            gameHero.Initialize(newHero);
+            gameHero.Initialize(newHero, heroData);
 
             return gameHero;
         }

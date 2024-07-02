@@ -6,6 +6,8 @@ namespace RPGGame.StateMachine
 {
     public class InitializationState : BaseState
     {
+        public static event Action OnGameInitialized;
+
         public InitializationState(GameStateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -30,6 +32,7 @@ namespace RPGGame.StateMachine
             _stateMachine.SetGameHeroesDict(heroesDict);
 
             var nextState = GetNextState(levelData);
+            OnGameInitialized?.Invoke();
             _stateMachine.SwitchState(nextState);
         }
 

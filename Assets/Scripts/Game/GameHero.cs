@@ -5,6 +5,7 @@ using RPGGame.Stats;
 using RPGGame.Pool;
 using RPGGame.Level;
 using System;
+using RPGGame.Hero;
 
 namespace RPGGame.Game
 {
@@ -15,11 +16,14 @@ namespace RPGGame.Game
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private Hero.Hero _hero;
+        private GameHeroData _heroData;
         private HeroTeam _team;
         private SpawnPoint _spawnPoint;
         private GameHeroSkillController _skillController;
 
+
         public Hero.Hero Hero => _hero;
+        public GameHeroData HeroData => _heroData;
         public HeroTeam Team => _team;
         public SpawnPoint SpawnPoint => _spawnPoint;
 
@@ -27,13 +31,14 @@ namespace RPGGame.Game
         public GameHeroHealthController HealthController => _healthController;
         public GameHeroSkillController SkillController => _skillController;
 
-        public void Initialize(Hero.Hero hero)
+        public void Initialize(Hero.Hero hero, GameHeroData gameHeroData)
         {
             _skillController = new GameHeroSkillController(this);
 
             _team = (HeroTeam)hero.HeroTeam;
             _hero = hero;
-          
+            _heroData = gameHeroData;
+
             _animationController.SetupAnimator(hero.Settings.AnimatorOverrideController);
             _animationController.PlayAnimation(GameHeroAnimationController.AnimationType.Idle);
 
