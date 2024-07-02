@@ -14,6 +14,7 @@ namespace RPGGame.Utils
 
         protected bool _hasExitedBorders;
         public bool Interactable = true;
+        public bool PlayAnimations = true;
 
         public virtual void OnPointerDown(PointerEventData eventData)
         {
@@ -40,11 +41,15 @@ namespace RPGGame.Utils
 
         private void PlayPointerDownAnimation()
         {
+            if (!PlayAnimations) return;
+
             transform.DOScale(.9f, .1f);
         }
 
         private void PlayPointerUpAnimation()
         {
+            if (!PlayAnimations) return;
+
             transform.DOScale(1, .1f);
         }
     }
