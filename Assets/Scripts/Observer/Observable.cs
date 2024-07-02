@@ -1,6 +1,6 @@
 using System;
 
-namespace RPGGame.Utils
+namespace RPGGame.Observer
 {
     public class Observable<T>
     {

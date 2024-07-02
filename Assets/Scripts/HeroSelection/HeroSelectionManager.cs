@@ -2,6 +2,7 @@ using RPGGame.Player;
 using RPGGame.ResultScreen;
 using RPGGame.StateMachine;
 using RPGGame.Utils;
+using RPGGame.Observer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace RPGGame.HeroSelection
 {
-    public class HeroSelectionManager : MonoBehaviour, Utils.IObserver<bool>
+    public class HeroSelectionManager : MonoBehaviour, Observer.IObserver<bool>
     {
         [SerializeField] private HeroSelectionSlot[] _heroSlots;
         [SerializeField] private CustomButton _playButton;

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace RPGGame.HeroSelection
 {
-    public class HeroSelectionSlot : MonoBehaviour, Utils.IObserver<bool>
+    public class HeroSelectionSlot : MonoBehaviour, Observer.IObserver<bool>
     {
         [SerializeField] private HeroSelectionSlotUI _slotUI;
      
