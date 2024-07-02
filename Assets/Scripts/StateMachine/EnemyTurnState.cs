@@ -28,22 +28,28 @@ namespace RPGGame.StateMachine
             var attacker = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
             var receiver = _stateMachine.GetRandomGameHero(HeroTeam.Player);
 
-            attacker.Attack(receiver);
+            attacker.SkillController.Attack(receiver);
         }
 
         private void OnHeroCompletedAttack()
         {
-            _stateMachine.DelayedSwitchState(GameStates.PlayerTurn, _switchStateDelay);
+            _stateMachine.DelayedSwitchState(GetNextState(), _switchStateDelay);
+        }
+
+        private GameStates GetNextState()
+        {
+            bool allPlayerHeroesDied = _stateMachine.CheckIfAllHeroesDiedInTeam(HeroTeam.Player);
+            return allPlayerHeroesDied ? GameStates.GameResult : GameStates.PlayerTurn;
         }
 
         private void AddListeners()
         {
-            GameHero.OnHeroCompletedAttack += OnHeroCompletedAttack;
+            GameHeroSkillController.OnHeroCompletedAttack += OnHeroCompletedAttack;
         }
 
         private void RemoveListeners()
         {
-            GameHero.OnHeroCompletedAttack -= OnHeroCompletedAttack;
+            GameHeroSkillController.OnHeroCompletedAttack -= OnHeroCompletedAttack;
         }
     }
 }

@@ -8,7 +8,6 @@ namespace RPGGame.StateMachine
         public static event Action OnEnablePlayerSelectionEvent;
         public static event Action OnDisablePlayerSelectionEvent;
 
-        private bool _hasPlayerSelectedHero;
         private const float _switchStateDelay = .5f;
 
         public PlayerTurnState(GameStateMachine stateMachine) : base(stateMachine)
@@ -19,7 +18,6 @@ namespace RPGGame.StateMachine
         {
             base.OnEnter();
             AddListeners();
-            _hasPlayerSelectedHero = false;
             OnEnablePlayerSelectionEvent?.Invoke();
         }
         public override void OnExit()
@@ -29,28 +27,33 @@ namespace RPGGame.StateMachine
         }
         private void HandleOnHeroSelected(GameHero hero)
         {
-            if (_hasPlayerSelectedHero) { return; }
-            _hasPlayerSelectedHero = true;
+            OnDisablePlayerSelectionEvent?.Invoke();
 
             var target = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
-            hero.Attack(target);
+            hero.SkillController.Attack(target);
         }
 
         private void OnHeroCompletedAttack()
         {
-            _stateMachine.DelayedSwitchState(GameStates.EnemyTurn, _switchStateDelay);
+            _stateMachine.DelayedSwitchState(GetNextState(), _switchStateDelay);
+        }
+
+        private GameStates GetNextState()
+        {
+            bool allEnemiesDied = _stateMachine.CheckIfAllHeroesDiedInTeam(HeroTeam.Enemy);
+            return allEnemiesDied ? GameStates.GameResult : GameStates.EnemyTurn;
         }
 
         private void AddListeners()
         {
             GameHeroSelectionController.OnHeroSelectedToAttack += HandleOnHeroSelected;
-            GameHero.OnHeroCompletedAttack += OnHeroCompletedAttack;
+            GameHeroSkillController.OnHeroCompletedAttack += OnHeroCompletedAttack;
         }
 
         private void RemoveListeners()
         {
             GameHeroSelectionController.OnHeroSelectedToAttack -= HandleOnHeroSelected;
-            GameHero.OnHeroCompletedAttack -= OnHeroCompletedAttack;
+            GameHeroSkillController.OnHeroCompletedAttack -= OnHeroCompletedAttack;
         }
     }
 }
