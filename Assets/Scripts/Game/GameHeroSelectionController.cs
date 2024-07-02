@@ -12,6 +12,7 @@ namespace RPGGame.Game
     {
         [SerializeField] private GameHero _gameHero;
         [SerializeField] private CustomHoldableButton _heroButton;
+        [SerializeField] private GameHeroSelectionArrow _selectionArrow;
 
         public static event Action<Hero.Hero> RequestHeroPopupEvent;
         public static event Action<GameHero> OnHeroSelectedToAttack;
@@ -27,13 +28,24 @@ namespace RPGGame.Game
             RemoveListeners();
         }
 
+        private void Awake()
+        {
+            _selectionArrow.DisableArrow();
+        }
+
         private void HandleOnEnablePlayerSelection()
         {
             SetIsHeroSelectable(true);
+
+            if(_gameHero.Team == HeroTeam.Player && !_gameHero.HealthController.IsDead)
+                _selectionArrow.EnableArrow();
         }
         private void HandleOnDisablePlayerSelection()
         {
             SetIsHeroSelectable(false);
+
+            if (_gameHero.Team == HeroTeam.Player && !_gameHero.HealthController.IsDead)
+                _selectionArrow.DisableArrow();
         }
 
         private void SetIsHeroSelectable(bool value)
