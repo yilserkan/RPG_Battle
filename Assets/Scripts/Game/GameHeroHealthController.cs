@@ -1,4 +1,6 @@
+using RPGGame.Feedback;
 using RPGGame.Stats;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,7 +22,9 @@ namespace RPGGame.Game
         public bool IsDead => _isDead;
         public float Vitality => _vitality;
 
-        private void Start()
+        public static event Action<FeedbackData> RequestTakeDamageFeedbackEvent;
+
+        public void Initialize()
         {
             _levelText.text = $"{_gameHero.Hero.Level}";
             SetVitality();
@@ -43,7 +47,21 @@ namespace RPGGame.Game
                 Die();
             }
             UpdateHealthUI();
+            RequestTakeDamageFeedback(damage);
         }
+
+        private void RequestTakeDamageFeedback(float damage)
+        {
+            var pos = Camera.main.WorldToScreenPoint(_gameHero.SpawnPoint.GetPosition());
+            var data = FeedbackManager.CreateFeedbackData(
+                $"-{damage}",
+                pos,
+                1,
+                Color.red
+                );
+            RequestTakeDamageFeedbackEvent?.Invoke( data );
+        }
+
 
         private void Die()
         {
