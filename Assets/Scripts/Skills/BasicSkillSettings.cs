@@ -1,4 +1,5 @@
 ﻿using RPGGame.Game;
+using RPGGame.Stats;
 using UnityEngine;
 
 namespace RPGGame.Skills
@@ -19,6 +20,7 @@ namespace RPGGame.Skills
         {
             Debug.LogWarning("Attacking..");
             _receiver.AnimationController.PlayAnimation(GameHeroAnimationController.AnimationType.TakeDamage);
+            _receiver.HealthController.TakeDamage(CalculateDamage());
         }
 
         private void OnAttackAnimationCompleted()
@@ -26,7 +28,20 @@ namespace RPGGame.Skills
             Debug.LogWarning("Attacking Completed " + _attacker.Hero.Settings.Name);
             RemoveListeners();
             _attacker.AnimationController.AnimatePlayerToStartPoint();
-            _attacker.OnAttackCompleted();
+            _attacker.SkillController.OnAttackCompleted();
+        }
+
+        private float CalculateDamage()
+        {
+            var attackerDamage = Attacker.GetHeroStat(StatConstants.Attack);
+            var attackerCrit = Attacker.GetHeroStat(StatConstants.Critical);
+
+            var isCriticalHit = Random.Range(0, 100) < 10;
+
+            if (isCriticalHit)
+                attackerDamage += attackerCrit;
+
+            return attackerDamage;
         }
 
         private void AddListeners()
