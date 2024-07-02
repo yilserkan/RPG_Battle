@@ -1,4 +1,3 @@
-using RPGGame.Hero;
 using RPGGame.StateMachine;
 using RPGGame.Utils;
 using System;

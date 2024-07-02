@@ -1,8 +1,8 @@
-﻿using RPGGame.Game;
+﻿using RPGGame.Hero;
 using RPGGame.Stats;
 using System;
 
-namespace RPGGame.Hero
+namespace RPGGame.Game
 {
     [Serializable]
     public class GameHeroData : HeroData
@@ -13,7 +13,7 @@ namespace RPGGame.Hero
         {
         }
 
-        public GameHeroData(Hero hero) : base(hero)
+        public GameHeroData(Hero.Hero hero) : base(hero)
         {
             RemainingVitality = hero.Stats.CalculateAttributeValue(StatConstants.Vitality);
         }

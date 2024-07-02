@@ -3,7 +3,6 @@ using RPGGame.Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static RPGGame.Hero.GameHeroFactory;
 
 namespace RPGGame.Hero
 {

@@ -2,7 +2,6 @@ using RPGGame.Player;
 using RPGGame.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace RPGGame.Game
 {
@@ -38,18 +37,6 @@ namespace RPGGame.Game
         public bool HasSaveFile()
         {
             return _gameSaveSystem.HasSaveFile();
-        }
-    }
-
-    public class GameData
-    {
-        public int PlayerMatchCount;
-        public LevelData ActiveLevelData;
-
-        public GameData()
-        {
-            PlayerMatchCount = 0;
-            ActiveLevelData = null;
         }
     }
 }
