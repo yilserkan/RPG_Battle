@@ -14,7 +14,7 @@ namespace RPGGame.Game
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private HeroSettingsContainer _enemySettings;
+        [SerializeField] private HeroSettingsContainer _heroSettings;
         [SerializeField] private GameHeroSpawner _levelManager;
         [SerializeField] private GameStateMachine _stateManager;
 
@@ -42,7 +42,7 @@ namespace RPGGame.Game
             var enemies = new Hero.Hero[enemyCount];
             for (int i = 0; i < enemyCount; i++)
             {
-                enemies[i] = _heroFactory.CreateRandomHero(_enemySettings, HeroTeam.Enemy);
+                enemies[i] = _heroFactory.CreateRandomHero(_heroSettings, HeroTeam.Enemy, false);
             }
             return enemies;
         }

@@ -13,7 +13,6 @@ namespace RPGGame.Initialization
     public class InitializationManager : MonoBehaviour
     {
         [SerializeField] private AssetReferenceScriptableObject _heroSettings;
-        [SerializeField] private AssetReferenceScriptableObject _enemySettings;
         [SerializeField] private AssetReferenceScriptableObjectBase[] _scriptableObjectBases;
 
         ScriptableObject[] _scriptableObjectScripts;
@@ -32,8 +31,7 @@ namespace RPGGame.Initialization
             }
 
             var heroSettings = await _heroSettings.LoadAssetAsync().Task;
-            var enemySettings = await _enemySettings.LoadAssetAsync().Task;
-            PlayerData.Initialize((HeroSettingsContainer)heroSettings, (HeroSettingsContainer)enemySettings);
+            PlayerData.Initialize((HeroSettingsContainer)heroSettings);
 
 
             SaveSystemManager.Instance.LoadAllSystems();

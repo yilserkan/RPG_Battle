@@ -4881,56 +4881,6 @@ Transform:
   - {fileID: 2030792635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &248753590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 248753592}
-  - component: {fileID: 248753591}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &248753591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248753590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd349cf00a25d847865ba686aba11b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemySettings: {fileID: 11400000, guid: 2fd952a141ffd134e8e19450a576e40a, type: 2}
-  _heroSettings: {fileID: 11400000, guid: 5dae795b7e4a9ab43a0fd88293ed8224, type: 2}
-  _heroFlyweightSettings: {fileID: 11400000, guid: f66d3ec95ca1f764b83eec82e69bcd5d,
-    type: 2}
-  _heroParentTransform: {fileID: 248753592}
-  _spawnPointManager: {fileID: 2006028972}
---- !u!4 &248753592
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248753590}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7296553, y: -2.5612862, z: -0.2081394}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 703674519}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &299270627
 GameObject:
   m_ObjectHideFlags: 0
@@ -6992,7 +6942,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1158488835}
-  - {fileID: 248753592}
   - {fileID: 1362871432}
   - {fileID: 1098414807}
   - {fileID: 2006028973}
@@ -8047,7 +7996,7 @@ GameObject:
   - component: {fileID: 1098414807}
   - component: {fileID: 1098414808}
   m_Layer: 0
-  m_Name: HeroSpawner
+  m_Name: GameHeroSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8080,7 +8029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd349cf00a25d847865ba686aba11b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySettings: {fileID: 11400000, guid: 2fd952a141ffd134e8e19450a576e40a, type: 2}
   _heroSettings: {fileID: 11400000, guid: 5dae795b7e4a9ab43a0fd88293ed8224, type: 2}
   _heroFlyweightSettings: {fileID: 11400000, guid: f66d3ec95ca1f764b83eec82e69bcd5d,
     type: 2}
@@ -8470,7 +8418,7 @@ GameObject:
   - component: {fileID: 1158488835}
   - component: {fileID: 1158488834}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8488,8 +8436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a98735a4b74720641a398bbf1a2d9856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySettings: {fileID: 11400000, guid: 2fd952a141ffd134e8e19450a576e40a, type: 2}
-  _levelManager: {fileID: 248753591}
+  _heroSettings: {fileID: 11400000, guid: 5dae795b7e4a9ab43a0fd88293ed8224, type: 2}
+  _levelManager: {fileID: 1098414808}
   _stateManager: {fileID: 1362871433}
 --- !u!4 &1158488835
 Transform:
@@ -12922,7 +12870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2030792635}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: HeroParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

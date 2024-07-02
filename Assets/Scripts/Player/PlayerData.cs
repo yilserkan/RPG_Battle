@@ -12,20 +12,16 @@ namespace RPGGame.Player
     {
         private static GameData _gameData;
         private static HeroSettingsContainer _heroSettingsContainer;
-        private static HeroSettingsContainer _enemySettingsContainer;
-
 
         public static HeroSettingsContainer HeroSettingsContainer = _heroSettingsContainer;
-        public static HeroSettingsContainer EnemySettingsContainer => _enemySettingsContainer;
 
 
         private static List<Hero.Hero> _playerHeroes = new List<Hero.Hero>();
         private static IHeroFactory _heroFactory = new HeroFactory();
 
-        public static void Initialize(HeroSettingsContainer heroSettingsContainer, HeroSettingsContainer enemySettingsContainer)
+        public static void Initialize(HeroSettingsContainer heroSettingsContainer)
         {
             _heroSettingsContainer = heroSettingsContainer;
-            _enemySettingsContainer = enemySettingsContainer;   
         }
 
         public static void SetPlayerHeroes(HeroDataWrapper heroDatasWrapper)

@@ -409,11 +409,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  _enemySettings:
-    m_AssetGUID: 2fd952a141ffd134e8e19450a576e40a
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   _scriptableObjectBases:
   - m_AssetGUID: 5dae795b7e4a9ab43a0fd88293ed8224
     m_SubObjectName: 
@@ -423,10 +418,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 1
-  - m_AssetGUID: 2fd952a141ffd134e8e19450a576e40a
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
 --- !u!1 &843606684
 GameObject:
   m_ObjectHideFlags: 0
