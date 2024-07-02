@@ -16,5 +16,5 @@ MonoBehaviour:
   PoolSettings: {fileID: 11400000, guid: b3b4f14f9bb2c5b408ab1d8bee9e460d, type: 2}
   SkillAnimatorOverrideController: {fileID: 22100000, guid: 60a784b8f99f5474fb2ed2d852dbf5e4,
     type: 2}
-  ProjectileDuration: 1.1
+  ProjectileDuration: 0.7
   Dir: {x: 0, y: 0, z: 1}
