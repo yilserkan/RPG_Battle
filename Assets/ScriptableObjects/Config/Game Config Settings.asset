@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameConfigData:
     StartHeroCount: 3
-    ReceiveNewHeroInterval: 2
-    LevelIncreaseInterval: 3
+    ReceiveNewHeroInterval: 5
+    LevelIncreaseInterval: 5
