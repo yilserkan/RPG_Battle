@@ -142,6 +142,19 @@ namespace RPGGame.StateMachine
             return playerHeroes;
         }
 
+        public GameHero GetGameHeroOfId(string id, HeroTeam heroTeam)
+        {
+            var heroes = _gameHeroesDict[heroTeam];
+
+            for (int i = 0; i < heroes.Length; i++)
+            {
+                if (heroes[i].HeroData.ID == id)
+                    return heroes[i];
+            }
+
+            return null;
+        }
+
         private void AddListeners()
         {
             ResultScreenUIManager.OnReturnToHeroSelectionScreen += ResetGame;

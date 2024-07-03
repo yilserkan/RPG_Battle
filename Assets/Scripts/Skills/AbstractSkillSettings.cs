@@ -15,6 +15,6 @@ namespace RPGGame.Skills
         public GameHero Attacker => _attacker;
         public GameHero Receiver => _receiver;
 
-        public abstract void ExecuteSkill(GameHero attacker, GameHero receiver);
+        public abstract void ExecuteSkill(GameHero attacker, GameHero receiver, float damage);
     }
 }

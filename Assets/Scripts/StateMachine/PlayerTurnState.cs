@@ -1,5 +1,7 @@
-﻿using RPGGame.Game;
+﻿using RPGGame.CloudServices;
+using RPGGame.Game;
 using System;
+using static UnityEngine.GraphicsBuffer;
 
 namespace RPGGame.StateMachine
 {
@@ -26,12 +28,17 @@ namespace RPGGame.StateMachine
             base.OnExit();
             RemoveListeners();
         }
-        private void HandleOnHeroSelected(GameHero hero)
+        private async void HandleOnHeroSelected(GameHero hero)
         {
             OnDisablePlayerSelectionEvent?.Invoke();
 
-            var target = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
-            hero.SkillController.Attack(target);
+            //var target = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
+            var response = await GameCloudRequests.AttackEnemyPlayer(hero.Hero.Settings.ID);
+            if(response.IsSuccessfull)
+            {
+                var targetHero = _stateMachine.GetGameHeroOfId(response.EnemyId, HeroTeam.Enemy);
+                hero.SkillController.Attack(targetHero, response.Damage);
+            }
         }
 
         private void OnHeroCompletedAttack()

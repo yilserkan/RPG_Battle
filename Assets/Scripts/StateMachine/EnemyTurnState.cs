@@ -1,4 +1,5 @@
-﻿using RPGGame.Game;
+﻿using RPGGame.CloudServices;
+using RPGGame.Game;
 using System;
 
 namespace RPGGame.StateMachine
@@ -24,12 +25,19 @@ namespace RPGGame.StateMachine
             base.OnExit();
             RemoveListeners();
         }
-        private void AttackRandomPlayer()
+        private async void AttackRandomPlayer()
         {
-            var attacker = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
-            var receiver = _stateMachine.GetRandomGameHero(HeroTeam.Player);
+            //var attacker = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
+            //var receiver = _stateMachine.GetRandomGameHero(HeroTeam.Player);
 
-            attacker.SkillController.Attack(receiver);
+            var response = await GameCloudRequests.SimulateEnemyAttack();
+
+            if (response.IsSuccessfull)
+            {
+                var attackerHero= _stateMachine.GetGameHeroOfId(response.AttackerHeroID, HeroTeam.Enemy);
+                var targetHero = _stateMachine.GetGameHeroOfId(response.ReceiverHeroID, HeroTeam.Player);
+                attackerHero.SkillController.Attack(targetHero, response.Damage);
+            }
         }
 
         private void OnHeroCompletedAttack()

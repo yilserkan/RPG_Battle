@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPGGame.StateMachine;
+using RPGGame.CloudServices;
 
 namespace RPGGame.Game
 {
@@ -36,11 +37,19 @@ namespace RPGGame.Game
                 _stateManager.StartLevel(PlayerData.GetGameData().ActiveLevelData);
         }
 
-        private void HandleOnStartGame(List<Hero.Hero> selectedHeroes)
+        private async void HandleOnStartGame(List<Hero.Hero> selectedHeroes)
         {
-            var enemy = CreateEnemies(2);
-            var levelData = CreateLevelData(selectedHeroes.ToArray(), enemy);
-            _stateManager.StartLevel(levelData);
+            var selectedHeroIds = new string[selectedHeroes.Count];
+            for (int i = 0; i < selectedHeroIds.Length; i++)
+            {
+                selectedHeroIds[i] = selectedHeroes[i].Settings.ID;
+            }
+
+            var data = await GameCloudRequests.CreateLevelData(selectedHeroIds);
+
+            //var enemy = CreateEnemies(2);
+            //var levelData = CreateLevelData(selectedHeroes.ToArray(), enemy);
+            _stateManager.StartLevel(data.LevelData);
         }
 
         private Hero.Hero[] CreateEnemies(int enemyCount)

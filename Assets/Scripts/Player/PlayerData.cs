@@ -13,7 +13,7 @@ namespace RPGGame.Player
         private static GameData _gameData;
         private static HeroSettingsContainer _heroSettingsContainer;
 
-        public static HeroSettingsContainer HeroSettingsContainer = _heroSettingsContainer;
+        public static HeroSettingsContainer HeroSettingsContainer => _heroSettingsContainer;
 
         private const int START_HERO_COUNT = 3;
         private const int RECEIVE_NEW_HERO_INTERVAL = 2;
@@ -32,6 +32,8 @@ namespace RPGGame.Player
             var heroes = new Hero.Hero[heroeDatas.Length];
             for (int i = 0; i < heroeDatas.Length; i++)
             {
+                if (_playerHeroes.ContainsKey(heroeDatas[i].ID)) continue;
+
                 var hero  = _heroFactory.Create(_heroSettingsContainer, heroeDatas[i]);
                 _playerHeroes.Add(hero.Settings.ID, hero);
             }

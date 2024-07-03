@@ -27,17 +27,21 @@ namespace RPGGame.Hero
             _heroSaveSystem.Save(heroesWrapper);
         }
 
-        public void Load()
+        public HeroData[] Load()
         {
-            if(HasSaveFile())
-            {
-                _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
-                PlayerData.SetPlayerHeroes(heroDatasWrapper);
-            }
-            else
-            {
-                PlayerData.CreateInitialHeroes();
-            }
+            _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
+            PlayerData.SetPlayerHeroes(heroDatasWrapper);
+            return heroDatasWrapper.HeroDatas;
+
+            //if (HasSaveFile())
+            //{
+            //    _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
+            //    PlayerData.SetPlayerHeroes(heroDatasWrapper);
+            //}
+            //else
+            //{
+            //    PlayerData.CreateInitialHeroes();
+            //}
         }
 
         public bool HasSaveFile() 

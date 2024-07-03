@@ -14,9 +14,11 @@ namespace RPGGame.Skills
         public AnimatorOverrideController SkillAnimatorOverrideController;
         public float ProjectileDuration;
         public Vector3 Dir;
+        private float _damage;
 
-        public override void ExecuteSkill(GameHero attacker, GameHero receiver)
+        public override void ExecuteSkill(GameHero attacker, GameHero receiver, float damage)
         {
+            _damage = damage;
             _attacker = attacker;
             _receiver = receiver;
             AddListeners();
@@ -39,7 +41,7 @@ namespace RPGGame.Skills
             Debug.LogWarning("Attacking Completed " + _attacker.Hero.Settings.Name);
             RemoveListeners();
             _receiver.AnimationController.PlayAnimation(GameHeroAnimationController.AnimationType.TakeDamage);
-            _receiver.HealthController.TakeDamage(CalculateDamage());
+            _receiver.HealthController.TakeDamage(_damage);
             _attacker.SkillController.OnAttackCompleted();
         }
 

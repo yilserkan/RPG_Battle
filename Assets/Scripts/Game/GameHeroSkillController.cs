@@ -18,10 +18,10 @@ namespace RPGGame.Game
             _gameHero = gameHero;
         }
 
-        public void Attack(GameHero receiver)
+        public void Attack(GameHero receiver, float damage)
         {
             Debug.LogWarning($"{_gameHero.Hero.Settings.Name} attacked {receiver.Hero.Settings.Name}");
-            _skill.ExecuteSkill(_gameHero, receiver);
+            _skill.ExecuteSkill(_gameHero, receiver, damage);
         }
 
         public void OnAttackCompleted()
