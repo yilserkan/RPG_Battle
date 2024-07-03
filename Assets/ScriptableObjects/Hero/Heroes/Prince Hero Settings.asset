@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: HERO_PRINCE
   _name: Prince
-  _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _baseStats: {fileID: 11400000, guid: 5fd4584f317a3554bb1143c61c6fe453, type: 2}
   _heroSprite: {fileID: 21300000, guid: 4e608f4818c1a654486713f6979fddfd, type: 3}
   _animatorOverrideController: {fileID: 22100000, guid: f0abb766a90f9bd4794d4fe041cb5c80,
     type: 2}

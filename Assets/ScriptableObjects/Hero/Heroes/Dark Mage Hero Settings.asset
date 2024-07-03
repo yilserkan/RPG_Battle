@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: HERO_DARK_MAGE
   _name: Dark Mage
-  _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _baseStats: {fileID: 11400000, guid: f7a45a07064dde443b2ba0e430d49a57, type: 2}
   _heroSprite: {fileID: 21300000, guid: b8418a5cc42e7df40b993d894939c818, type: 3}
   _animatorOverrideController: {fileID: 22100000, guid: d8d9fa9172eb96249856a15f70168732,
     type: 2}

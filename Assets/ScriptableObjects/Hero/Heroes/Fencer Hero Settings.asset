@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: HERO_FENCER
   _name: Fencer
-  _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _baseStats: {fileID: 11400000, guid: 3c680cf9a2782bc4abc624129c80fc01, type: 2}
   _heroSprite: {fileID: 21300000, guid: cc16c5f94b4c8c64a80cc6767f272ff1, type: 3}
   _animatorOverrideController: {fileID: 22100000, guid: 99d452399718ce049849bdb455537821,
     type: 2}

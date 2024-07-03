@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: HERO_PEASANT
   _name: Peasant
-  _baseStats: {fileID: 11400000, guid: 6ced0a10d9f4eb14fa6b6c90438b3443, type: 2}
+  _baseStats: {fileID: 11400000, guid: 1bb65f7e5722e8142ae99a958b3fdc03, type: 2}
   _heroSprite: {fileID: 21300000, guid: 338650453d12d1948a3072987a60eabd, type: 3}
   _animatorOverrideController: {fileID: 22100000, guid: e1d7af5ce8663b44389b55ee5101c17e,
     type: 2}
