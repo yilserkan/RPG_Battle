@@ -39,8 +39,9 @@ namespace RPGGame.HeroSelection
             _selectedHeroes = new List<Hero.Hero>();
         }
 
-        private void InitializeSlots()
+        private async void InitializeSlots()
         {
+            await PlayerData.SetPlayerHeroes();
             var heroes = PlayerData.GetPlayerHeroes();
 
             for (int i = 0; i < _heroSlots.Length; i++)

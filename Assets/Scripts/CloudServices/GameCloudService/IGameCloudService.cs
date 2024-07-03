@@ -17,5 +17,6 @@ namespace RPGGame.CloudServices
         public Task<string> CreateLevelData(string[] selectedHeroIds);
         public Task<string> AttackEnemyPlayer(string selectedPlayerHero);
         public Task<string> SimulateEnemyAttack();
+        public Task<string> LoadGameData();
     }
 }

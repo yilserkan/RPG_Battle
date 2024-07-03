@@ -62,26 +62,6 @@ namespace RPGGame.Game
             return enemies;
         }
 
-        private LevelData CreateLevelData(Hero.Hero[] playerHeroes, Hero.Hero[] enemyHeroes)
-        {
-            var levelData = new LevelData(
-                CreateGameHeroDatas(playerHeroes), 
-                CreateGameHeroDatas(enemyHeroes)
-                );
-
-            return levelData;
-        }
-
-        private GameHeroData[] CreateGameHeroDatas(Hero.Hero[] heroes)
-        {
-            var gameHeroesDatas = new GameHeroData[heroes.Length];
-            for (int i = 0; i < heroes.Length; i++)
-            {
-                gameHeroesDatas[i] = new GameHeroData(heroes[i]);
-            }
-            return gameHeroesDatas;
-        }
-
         private void AddListeners() 
         {
             HeroSelectionManager.OnStartGameEvent += HandleOnStartGame;

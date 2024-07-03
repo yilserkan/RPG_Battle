@@ -11,6 +11,13 @@ namespace RPGGame.Game
         public GameHeroData[] EnemyHeroes;
         public int CurrentState;
 
+        public LevelData()
+        {
+            PlayerHeroes = new GameHeroData[0];
+            EnemyHeroes = new GameHeroData[0];
+            CurrentState = (int)GameStates.None;
+        }
+
         public LevelData(GameHeroData[] playerHeroes, GameHeroData[] enemyHeroes, GameStates currentState = GameStates.None)
         {
             PlayerHeroes = playerHeroes;

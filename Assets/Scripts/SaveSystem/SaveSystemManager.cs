@@ -23,14 +23,14 @@ namespace RPGGame.SaveSystem
 
         public void SaveAllSystems()
         {
-            _heroSaveSystem.Save();
-            _gameSaveSystem.Save();
+            //_heroSaveSystem.Save();
+            //_gameSaveSystem.Save();
         }
 
         public void LoadAllSystems()
         {
-            _heroSaveSystem.Load();
-            _gameSaveSystem.Load();
+            //_heroSaveSystem.Load();
+            //_gameSaveSystem.Load();
         }
     }
 }

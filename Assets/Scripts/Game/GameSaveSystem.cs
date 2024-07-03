@@ -15,23 +15,26 @@ namespace RPGGame.Game
             _gameSaveSystem = new JSONSaveSystem<GameData> (GAME_SAVE_SYSTEM_FILE_NAME);
         }
 
-        public void Save()
+        public void Save(GameData gameData)
         {
-            var gameData = PlayerData.GetGameData();
+            //var gameData = PlayerData.GetGameData();
             _gameSaveSystem.Save(gameData);
         }
 
-        public void Load()
+        public GameData Load()
         {
-            if(HasSaveFile())
-            {
-                _gameSaveSystem.Load(out GameData gameData);
-                PlayerData.SetGameData(gameData);
-            }
-            else
-            {
-                PlayerData.CreateInitialGameData();
-            }
+            _gameSaveSystem.Load(out GameData gameData);
+            return gameData;
+
+            //if (HasSaveFile())
+            //{
+            //    _gameSaveSystem.Load(out GameData gameData);
+            //    PlayerData.SetGameData(gameData);
+            //}
+            //else
+            //{
+            //    PlayerData.CreateInitialGameData();
+            //}
         }
 
         public bool HasSaveFile()

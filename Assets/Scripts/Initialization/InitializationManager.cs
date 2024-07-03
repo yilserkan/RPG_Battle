@@ -1,3 +1,4 @@
+using RPGGame.CloudServices;
 using RPGGame.Hero;
 using RPGGame.Player;
 using RPGGame.SaveSystem;
@@ -34,7 +35,12 @@ namespace RPGGame.Initialization
             PlayerData.Initialize((HeroSettingsContainer)heroSettings);
 
 
-            SaveSystemManager.Instance.LoadAllSystems();
+            //SaveSystemManager.Instance.LoadAllSystems();
+            var response = await GameCloudRequests.LoadGameData();
+            PlayerData.SetGameData(response.GameData);
+
+            //var heroResponse = await HeroCloudRequests.LoadHeroData();
+            await PlayerData.SetPlayerHeroes();
 
             SceneLoader.Instance.LoadScene(SceneType.GameScene);
         }

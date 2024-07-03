@@ -5,6 +5,8 @@ using RPGGame.Hero;
 using RPGGame.SaveSystem;
 using RPGGame.Game;
 using System.Linq;
+using RPGGame.CloudServices;
+using System.Threading.Tasks;
 
 namespace RPGGame.Player
 {
@@ -26,19 +28,18 @@ namespace RPGGame.Player
             _heroSettingsContainer = heroSettingsContainer;
         }
 
-        public static void SetPlayerHeroes(HeroDataWrapper heroDatasWrapper)
+        public static async Task SetPlayerHeroes()
         {
-            var heroeDatas = heroDatasWrapper.HeroDatas;
-            var heroes = new Hero.Hero[heroeDatas.Length];
-            for (int i = 0; i < heroeDatas.Length; i++)
+            _playerHeroes.Clear();
+            var heroResponse = await HeroCloudRequests.LoadHeroData();
+            var heroDatas = heroResponse.HeroDatas;
+            for (int i = 0; i < heroDatas.Length; i++)
             {
-                if (_playerHeroes.ContainsKey(heroeDatas[i].ID)) continue;
+                if (_playerHeroes.ContainsKey(heroDatas[i].ID)) continue;
 
-                var hero  = _heroFactory.Create(_heroSettingsContainer, heroeDatas[i]);
+                var hero  = _heroFactory.Create(_heroSettingsContainer, heroDatas[i]);
                 _playerHeroes.Add(hero.Settings.ID, hero);
             }
-
-            SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
         public static void AddHero(Hero.Hero hero)
@@ -46,7 +47,7 @@ namespace RPGGame.Player
             if (hero == null) return;
 
             _playerHeroes.Add(hero.Settings.ID, hero);
-            SaveSystemManager.Instance.HeroSaveSystem.Save();
+            //SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
         public static List<Hero.Hero> GetPlayerHeroes()
@@ -66,23 +67,23 @@ namespace RPGGame.Player
         public static void SetGameData(GameData gameData)
         {
             _gameData = gameData;
-            SaveSystemManager.Instance.GameSaveSystem.Save();
+            //SaveSystemManager.Instance.GameSaveSystem.Save();
         }
 
         public static void UpdateGameData()
         {
-            _gameData.PlayerMatchCount++;
-            SaveSystemManager.Instance.GameSaveSystem.Save();
+            //_gameData.PlayerMatchCount++;
+            //SaveSystemManager.Instance.GameSaveSystem.Save();
 
-            bool receiveNewHero = _gameData.PlayerMatchCount % RECEIVE_NEW_HERO_INTERVAL == 0;
-            if (receiveNewHero)
-            {
-                var hero = _heroFactory.CreateRandomHero(_heroSettingsContainer, HeroTeam.Player);
-                AddHero(hero);
-            }
+            //bool receiveNewHero = _gameData.PlayerMatchCount % RECEIVE_NEW_HERO_INTERVAL == 0;
+            //if (receiveNewHero)
+            //{
+            //    var hero = _heroFactory.CreateRandomHero(_heroSettingsContainer, HeroTeam.Player);
+            //    AddHero(hero);
+            //}
         }
 
-        public static void IncreaseHeroExperience(GameHero[] heroes)
+        public static void LocallyIncreaseHeroExperience(GameHero[] heroes)
         {
             for (int i = 0; i < heroes.Length; i++)
             {
@@ -96,7 +97,7 @@ namespace RPGGame.Player
                 }
             }
 
-            SaveSystemManager.Instance.HeroSaveSystem.Save();
+            //SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
         public static GameData GetGameData()
@@ -104,27 +105,10 @@ namespace RPGGame.Player
             return _gameData;
         }
 
-        public static void SetActiveLevelData(LevelData levelData)
-        {
-            _gameData.ActiveLevelData = levelData;
-            SaveSystemManager.Instance.GameSaveSystem.Save();
-        }
-
         public static bool HasActiveLevelData()
         {
             var levelData = _gameData.ActiveLevelData;
             return levelData.PlayerHeroes.Length > 0 && levelData.EnemyHeroes.Length > 0;
-        }
-
-        public static void ResetActiveLevelData()
-        {
-            SetActiveLevelData(null);
-        }
-
-        public static void CreateInitialGameData()
-        {
-            _gameData = new GameData();
-            SaveSystemManager.Instance.GameSaveSystem.Save();
         }
     }
 }

@@ -20,17 +20,17 @@ namespace RPGGame.Hero
             _heroSaveSystem = new JSONSaveSystem<HeroDataWrapper>(HERO_SAVE_SYSTEM_FILE_NAME);
         }
 
-        public void Save()
+        public void Save(HeroData[] heroeDatas)
         {
-            var heroes = PlayerData.GetPlayerHeroes();
-            var heroesWrapper = new HeroDataWrapper(heroes);
+            //var heroes = PlayerData.GetPlayerHeroes();
+            var heroesWrapper = new HeroDataWrapper() { HeroDatas = heroeDatas };
             _heroSaveSystem.Save(heroesWrapper);
         }
 
         public HeroData[] Load()
         {
             _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
-            PlayerData.SetPlayerHeroes(heroDatasWrapper);
+            //PlayerData.SetPlayerHeroes(heroDatasWrapper);
             return heroDatasWrapper.HeroDatas;
 
             //if (HasSaveFile())

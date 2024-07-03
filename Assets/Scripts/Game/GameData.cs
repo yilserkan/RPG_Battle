@@ -1,5 +1,8 @@
-﻿namespace RPGGame.Game
+﻿using System;
+
+namespace RPGGame.Game
 {
+    [Serializable]
     public class GameData
     {
         public int PlayerMatchCount;

@@ -2,6 +2,7 @@
 using RPGGame.Hero;
 using RPGGame.Player;
 using RPGGame.SaveSystem;
+using RPGGame.StateMachine;
 using RPGGame.Stats;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,29 +16,36 @@ namespace RPGGame.CloudServices
         private IHeroFactory heroFactory = new HeroFactory();
 
         private Dictionary<int, GameHeroData[]> _mockHeroes = new Dictionary<int, GameHeroData[]>();
+   
+        private GameData gameData;
 
         public Task<string> CreateLevelData(string[] selectedHeroIds)
         {
+            _mockHeroes.Clear();
             var allPlayerHeroesDatas = SaveSystemManager.Instance.HeroSaveSystem.Load();
             var settings = PlayerData.HeroSettingsContainer;
 
-            var playerHeroes = new Hero.Hero[selectedHeroIds.Length];
+            var playerHeroes = new GameHeroData[selectedHeroIds.Length];
             for (int i = 0; i < selectedHeroIds.Length; i++)
             {
                 var heroData = FindHeroDataByID(allPlayerHeroesDatas, selectedHeroIds[i]);
                 settings.TryGetHeroSettings(heroData.ID, out var heroSettings);
-                playerHeroes[i] = new Hero.Hero(heroSettings, heroData);
+                var hero = new Hero.Hero(heroSettings, heroData);
+                playerHeroes[i] = new GameHeroData(hero);
             }
 
-            var enemyHeroes = new Hero.Hero[2];
+            var enemyHeroes = new GameHeroData[2];
             for (int i = 0; i < enemyHeroes.Length; i++)
             {
-                enemyHeroes[i] = heroFactory.CreateRandomHero(settings, HeroTeam.Enemy, false);
+                var randomHero = heroFactory.CreateRandomHero(settings, HeroTeam.Enemy, false);
+                enemyHeroes[i] = new GameHeroData(randomHero);
             }
 
             var levelData = new LevelData(
                 CreateGameHeroDatas(playerHeroes),
                 CreateGameHeroDatas(enemyHeroes));
+
+            UpdateGameData(GameStates.PlayerTurn);
 
             var response = new CreateLevelDataResponse();
             response.IsSuccessfull = true;
@@ -46,14 +54,9 @@ namespace RPGGame.CloudServices
             return Task.FromResult(JsonUtility.ToJson(response));
         }
 
-        private GameHeroData[] CreateGameHeroDatas(Hero.Hero[] heroes)
+        private GameHeroData[] CreateGameHeroDatas(GameHeroData[] gameHeroesDatas)
         {
-            var gameHeroesDatas = new GameHeroData[heroes.Length];
-            for (int i = 0; i < heroes.Length; i++)
-            {
-                gameHeroesDatas[i] = new GameHeroData(heroes[i]);
-            }
-            _mockHeroes.Add(heroes[0].HeroTeam, gameHeroesDatas);
+            _mockHeroes.Add(gameHeroesDatas[0].HeroTeam, gameHeroesDatas);
 
             return gameHeroesDatas;
         }
@@ -95,6 +98,16 @@ namespace RPGGame.CloudServices
             response.EnemyId = receiverHero.ID;
             response.Damage = damage;
 
+            var gameCompleted = CheckIfGameCompleted(receiverHero.HeroTeam);
+            if (gameCompleted)
+            {
+                OnGameCompleted(true);
+            }
+            else
+            {
+                UpdateGameData(GameStates.EnemyTurn);
+            }
+
             return Task.FromResult(JsonUtility.ToJson(response));
         }
 
@@ -134,7 +147,125 @@ namespace RPGGame.CloudServices
             response.AttackerHeroID = attackerHero.ID;
             response.Damage = damage;
 
+            var gameCompleted = CheckIfGameCompleted(receiverHero.HeroTeam);
+
+            if(gameCompleted)
+            {
+                OnGameCompleted(false);
+            }
+            else
+            {
+                UpdateGameData(GameStates.PlayerTurn);
+            }
+
             return Task.FromResult(JsonUtility.ToJson(response));
         }
+
+        private bool CheckIfGameCompleted(int receiverTeam)
+        {
+            var heroes = _mockHeroes[receiverTeam];
+            var aliveHeroes = heroes.Where(hero => hero.RemainingVitality > 0).ToArray();
+            return aliveHeroes.Length == 0;
+        }
+
+        private async void OnGameCompleted(bool playerWon)
+        {
+            if (playerWon)
+            {
+                IncreaseHeroExperiences();
+            }
+
+            gameData.PlayerMatchCount++;
+            if(gameData.PlayerMatchCount % 2 ==0)
+            {
+                await HeroCloudRequests.AddRandomHeroToPlayer();
+            }
+
+            ResetActiveGameData();
+      
+        }
+
+        private void IncreaseHeroExperiences()
+        {
+            var heroSaveSystem = SaveSystemManager.Instance.HeroSaveSystem;
+
+            var playerHeroDatas = heroSaveSystem.Load();
+
+            var playerGameHeroes = _mockHeroes[(int)HeroTeam.Player];
+            var heroesToIncreaseXp = playerGameHeroes.Where(hero => hero.RemainingVitality > 0).ToArray();
+
+            for (int i = 0; i < playerHeroDatas.Length; i++)
+            {
+                for (int j = 0; j < heroesToIncreaseXp.Length; j++)
+                {
+                    if (playerHeroDatas[i].ID == heroesToIncreaseXp[j].ID)
+                    {
+                        playerHeroDatas[i].Experience++;
+
+                        if(playerHeroDatas[i].Experience % 5 == 0)
+                        {
+                            playerHeroDatas[i].Level++;
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            heroSaveSystem.Save(playerHeroDatas);
+        }
+
+        public void UpdateGameData(GameStates nextGameState)
+        {
+            var playerHeroeDatas = _mockHeroes[(int)HeroTeam.Player];
+            var enemyHeroeDatas = _mockHeroes[(int)HeroTeam.Enemy];
+            var levelData = new LevelData(playerHeroeDatas, enemyHeroeDatas, nextGameState);
+
+            var gameSaveSystem = SaveSystemManager.Instance.GameSaveSystem;
+            gameData.ActiveLevelData = levelData;
+            gameSaveSystem.Save(gameData);
+        }
+
+        public void ResetActiveGameData()
+        {
+            gameData.ActiveLevelData = new LevelData();
+
+            var gameSaveSystem = SaveSystemManager.Instance.GameSaveSystem;
+            gameSaveSystem.Save(gameData);
+        }
+
+        public Task<string> LoadGameData()
+        {
+            var gameSaveSystem = SaveSystemManager.Instance.GameSaveSystem;
+
+            if(gameSaveSystem.HasSaveFile())
+            {
+                gameData = gameSaveSystem.Load();
+
+                if(gameData.ActiveLevelData.CurrentState != (int)GameStates.None)
+                {
+                    var playerHeroDatas = gameData.ActiveLevelData.PlayerHeroes;
+                    var enemyHeroDatas = gameData.ActiveLevelData.EnemyHeroes;
+                    CreateGameHeroDatas(playerHeroDatas);
+                    CreateGameHeroDatas(enemyHeroDatas);            
+                }
+            }
+            else
+            {
+                gameData = new GameData();
+                gameData.PlayerMatchCount = 0;
+                gameData.ActiveLevelData = new LevelData();
+
+                gameSaveSystem.Save(gameData);
+            }
+
+            var response = new LoadGameDataResponse();
+            response.IsSuccessfull = true;
+            response.GameData = gameData;
+
+            return Task.FromResult(JsonUtility.ToJson(response));
+        }
+
+    
     }
 }

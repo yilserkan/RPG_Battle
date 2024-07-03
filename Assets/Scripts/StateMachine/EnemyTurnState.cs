@@ -15,7 +15,6 @@ namespace RPGGame.StateMachine
         public override void OnEnter()
         {
             base.OnEnter();
-            _stateMachine.SaveGame();
             AddListeners();
             AttackRandomPlayer();
         }

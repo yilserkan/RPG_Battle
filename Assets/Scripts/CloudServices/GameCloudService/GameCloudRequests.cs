@@ -73,6 +73,27 @@ namespace RPGGame.CloudServices
                 return response;
             }
         }
+
+        public static async Task<LoadGameDataResponse> LoadGameData()
+        {
+            try
+            {
+                var json = await gameCloudService.LoadGameData();
+                var response = JsonUtility.FromJson<LoadGameDataResponse>(json);
+                response.IsSuccessfull = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Request Error : " + e.Message);
+                var response = new LoadGameDataResponse()
+                {
+                    IsSuccessfull = false,
+                    GameData = new GameData()
+                };
+                return response;
+            }
+        }
     }
 
 
@@ -101,5 +122,11 @@ namespace RPGGame.CloudServices
         public string AttackerHeroID;
         public string ReceiverHeroID;
         public float Damage;
+    }
+
+    [Serializable]
+    public class LoadGameDataResponse : BaseResponse
+    {
+        public GameData GameData;
     }
 }

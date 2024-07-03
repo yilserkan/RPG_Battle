@@ -104,14 +104,6 @@ namespace RPGGame.StateMachine
             return aliveHeroes.Length == 0;
         }
 
-        public void SaveGame()
-        {
-            var playerHeroeDatas = CreateGameHeroDataForTeam(HeroTeam.Player);
-            var enemyHeroeDatas = CreateGameHeroDataForTeam(HeroTeam.Enemy);
-            var levelData = new LevelData(playerHeroeDatas, enemyHeroeDatas, _currentStateType);
-            PlayerData.SetActiveLevelData(levelData);
-        }
-
         private void ResetGame()
         {
             foreach (var gameHeroes in _gameHeroesDict)

@@ -25,13 +25,12 @@ namespace RPGGame.StateMachine
 
             PlayerData.UpdateGameData();
             ShowResultScreen();
-            PlayerData.ResetActiveLevelData();
         }
 
         private void PlayerWon()
         {
             var heroes = _stateMachine.GetAliveHeroesOfTeam(HeroTeam.Player);
-            PlayerData.IncreaseHeroExperience(heroes);
+            PlayerData.LocallyIncreaseHeroExperience(heroes);
         }
   
         private void ShowResultScreen()
