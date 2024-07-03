@@ -19,6 +19,8 @@ namespace RPGGame.Game
 
         public void DisableArrow()
         {
+            if (!gameObject.activeSelf) return;
+
             KillArrowAnimation();
             EnableArrow(false);
         }
@@ -31,7 +33,7 @@ namespace RPGGame.Game
         private void StartArrowAnimation()
         {
             _startPosition = transform.position;
-            transform.DOMoveY(_startPosition.y - _animDuration, .4f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutQuart);
+            transform.DOMoveY(_startPosition.y - _yPositionMovementAmount, _animDuration).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutQuart);
         }
 
         private void KillArrowAnimation()
