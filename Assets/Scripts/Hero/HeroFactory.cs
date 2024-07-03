@@ -1,4 +1,5 @@
 using RPGGame.Game;
+using RPGGame.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,11 @@ namespace RPGGame.Hero
 {
     public class HeroFactory : IHeroFactory
     {
-        public Hero Create(HeroSettingsContainer heroSettingsContainer, HeroData heroData)
+        public Hero CreateHero(HeroData heroData)
         {
-            if(!heroSettingsContainer.TryGetHeroSettings(heroData.ID, out var settings)) { return null; }
+            var heroSettingsContainer = PlayerData.HeroSettingsContainer;
+
+            if (!heroSettingsContainer.TryGetHeroSettings(heroData.ID, out var settings)) { return null; }
 
             return new Hero(settings, heroData);
         }
@@ -38,7 +41,7 @@ namespace RPGGame.Hero
 
     public interface IHeroFactory
     {
-        Hero Create(HeroSettingsContainer heroSettingsContainer, HeroData heroData);
+        Hero CreateHero(HeroData heroData);
         Hero CreateRandomHero(HeroSettingsContainer heroSettingsContainer, HeroTeam team, bool removeObtainedHeroes = true);
         HeroData CreateRandomHeroData(HeroSettingsContainer heroSettingsContainer, HeroTeam team, bool removeObtainedHeroes = true);
         

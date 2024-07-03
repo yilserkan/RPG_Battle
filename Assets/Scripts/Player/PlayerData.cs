@@ -37,17 +37,9 @@ namespace RPGGame.Player
             {
                 if (_playerHeroes.ContainsKey(heroDatas[i].ID)) continue;
 
-                var hero  = _heroFactory.Create(_heroSettingsContainer, heroDatas[i]);
+                var hero  = _heroFactory.CreateHero(heroDatas[i]);
                 _playerHeroes.Add(hero.Settings.ID, hero);
             }
-        }
-
-        public static void AddHero(Hero.Hero hero)
-        {
-            if (hero == null) return;
-
-            _playerHeroes.Add(hero.Settings.ID, hero);
-            //SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
         public static List<Hero.Hero> GetPlayerHeroes()
@@ -55,49 +47,9 @@ namespace RPGGame.Player
             return _playerHeroes.Values.ToList();
         }
 
-        public static void CreateInitialHeroes()
-        {
-            for (int i = 0; i < START_HERO_COUNT; i++)
-            {
-                var hero = _heroFactory.CreateRandomHero(_heroSettingsContainer, HeroTeam.Player);
-                AddHero(hero);
-            }
-        }
-
         public static void SetGameData(GameData gameData)
         {
             _gameData = gameData;
-            //SaveSystemManager.Instance.GameSaveSystem.Save();
-        }
-
-        public static void UpdateGameData()
-        {
-            //_gameData.PlayerMatchCount++;
-            //SaveSystemManager.Instance.GameSaveSystem.Save();
-
-            //bool receiveNewHero = _gameData.PlayerMatchCount % RECEIVE_NEW_HERO_INTERVAL == 0;
-            //if (receiveNewHero)
-            //{
-            //    var hero = _heroFactory.CreateRandomHero(_heroSettingsContainer, HeroTeam.Player);
-            //    AddHero(hero);
-            //}
-        }
-
-        public static void LocallyIncreaseHeroExperience(GameHero[] heroes)
-        {
-            for (int i = 0; i < heroes.Length; i++)
-            {
-                var heroId = heroes[i].Hero.Settings.ID;
-
-                _playerHeroes[heroId].Experience++;
-                if (_playerHeroes[heroId].Experience % LEVEL_INCREASE_INTERVAL == 0)
-                {
-                    _playerHeroes[heroId].Level++;
-                    _playerHeroes[heroId].Stats.HandleOnPlayerLeveldUp();
-                }
-            }
-
-            //SaveSystemManager.Instance.HeroSaveSystem.Save();
         }
 
         public static GameData GetGameData()

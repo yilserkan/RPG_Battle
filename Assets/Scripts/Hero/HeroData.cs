@@ -26,6 +26,14 @@ namespace RPGGame.Hero
             Experience = hero.Experience;
             HeroTeam = hero.HeroTeam;
         }
+
+        public HeroData(HeroData heroData)
+        {
+            ID = heroData.ID;
+            Level = heroData.Level;
+            Experience = heroData.Experience;
+            HeroTeam = heroData.HeroTeam;
+        }
     }
 }
 

@@ -15,6 +15,7 @@ namespace RPGGame.CloudServices
     {
         public Task<string> LoadHeroData();
         public Task<string> AddRandomHeroToPlayer();
+        public Task<string> IncreaseHeroExperiences(string heroIds);
     }
 }
 

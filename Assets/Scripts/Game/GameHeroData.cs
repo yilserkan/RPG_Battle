@@ -1,4 +1,5 @@
 ﻿using RPGGame.Hero;
+using RPGGame.Player;
 using RPGGame.Stats;
 using System;
 
@@ -9,18 +10,23 @@ namespace RPGGame.Game
     {
         public float RemainingVitality;
 
-        public GameHeroData(string id, HeroTeam team) : base(id, team)
+        public GameHeroData(HeroData herodata) : base(herodata)
         {
-        }
-
-        public GameHeroData(Hero.Hero hero) : base(hero)
-        {
-            RemainingVitality = hero.Stats.CalculateAttributeValue(StatConstants.Vitality);
+            RemainingVitality = GetHeroInitialVitality(herodata);
         }
 
         public GameHeroData(GameHero gameHero) : base(gameHero.Hero)
         {
             RemainingVitality = gameHero.HealthController.Vitality;
+        }
+
+        private float GetHeroInitialVitality(HeroData gameHeroData)
+        {
+            var heroSettingsContainer = PlayerData.HeroSettingsContainer;
+            if (!heroSettingsContainer.TryGetHeroSettings(gameHeroData.ID, out var settings)) return 0;
+
+            var stats = new CharacterStat(settings.BaseStats, gameHeroData.Level);
+            return stats.CalculateAttributeValue(StatConstants.Vitality);
         }
     }
 }

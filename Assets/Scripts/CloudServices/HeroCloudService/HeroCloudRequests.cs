@@ -49,12 +49,38 @@ namespace RPGGame.CloudServices
                 return response;
             }
         }
+
+        public static async Task<BaseResponse> IncreaseHeroExperiences(string heroIdsRequest)
+        {
+            try
+            {
+                var json = await heroCloudService.IncreaseHeroExperiences(heroIdsRequest);
+                var response = JsonUtility.FromJson<BaseResponse>(json);
+                response.IsSuccessfull = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Request Error : " + e.Message);
+                var response = new BaseResponse()
+                {
+                    IsSuccessfull = false
+                };
+                return response;
+            }
+        }
     }
 
     [Serializable]
     public class LoadHeroDataResponse : BaseResponse
     {
         public HeroData[] HeroDatas;
+    }
+
+    [Serializable]
+    public class IncreaseHeroExperienceRequest
+    {
+        public string[] HeroIds;
     }
 }
 

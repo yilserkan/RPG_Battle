@@ -12,19 +12,57 @@ namespace RPGGame.CloudServices
     {
         private const int START_HERO_COUNT = 3;
         private IHeroFactory heroFactory = new HeroFactory();
+        private HeroSaveSystem _heroSaveSystem = new HeroSaveSystem();
 
         public Task<string> AddRandomHeroToPlayer()
         {
             var heroSettingsContainer = PlayerData.HeroSettingsContainer;
             var hero = heroFactory.CreateRandomHeroData(heroSettingsContainer, HeroTeam.Player);
 
-            var heroSaveSystem = SaveSystemManager.Instance.HeroSaveSystem;
+            var response = new BaseResponse();
 
-            var playerHeroes = heroSaveSystem.Load().ToList();
+            if (hero == null)
+            {
+                response.IsSuccessfull = false;
+                return Task.FromResult(JsonUtility.ToJson(response));
+            }
+
+            var playerHeroes = _heroSaveSystem.Load().ToList();
             playerHeroes.Add(hero);
             var newPlayerHeroes = playerHeroes.ToArray();
 
-            heroSaveSystem.Save(newPlayerHeroes);
+            _heroSaveSystem.Save(newPlayerHeroes);
+
+           
+            response.IsSuccessfull = true;
+            return Task.FromResult(JsonUtility.ToJson(response));
+        }
+
+        public Task<string> IncreaseHeroExperiences(string heroIdsJson)
+        {
+            var requestData = JsonUtility.FromJson<IncreaseHeroExperienceRequest>(heroIdsJson);
+            var heroIds = requestData.HeroIds;
+            var playerHeroDatas = _heroSaveSystem.Load();
+
+            for (int i = 0; i < playerHeroDatas.Length; i++)
+            {
+                for (int j = 0; j < heroIds.Length; j++)
+                {
+                    if (playerHeroDatas[i].ID == heroIds[j])
+                    {
+                        playerHeroDatas[i].Experience++;
+
+                        if (playerHeroDatas[i].Experience % 5 == 0)
+                        {
+                            playerHeroDatas[i].Level++;
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            _heroSaveSystem.Save(playerHeroDatas);
 
             var response = new BaseResponse();
             response.IsSuccessfull = true;
@@ -34,17 +72,15 @@ namespace RPGGame.CloudServices
 
         public Task<string> LoadHeroData()
         {
-            var heroSaveSystem = SaveSystemManager.Instance.HeroSaveSystem;
-
             HeroData[] heroDatas;
-            if(heroSaveSystem.HasSaveFile())
+            if(_heroSaveSystem.HasSaveFile())
             {
-                heroDatas = heroSaveSystem.Load();
+                heroDatas = _heroSaveSystem.Load();
             }
             else
             {
                 heroDatas = CreateInitialRandomHeroes();
-                heroSaveSystem.Save(heroDatas);
+                _heroSaveSystem.Save(heroDatas);
             }
 
             var response = new LoadHeroDataResponse();

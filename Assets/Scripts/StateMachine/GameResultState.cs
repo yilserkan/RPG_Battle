@@ -6,8 +6,6 @@ namespace RPGGame.StateMachine
 {
     public class GameResultState : BaseState
     {
-        private HeroTeam _winnerTeam;
-
         public static event Action<HeroTeam> OnShowResultScreen;
 
         public GameResultState(GameStateMachine stateMachine) : base(stateMachine)
@@ -16,26 +14,13 @@ namespace RPGGame.StateMachine
 
         public override void OnEnter()
         {
-            bool hasPlayerWon = _winnerTeam == GetWinnerTeam();
-
-            if(hasPlayerWon)
-            {
-                PlayerWon();
-            }
-
-            PlayerData.UpdateGameData();
             ShowResultScreen();
         }
 
-        private void PlayerWon()
-        {
-            var heroes = _stateMachine.GetAliveHeroesOfTeam(HeroTeam.Player);
-            PlayerData.LocallyIncreaseHeroExperience(heroes);
-        }
   
         private void ShowResultScreen()
         {
-            OnShowResultScreen?.Invoke(_winnerTeam);
+            OnShowResultScreen?.Invoke(GetWinnerTeam());
         }
 
         private HeroTeam GetWinnerTeam()

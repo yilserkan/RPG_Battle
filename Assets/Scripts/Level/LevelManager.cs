@@ -46,20 +46,7 @@ namespace RPGGame.Game
             }
 
             var data = await GameCloudRequests.CreateLevelData(selectedHeroIds);
-
-            //var enemy = CreateEnemies(2);
-            //var levelData = CreateLevelData(selectedHeroes.ToArray(), enemy);
             _stateManager.StartLevel(data.LevelData);
-        }
-
-        private Hero.Hero[] CreateEnemies(int enemyCount)
-        {
-            var enemies = new Hero.Hero[enemyCount];
-            for (int i = 0; i < enemyCount; i++)
-            {
-                enemies[i] = _heroFactory.CreateRandomHero(_heroSettings, HeroTeam.Enemy, false);
-            }
-            return enemies;
         }
 
         private void AddListeners() 

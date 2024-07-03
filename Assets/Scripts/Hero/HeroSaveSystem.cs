@@ -22,7 +22,6 @@ namespace RPGGame.Hero
 
         public void Save(HeroData[] heroeDatas)
         {
-            //var heroes = PlayerData.GetPlayerHeroes();
             var heroesWrapper = new HeroDataWrapper() { HeroDatas = heroeDatas };
             _heroSaveSystem.Save(heroesWrapper);
         }
@@ -30,18 +29,7 @@ namespace RPGGame.Hero
         public HeroData[] Load()
         {
             _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
-            //PlayerData.SetPlayerHeroes(heroDatasWrapper);
             return heroDatasWrapper.HeroDatas;
-
-            //if (HasSaveFile())
-            //{
-            //    _heroSaveSystem.Load(out HeroDataWrapper heroDatasWrapper);
-            //    PlayerData.SetPlayerHeroes(heroDatasWrapper);
-            //}
-            //else
-            //{
-            //    PlayerData.CreateInitialHeroes();
-            //}
         }
 
         public bool HasSaveFile() 
