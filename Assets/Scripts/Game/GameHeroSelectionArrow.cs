@@ -7,6 +7,10 @@ namespace RPGGame.Game
 {
     public class GameHeroSelectionArrow : MonoBehaviour
     {
+        [SerializeField] private float _yPositionMovementAmount = 0.3f;
+        [SerializeField] private float _animDuration = 0.4f;
+        private Vector3 _startPosition;
+
         public void EnableArrow()
         {
             EnableArrow(true);
@@ -15,8 +19,8 @@ namespace RPGGame.Game
 
         public void DisableArrow()
         {
-            EnableArrow(false);
             KillArrowAnimation();
+            EnableArrow(false);
         }
 
         public void EnableArrow(bool enable)
@@ -26,12 +30,14 @@ namespace RPGGame.Game
 
         private void StartArrowAnimation()
         {
-            transform.DOMoveY(transform.position.y -.3f, .4f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutQuart);
+            _startPosition = transform.position;
+            transform.DOMoveY(_startPosition.y - _animDuration, .4f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutQuart);
         }
 
         private void KillArrowAnimation()
         {
             transform.DOKill();
+            transform.position = _startPosition;
         }
     }
 }

@@ -27,11 +27,6 @@ namespace RPGGame.Game
             RemoveListeners();
         }
 
-        private void Awake()
-        {
-            _selectionArrow.DisableArrow();
-        }
-
         private void HandleOnEnablePlayerSelection()
         {
             SetIsHeroSelectable(true);
