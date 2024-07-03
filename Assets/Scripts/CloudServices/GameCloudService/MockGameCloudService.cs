@@ -1,4 +1,5 @@
-﻿using RPGGame.Game;
+﻿using RPGGame.Config;
+using RPGGame.Game;
 using RPGGame.Hero;
 using RPGGame.Player;
 using RPGGame.SaveSystem;
@@ -37,7 +38,7 @@ namespace RPGGame.CloudServices
             var enemyHeroes = new GameHeroData[2];
             for (int i = 0; i < enemyHeroes.Length; i++)
             {
-                var randomHero = _heroFactory.CreateRandomHeroData(settings, HeroTeam.Enemy, false);
+                var randomHero = _heroFactory.CreateRandomHeroData(HeroTeam.Enemy, enemyHeroes);
                 enemyHeroes[i] = new GameHeroData(randomHero);
             }
 

@@ -16,6 +16,8 @@ namespace RPGGame.Hero
 
         private Dictionary<string, HeroSettings> _heroSettingsDict;
 
+        public Dictionary<string, HeroSettings> HeroSettingsDict => _heroSettingsDict;
+
         public override Task Initialize()
         {
             _heroSettingsDict = new Dictionary<string, HeroSettings>();
@@ -47,22 +49,6 @@ namespace RPGGame.Hero
 
             heroSettings = null;   
             return false;
-        }
-
-        public HeroSettings[] GetAvailableHeroes(bool removeObtained = true)
-        {
-            var playerHeroes = PlayerData.GetPlayerHeroes();
-            Dictionary<string, HeroSettings> availableHeroes = new Dictionary<string, HeroSettings>(_heroSettingsDict);
-
-            if(removeObtained && playerHeroes != null)
-            {
-                for (int i = 0; i < playerHeroes.Count; i++)
-                {
-                    availableHeroes.Remove(playerHeroes[i].Settings.ID);
-                }
-            }
-
-            return availableHeroes.Values.ToArray();
         }
     }
 }

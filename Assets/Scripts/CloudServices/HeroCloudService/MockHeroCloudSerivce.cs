@@ -1,4 +1,5 @@
-﻿using RPGGame.Game;
+﻿using RPGGame.Config;
+using RPGGame.Game;
 using RPGGame.Hero;
 using RPGGame.Player;
 using RPGGame.SaveSystem;
@@ -10,14 +11,13 @@ namespace RPGGame.CloudServices
 {
     public class MockHeroCloudSerivce : IHeroCloudService
     {
-        private const int START_HERO_COUNT = 3;
         private IHeroFactory heroFactory = new HeroFactory();
         private HeroSaveSystem _heroSaveSystem = new HeroSaveSystem();
 
         public Task<string> AddRandomHeroToPlayer()
         {
-            var heroSettingsContainer = PlayerData.HeroSettingsContainer;
-            var hero = heroFactory.CreateRandomHeroData(heroSettingsContainer, HeroTeam.Player);
+            var playerHeroes = _heroSaveSystem.Load();
+            var hero = heroFactory.CreateRandomHeroData(HeroTeam.Player, playerHeroes);
 
             var response = new BaseResponse();
 
@@ -27,9 +27,9 @@ namespace RPGGame.CloudServices
                 return Task.FromResult(JsonUtility.ToJson(response));
             }
 
-            var playerHeroes = _heroSaveSystem.Load().ToList();
-            playerHeroes.Add(hero);
-            var newPlayerHeroes = playerHeroes.ToArray();
+            var playerHeroesList = playerHeroes.ToList();
+            playerHeroesList.Add(hero);
+            var newPlayerHeroes = playerHeroesList.ToArray();
 
             _heroSaveSystem.Save(newPlayerHeroes);
 
