@@ -52,7 +52,7 @@ namespace RPGGame.CloudServices
                     {
                         playerHeroDatas[i].Experience++;
 
-                        if (playerHeroDatas[i].Experience % 5 == 0)
+                        if (playerHeroDatas[i].Experience % GameConfig.Data.LevelIncreaseInterval == 0)
                         {
                             playerHeroDatas[i].Level++;
                         }
@@ -93,10 +93,11 @@ namespace RPGGame.CloudServices
         private HeroData[] CreateInitialRandomHeroes()
         {
             var heroSettingsContainer = PlayerData.HeroSettingsContainer;
-            var intialPlayerHeroes = new HeroData[START_HERO_COUNT];
-            for (int i = 0; i < START_HERO_COUNT; i++)
+            var initialHeroCount = GameConfig.Data.StartHeroCount;
+            var intialPlayerHeroes = new HeroData[initialHeroCount];
+            for (int i = 0; i < initialHeroCount; i++)
             {
-                var hero = heroFactory.CreateRandomHeroData(heroSettingsContainer, HeroTeam.Player);
+                var hero = heroFactory.CreateRandomHeroData(HeroTeam.Player, intialPlayerHeroes);
                 intialPlayerHeroes[i] = hero;
             }
 

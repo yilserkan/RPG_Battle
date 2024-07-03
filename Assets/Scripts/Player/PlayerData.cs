@@ -17,9 +17,6 @@ namespace RPGGame.Player
 
         public static HeroSettingsContainer HeroSettingsContainer => _heroSettingsContainer;
 
-        private const int START_HERO_COUNT = 3;
-        private const int RECEIVE_NEW_HERO_INTERVAL = 2;
-        private const int LEVEL_INCREASE_INTERVAL = 3;
         private static Dictionary<string,Hero.Hero> _playerHeroes = new Dictionary<string, Hero.Hero>();
         private static IHeroFactory _heroFactory = new HeroFactory();
 

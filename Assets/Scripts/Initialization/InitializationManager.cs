@@ -1,4 +1,5 @@
 using RPGGame.CloudServices;
+using RPGGame.Config;
 using RPGGame.Hero;
 using RPGGame.Player;
 using RPGGame.SaveSystem;
@@ -13,10 +14,9 @@ namespace RPGGame.Initialization
 {
     public class InitializationManager : MonoBehaviour
     {
+        [SerializeField] private GameConfigSettings _gameConfigSettings;
         [SerializeField] private AssetReferenceScriptableObject _heroSettings;
         [SerializeField] private AssetReferenceScriptableObjectBase[] _scriptableObjectBases;
-
-        ScriptableObject[] _scriptableObjectScripts;
 
         void Start()
         {
@@ -31,9 +31,10 @@ namespace RPGGame.Initialization
                 await asset.Initialize();
             }
 
+            GameConfig.InitializeGameConfig(_gameConfigSettings.GameConfigData);
+
             var heroSettings = await _heroSettings.LoadAssetAsync().Task;
             PlayerData.Initialize((HeroSettingsContainer)heroSettings);
-
 
             //SaveSystemManager.Instance.LoadAllSystems();
             var response = await GameCloudRequests.LoadGameData();

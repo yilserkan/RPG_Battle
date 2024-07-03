@@ -212,7 +212,7 @@ namespace RPGGame.CloudServices
             }
 
             _gameData.PlayerMatchCount++;
-            if(_gameData.PlayerMatchCount % 2 ==0)
+            if(_gameData.PlayerMatchCount % GameConfig.Data.ReceiveNewHeroInterval ==0)
             {
                 await HeroCloudRequests.AddRandomHeroToPlayer();
             }
