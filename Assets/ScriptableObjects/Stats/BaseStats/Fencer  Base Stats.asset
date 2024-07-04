@@ -13,12 +13,7 @@ MonoBehaviour:
   m_Name: Fencer  Base Stats
   m_EditorClassIdentifier: 
   BaseAttributes:
-  - StatType: {fileID: 11400000, guid: b7a40e4772bc8204992f67a5aa810e94, type: 2}
+  - StatType: {fileID: 11400000, guid: ad2def709c5f7b04f8f3f650217effc7, type: 2}
     BaseValue: 50
-  - StatType: {fileID: 11400000, guid: 2223dd6c66852514aa1a8c62b84c7be0, type: 2}
-    BaseValue: 15
-  - StatType: {fileID: 11400000, guid: ba540e8eff348014f8e9fec1ced8dc87, type: 2}
+  - StatType: {fileID: 11400000, guid: ccefe57484fe97949b4f64150640c7af, type: 2}
     BaseValue: 120
-  - StatType: {fileID: 11400000, guid: fb7aafd101cf66c4ca4ff4e9fb58c460, type: 2}
-    BaseValue: 0
-  HeroID: 

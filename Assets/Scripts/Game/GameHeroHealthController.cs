@@ -33,9 +33,8 @@ namespace RPGGame.Game
 
         private void SetVitality()
         {
-            var startVitality = _gameHero.HeroData.RemainingVitality;
-            _vitality = startVitality;
-            _maxVitality = _gameHero.Hero.Stats.CalculateAttributeValue(StatConstants.Vitality);
+            _vitality = _gameHero.HeroData.RemainingVitality; ;
+            _maxVitality = _gameHero.Hero.Stats.GetAttributeValue(StatTypes.Vitality);
             UpdateHealthUI();
         }
 

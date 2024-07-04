@@ -22,37 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7bade5bed672c6c4b9267ed1455a6a8d
-    m_Address: Assets/ScriptableObjects/Stats/CharacterAttribute/Character Base Stats
-      Container.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b7a40e4772bc8204992f67a5aa810e94
-    m_Address: Assets/ScriptableObjects/Stats/Stats/Attack.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2223dd6c66852514aa1a8c62b84c7be0
-    m_Address: Assets/ScriptableObjects/Stats/Stats/Critical.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fb7aafd101cf66c4ca4ff4e9fb58c460
-    m_Address: Assets/ScriptableObjects/Stats/Stats/Intelligence.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8dbac49329e74b5448b78c6ce3b8825f
-    m_Address: Assets/ScriptableObjects/Stats/Stats/Stat Type Container.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ba540e8eff348014f8e9fec1ced8dc87
-    m_Address: Assets/ScriptableObjects/Stats/Stats/Vitality.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a095d4686121b0e4daa592e7572c43ed, type: 2}
   m_SchemaSet:

@@ -9,13 +9,12 @@ namespace RPGGame.Stats
     public class CharacterBaseStats : ScriptableObject
     {
         public CharacterBaseAttribute[] BaseAttributes;
-        public string HeroID;
     }
 
     [Serializable]
     public struct CharacterBaseAttribute
     {
-        public StatType StatType;
+        public StatTypeSettings StatType;
         public float BaseValue;
     }
 }

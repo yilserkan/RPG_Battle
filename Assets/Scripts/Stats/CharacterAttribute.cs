@@ -8,18 +8,20 @@ namespace RPGGame.Stats
     [Serializable]
     public class CharacterAttribute
     {
-        [SerializeField] public StatType StatType;
+        [SerializeField] public StatTypeSettings StatType;
         [SerializeField] public float BaseValue;
 
         private List<AttributeModifier> _additiveModifiers = new List<AttributeModifier>();
         private List<AttributeModifier> _percentModifiers = new List<AttributeModifier>();
 
         private float _attributeValue;
+        private bool _isDirty;
 
         public CharacterAttribute(CharacterBaseAttribute characterBaseAttribute, int level)
         {
             StatType = characterBaseAttribute.StatType;
             BaseValue = CalculateBaseValueFromLevel(characterBaseAttribute.BaseValue, level);
+            UpdateAttributeValue();
         }
 
         private float CalculateBaseValueFromLevel(float baseValue, int level)
@@ -35,12 +37,12 @@ namespace RPGGame.Stats
             if (attributeModifier.Type == AttributeModifierType.Additive)
             {
                 _additiveModifiers.Add(attributeModifier);
-                CalculateAttributeValue();
+                _isDirty = true;
             }
             else
             {
                 _percentModifiers.Add(attributeModifier);
-                CalculateAttributeValue();
+                _isDirty = true;
             }
         }
 
@@ -51,31 +53,36 @@ namespace RPGGame.Stats
             if(attributeModifier.Type == AttributeModifierType.Additive && _additiveModifiers.Contains(attributeModifier))
             {
                 _additiveModifiers.Remove(attributeModifier);
-                CalculateAttributeValue();
+                _isDirty = true;
             }
             else if(attributeModifier.Type == AttributeModifierType.Percent && _percentModifiers.Contains(attributeModifier)) 
             { 
                 _percentModifiers.Remove(attributeModifier);
-                CalculateAttributeValue();
+                _isDirty = true;
             }
         }
 
         public void IncreaseBaseValue()
         {
             BaseValue *= (100 + StatType.LevelUpMultiplier) / 100;
-            CalculateAttributeValue();
+            UpdateAttributeValue();
         }
 
-        public float CalculateAttributeValue()
+        private void UpdateAttributeValue()
         {
             _attributeValue = BaseValue;
             ApplyAdditiveModifiers();
             ApplyPercentModifiers();
-            return _attributeValue;
         }
 
         public float GetAttributeValue()
         {
+            if(_isDirty)
+            {
+                UpdateAttributeValue();
+                _isDirty = false;
+            }
+
             return _attributeValue;
         }
 

@@ -26,7 +26,7 @@ namespace RPGGame.Game
             if (!heroSettingsContainer.TryGetHeroSettings(gameHeroData.ID, out var settings)) return 0;
 
             var stats = new CharacterStat(settings.BaseStats, gameHeroData.Level);
-            return stats.CalculateAttributeValue(StatConstants.Vitality);
+            return stats.GetAttributeValue(StatTypes.Vitality);
         }
     }
 }

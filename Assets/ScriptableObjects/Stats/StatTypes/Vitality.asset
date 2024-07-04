@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d79303edb364941a61379674accf2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d0087554bb6e414b9e737c822089213, type: 3}
   m_Name: Vitality
   m_EditorClassIdentifier: 
+  Type: 1
   ID: STAT_VIT
   Name: Vitality
   LevelUpMultiplier: 10

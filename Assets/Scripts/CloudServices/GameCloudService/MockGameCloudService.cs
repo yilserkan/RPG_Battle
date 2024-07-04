@@ -189,17 +189,17 @@ namespace RPGGame.CloudServices
 
         private float CalculateDamageForHero(GameHeroData heroData)
         {
-            var heroDamage = GetHeroStatValue(heroData, StatConstants.Attack);
+            var heroDamage = GetHeroStatValue(heroData, StatTypes.Attack);
             return heroDamage;
         }
  
-        private float GetHeroStatValue(GameHeroData gameHeroData, string statID)
+        private float GetHeroStatValue(GameHeroData gameHeroData, StatTypes statType)
         {
             var heroSettingsContainer = PlayerData.HeroSettingsContainer;
             if (!heroSettingsContainer.TryGetHeroSettings(gameHeroData.ID, out var settings)) return 0;
 
             var stats = new CharacterStat(settings.BaseStats, gameHeroData.Level);
-            return stats.CalculateAttributeValue(statID);
+            return stats.GetAttributeValue(statType);
         }
 
         private bool CheckIfGameCompleted(int receiverTeam)

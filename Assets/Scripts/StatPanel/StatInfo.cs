@@ -7,11 +7,11 @@ namespace RPGGame.Stats
 {
     public class StatInfo : MonoBehaviour
     {
-        [SerializeField] private StatType type;
+        [SerializeField] private StatTypeSettings type;
         [SerializeField] private TextMeshProUGUI _statNameText;
         [SerializeField] private TextMeshProUGUI _statValueText;
 
-        public StatType Type => type;
+        public StatTypeSettings Type => type;
 
         public void Setup(float attrValue)
         {
