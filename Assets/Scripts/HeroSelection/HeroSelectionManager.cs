@@ -96,6 +96,7 @@ namespace RPGGame.HeroSelection
         private void HandleOnReturnToSelectionScreen()
         {
             InitializeSlots();
+            EnableHeroSelectionPanel(true);
         }
 
 
