@@ -11,6 +11,7 @@ namespace RPGGame.Feedback
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private TextMeshProUGUI _feedbackText;
+        [SerializeField] private float _spawnAnimationDuration = 0.5f;
 
         private FeedbackData _data;
 
@@ -26,9 +27,8 @@ namespace RPGGame.Feedback
 
         private void StartAnimation()
         {
-            var halfOfDuration = _data.Duration / 2f;
             transform.localScale = Vector3.zero;
-            transform.DOScale(1, halfOfDuration).SetEase(Ease.OutElastic);
+            transform.DOScale(1, _spawnAnimationDuration).SetEase(Ease.OutElastic);
         }
 
         private IEnumerator StartLifeTime()

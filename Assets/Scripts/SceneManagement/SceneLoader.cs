@@ -30,21 +30,21 @@ namespace RPGGame.SceneManagement
         }
 
         [ContextMenu("LoadGameScene")]
-        public void LoadGameScene()
+        public async void LoadGameScene()
         {
-            LoadScene(SceneType.GameScene);
+            await LoadScene(SceneType.GameScene);
         }
 
         [ContextMenu("LoadInitialScene")]
-        public void LoadInitialScene()
+        public async void LoadInitialScene()
         {
-            LoadScene(SceneType.InitializationScene);
+            await LoadScene(SceneType.InitializationScene);
         }
 
         [ContextMenu("LoadTestScene")]
-        public void LoadTestScene()
+        public async void LoadTestScene()
         {
-            LoadScene(SceneType.Test);
+            await LoadScene(SceneType.Test);
         }
 
         public async Task LoadScene(SceneType type)
@@ -83,7 +83,7 @@ namespace RPGGame.SceneManagement
 
         private async Task LoadAddressableScene(SceneType type, IProgress<float> progress)
         {
-            var sceneReference = await _sceneDatas.GetAddressableSceneReference(type);
+            var sceneReference = _sceneDatas.GetAddressableSceneReference(type);
             if (sceneReference == null) { return; }
 
             _activeAddressableSceneHandle = sceneReference.LoadSceneAsync(LoadSceneMode.Additive);

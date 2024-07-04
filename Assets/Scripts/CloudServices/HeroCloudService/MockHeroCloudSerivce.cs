@@ -44,17 +44,18 @@ namespace RPGGame.CloudServices
             var heroIds = requestData.HeroIds;
             var playerHeroDatas = _heroSaveSystem.Load();
 
-            for (int i = 0; i < playerHeroDatas.Length; i++)
+            for (int i = 0; i < heroIds.Length; i++)
             {
-                for (int j = 0; j < heroIds.Length; j++)
+                for (int j = 0; j < playerHeroDatas.Length; j++)
                 {
-                    if (playerHeroDatas[i].ID == heroIds[j])
+                    if (heroIds[i] == playerHeroDatas[j].ID)
                     {
-                        playerHeroDatas[i].Experience++;
+                        playerHeroDatas[j].Experience++;
 
-                        if (playerHeroDatas[i].Experience % GameConfig.Data.LevelIncreaseInterval == 0)
+                        bool hasLeveldUp = playerHeroDatas[j].Experience % GameConfig.Data.LevelIncreaseInterval == 0;
+                        if (hasLeveldUp)
                         {
-                            playerHeroDatas[i].Level++;
+                            playerHeroDatas[j].Level++;
                         }
 
                         break;

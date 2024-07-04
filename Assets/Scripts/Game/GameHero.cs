@@ -14,18 +14,16 @@ namespace RPGGame.Game
         [SerializeField] private GameHeroHealthController _healthController;
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        private HeroTeam _team;
         private Hero.Hero _hero;
         private GameHeroData _heroData;
-        private HeroTeam _team;
         private SpawnPoint _spawnPoint;
         private GameHeroSkillController _skillController;
 
-
+        public HeroTeam Team => _team;
         public Hero.Hero Hero => _hero;
         public GameHeroData HeroData => _heroData;
-        public HeroTeam Team => _team;
         public SpawnPoint SpawnPoint => _spawnPoint;
-
         public GameHeroAnimationController AnimationController => _animationController;
         public GameHeroHealthController HealthController => _healthController;
         public GameHeroSkillController SkillController => _skillController;
@@ -56,11 +54,6 @@ namespace RPGGame.Game
         {
             var flipX = _team == HeroTeam.Enemy;
             _spriteRenderer.flipX = flipX;
-        }
-
-        public float GetHeroStat(string statId)
-        {
-            return _hero.Stats.CalculateAttributeValue(statId);
         }
 
         public void ResetHero()

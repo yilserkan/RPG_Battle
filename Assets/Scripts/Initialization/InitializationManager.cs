@@ -8,6 +8,7 @@ using RPGGame.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace RPGGame.Initialization
@@ -24,36 +25,46 @@ namespace RPGGame.Initialization
             Initialize();
         }
 
+        private void OnApplicationQuit()
+        {
+            DestroyScriptableObjects();
+        }
+
         private async void Initialize()
         {
-            for (int i = 0; i < _scriptableObjectBases.Length; i++)
-            {
-                var asset = await _scriptableObjectBases[i].LoadAssetAsync().Task;
-                await asset.Initialize();
-            }
+            await InitializeScriptableObjects();
 
             GameConfig.InitializeGameConfig(_gameConfigSettings.GameConfigData);
 
             var heroSettings = await _heroSettings.LoadAssetAsync().Task;
             PlayerData.Initialize((HeroSettingsContainer)heroSettings);
 
-            //SaveSystemManager.Instance.LoadAllSystems();
             var response = await GameCloudRequests.LoadGameData();
             PlayerData.SetGameData(response.GameData);
 
-            //var heroResponse = await HeroCloudRequests.LoadHeroData();
             await PlayerData.SetPlayerHeroes();
 
-            SceneLoader.Instance.LoadScene(SceneType.GameScene);
+            await SceneLoader.Instance.LoadScene(SceneType.GameScene);
         }
 
-        private void OnApplicationQuit()
+        private async Task InitializeScriptableObjects()
         {
             for (int i = 0; i < _scriptableObjectBases.Length; i++)
             {
-                //_scriptableObjectBases[i].Destroy();
+                var asset = await _scriptableObjectBases[i].LoadAssetAsync().Task;
+                await asset.Initialize();
+                _scriptableObjectBases[i].ReleaseAsset();
             }
         }
 
+        private async void DestroyScriptableObjects()
+        {
+            for (int i = 0; i < _scriptableObjectBases.Length; i++)
+            {
+                var asset = await _scriptableObjectBases[i].LoadAssetAsync().Task;
+                await asset.Destroy();
+                _scriptableObjectBases[i].ReleaseAsset();
+            }
+        }
     }
 }

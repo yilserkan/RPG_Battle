@@ -39,7 +39,7 @@ namespace RPGGame.SceneManagement
             return Task.CompletedTask;
         }
 
-        public async Task<AssetReference> GetAddressableSceneReference(SceneType type)
+        public AssetReference GetAddressableSceneReference(SceneType type)
         {
             for (int i = 0; i < _loadedSceneDatas.Length; i++)
             {

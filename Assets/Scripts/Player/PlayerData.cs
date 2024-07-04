@@ -32,8 +32,6 @@ namespace RPGGame.Player
             var heroDatas = heroResponse.HeroDatas;
             for (int i = 0; i < heroDatas.Length; i++)
             {
-                if (_playerHeroes.ContainsKey(heroDatas[i].ID)) continue;
-
                 var hero  = _heroFactory.CreateHero(heroDatas[i]);
                 _playerHeroes.Add(hero.Settings.ID, hero);
             }

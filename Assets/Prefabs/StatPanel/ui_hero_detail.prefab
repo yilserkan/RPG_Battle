@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 7349079454197281687}
   - component: {fileID: 4998521206742703748}
   m_Layer: 0
-  m_Name: ui_hero_detail_value
+  m_Name: ui_text_hero_detail_value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 4894438595040903297}
   - component: {fileID: 290305240422511018}
   m_Layer: 0
-  m_Name: ui_hero_detail_name
+  m_Name: ui_text_hero_detail_name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

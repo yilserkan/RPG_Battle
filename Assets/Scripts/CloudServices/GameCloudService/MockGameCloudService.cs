@@ -14,19 +14,18 @@ namespace RPGGame.CloudServices
 {
     public class MockGameCloudService : IGameCloudService
     {
-        private IHeroFactory _heroFactory = new HeroFactory();
-
-        private Dictionary<int, GameHeroData[]> _mockHeroes = new Dictionary<int, GameHeroData[]>();
-   
         private GameData _gameData;
+        private IHeroFactory _heroFactory = new HeroFactory();
         private HeroSaveSystem _heroSaveSystem = new HeroSaveSystem();
         private GameSaveSystem _gameSaveSystem = new GameSaveSystem();
+        private Dictionary<int, GameHeroData[]> _mockHeroes = new Dictionary<int, GameHeroData[]>();
+
+        private const int SPAWNED_ENEMY_COUNT = 3;
 
         public Task<string> CreateLevelData(string[] selectedHeroIds)
         {
             _mockHeroes.Clear();
             var allPlayerHeroesDatas = _heroSaveSystem.Load();
-            var settings = PlayerData.HeroSettingsContainer;
 
             var playerHeroes = new GameHeroData[selectedHeroIds.Length];
             float selectedPlayersAvgLevel = 0;
@@ -38,7 +37,6 @@ namespace RPGGame.CloudServices
             }
             selectedPlayersAvgLevel /= selectedHeroIds.Length;
 
-            var randomEnemyCount = Random.Range(1, 4);
             var enemyHeroes = new GameHeroData[3];
             for (int i = 0; i < enemyHeroes.Length; i++)
             {
@@ -46,8 +44,8 @@ namespace RPGGame.CloudServices
                 enemyHeroes[i] = new GameHeroData(randomHero);
             }
 
-            CreateGameHeroDatas(playerHeroes);
-            CreateGameHeroDatas(enemyHeroes);
+            AddGameHeroesToMockHeroDict(playerHeroes);
+            AddGameHeroesToMockHeroDict(enemyHeroes);
 
             var levelData = new LevelData(playerHeroes, enemyHeroes);
             UpdateGameData(GameStates.PlayerTurn);
@@ -123,8 +121,8 @@ namespace RPGGame.CloudServices
                 {
                     var playerHeroDatas = _gameData.ActiveLevelData.PlayerHeroes;
                     var enemyHeroDatas = _gameData.ActiveLevelData.EnemyHeroes;
-                    CreateGameHeroDatas(playerHeroDatas);
-                    CreateGameHeroDatas(enemyHeroDatas);
+                    AddGameHeroesToMockHeroDict(playerHeroDatas);
+                    AddGameHeroesToMockHeroDict(enemyHeroDatas);
                 }
             }
             else
@@ -143,7 +141,7 @@ namespace RPGGame.CloudServices
             return Task.FromResult(JsonUtility.ToJson(response));
         }
 
-        private void CreateGameHeroDatas(GameHeroData[] gameHeroesDatas)
+        private void AddGameHeroesToMockHeroDict(GameHeroData[] gameHeroesDatas)
         {
             _mockHeroes.Add(gameHeroesDatas[0].HeroTeam, gameHeroesDatas);
         }
