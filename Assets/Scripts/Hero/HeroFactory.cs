@@ -58,13 +58,5 @@ namespace RPGGame.Hero
             return availableHeroes.Values.ToArray();
         }
     }
-
-    public interface IHeroFactory
-    {
-        Hero CreateHero(HeroData heroData);
-        Hero CreateRandomHero(HeroTeam team, HeroData[] heroesToIgnore = null);
-        HeroData CreateRandomHeroData(HeroTeam team, HeroData[] heroesToIgnore = null, int startLevel = 1);
-        
-    }
 }
 

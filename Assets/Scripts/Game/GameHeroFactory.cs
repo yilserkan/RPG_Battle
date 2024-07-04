@@ -29,9 +29,4 @@ namespace RPGGame.Hero
             return gameHero;
         }
     }
-
-    public interface IGameHeroFactory
-    {
-        GameHero Create(HeroSettingsContainer heroContainerSettings, GameHeroData heroData = null);
-    }
 }
