@@ -53,7 +53,7 @@ namespace RPGGame.Initialization
             {
                 var asset = await _scriptableObjectBases[i].LoadAssetAsync().Task;
                 await asset.Initialize();
-                _scriptableObjectBases[i].ReleaseAsset();
+                //_scriptableObjectBases[i].ReleaseAsset();
             }
         }
 
