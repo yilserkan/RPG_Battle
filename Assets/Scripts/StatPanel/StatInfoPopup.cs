@@ -49,8 +49,8 @@ namespace RPGGame.Stats
             _heroNameText.text = $"{hero.Settings.Name}";
             _heroLevelText.text = $"{hero.Level}";
             _heroExpText.text = $"{hero.Experience}";
-            _heroAttackValueText.text = $"{hero.Stats.GetAttributeValue(StatTypes.Attack)}";
-            _heroVitalityValueText.text = $"{hero.Stats.GetAttributeValue(StatTypes.Vitality)}";
+            _heroAttackValueText.text = $"{(int)hero.Stats.GetAttributeValue(StatTypes.Attack)}";
+            _heroVitalityValueText.text = $"{(int)hero.Stats.GetAttributeValue(StatTypes.Vitality)}";
             _heroSprite.sprite = hero.Settings.HeroSprite;
         }
 

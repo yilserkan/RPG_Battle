@@ -36,7 +36,7 @@ namespace RPGGame.Feedback
             {
                 var attr = data.ModifiedAttributes[i];
                 var sign = attr.IncreaseAmount > 0 ? "+" : "";
-                levelUpText += $"{attr.Type} : {sign}{attr.IncreaseAmount:f2} \n";
+                levelUpText += $"{attr.Type} : {sign}{(int)attr.IncreaseAmount} \n";
             }
 
             FeedbackData feedbackData = new FeedbackData()

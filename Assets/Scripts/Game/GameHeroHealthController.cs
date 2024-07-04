@@ -58,7 +58,7 @@ namespace RPGGame.Game
             var pos = Camera.main.WorldToScreenPoint(_gameHero.SpawnPoint.GetPosition());
             var feedbackData = new FeedbackData()
             {
-                Text = $"-{ damage:f2}",
+                Text = $"-{(int)damage}",
                 Position = pos ,
                 PositionType = FeedbackPositionType.Position,
                 Color = Color.red,
