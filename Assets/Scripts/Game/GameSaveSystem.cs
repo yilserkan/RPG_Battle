@@ -17,7 +17,6 @@ namespace RPGGame.Game
 
         public void Save(GameData gameData)
         {
-            //var gameData = PlayerData.GetGameData();
             _gameSaveSystem.Save(gameData);
         }
 
@@ -25,16 +24,6 @@ namespace RPGGame.Game
         {
             _gameSaveSystem.Load(out GameData gameData);
             return gameData;
-
-            //if (HasSaveFile())
-            //{
-            //    _gameSaveSystem.Load(out GameData gameData);
-            //    PlayerData.SetGameData(gameData);
-            //}
-            //else
-            //{
-            //    PlayerData.CreateInitialGameData();
-            //}
         }
 
         public bool HasSaveFile()

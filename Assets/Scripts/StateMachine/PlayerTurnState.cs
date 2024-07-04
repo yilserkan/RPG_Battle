@@ -31,7 +31,6 @@ namespace RPGGame.StateMachine
         {
             OnDisablePlayerSelectionEvent?.Invoke();
 
-            //var target = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
             var response = await GameCloudRequests.AttackEnemyPlayer(hero.Hero.Settings.ID);
             if(response.IsSuccessfull)
             {

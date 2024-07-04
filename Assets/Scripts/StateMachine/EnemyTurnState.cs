@@ -26,9 +26,6 @@ namespace RPGGame.StateMachine
         }
         private async void AttackRandomPlayer()
         {
-            //var attacker = _stateMachine.GetRandomGameHero(HeroTeam.Enemy);
-            //var receiver = _stateMachine.GetRandomGameHero(HeroTeam.Player);
-
             var response = await GameCloudRequests.SimulateEnemyAttack();
 
             if (response.IsSuccessfull)

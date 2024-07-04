@@ -40,10 +40,7 @@ namespace RPGGame.Game
         public void PlayAnimation(AnimationType type)
         {
              if(!_animationHashDict.TryGetValue(type, out var anim)) return;
-
             _animator.Play(anim);
-
-            //_animator.
         }
 
         public void PlayAnimation(string animationName)
@@ -89,7 +86,6 @@ namespace RPGGame.Game
             Death,
             TakeDamage
         }
-
     }
 }
 
