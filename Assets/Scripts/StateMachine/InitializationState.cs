@@ -32,8 +32,9 @@ namespace RPGGame.StateMachine
             _stateMachine.SetGameHeroesDict(heroesDict);
 
             var nextState = GetNextState(levelData);
+            _stateMachine.EnableGameWorld(true);
             OnGameInitialized?.Invoke();
-            _stateMachine.SwitchState(nextState);
+            _stateMachine.DelayedSwitchState(nextState, .5f);
         }
 
         private GameStates GetNextState(LevelData levelData)

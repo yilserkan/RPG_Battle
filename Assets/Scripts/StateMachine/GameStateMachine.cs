@@ -15,6 +15,7 @@ namespace RPGGame.StateMachine
 {
     public class GameStateMachine : MonoBehaviour
     {
+        [SerializeField] private GameObject _gameWorldParent;
         [SerializeField] private GameHeroSpawner _heroSpawner;
 
         private LevelData _levelData;
@@ -119,19 +120,7 @@ namespace RPGGame.StateMachine
             _levelData = null;
             _currentState = null;
             _currentStateType = GameStates.None;
-        }
-
-        private GameHeroData[] CreateGameHeroDataForTeam(HeroTeam team)
-        {
-            var heroes = _gameHeroesDict[team];
-            var playerHeroes = new GameHeroData[heroes.Length];
-
-            for (int i = 0; i < playerHeroes.Length; i++)
-            {
-                playerHeroes[i] = new GameHeroData(heroes[i]);
-            }
-
-            return playerHeroes;
+            EnableGameWorld(false);
         }
 
         public GameHero GetGameHeroOfId(string id, HeroTeam heroTeam)
@@ -145,6 +134,11 @@ namespace RPGGame.StateMachine
             }
 
             return null;
+        }
+
+        public void EnableGameWorld(bool enabled)
+        {
+            _gameWorldParent.SetActive(enabled);
         }
 
         private void AddListeners()
