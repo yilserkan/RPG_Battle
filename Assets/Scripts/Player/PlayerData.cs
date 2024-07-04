@@ -59,5 +59,10 @@ namespace RPGGame.Player
             var levelData = _gameData.ActiveLevelData;
             return levelData.PlayerHeroes.Length > 0 && levelData.EnemyHeroes.Length > 0;
         }
+
+        public static void LocallyIncreasePlayedMatchCounts()
+        {
+            _gameData.PlayerMatchCount++;
+        }
     }
 }
