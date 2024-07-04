@@ -12,6 +12,8 @@ namespace RPGGame.Utils
         public event Action OnHold;
         private Coroutine _holdCoroutine;
 
+        private const float BUTTON_HOLD_TIMER = 1;
+
         public override void OnPointerDown(PointerEventData eventData)
         {
             base.OnPointerDown(eventData);
@@ -38,7 +40,7 @@ namespace RPGGame.Utils
         private IEnumerator HoldTimer()
         {
             float passedTime = 0;
-            while (passedTime < 1)
+            while (passedTime < BUTTON_HOLD_TIMER)
             {
                 yield return new WaitForEndOfFrame();
                 passedTime += Time.deltaTime;
@@ -47,7 +49,6 @@ namespace RPGGame.Utils
             _hasExitedBorders = true;
             OnHold?.Invoke();
             _holdCoroutine = null;
-            Debug.Log("Hold For 3 Seconds");
         }
     }
 }

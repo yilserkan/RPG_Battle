@@ -15,11 +15,8 @@ namespace RPGGame.Game
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private HeroSettingsContainer _heroSettings;
         [SerializeField] private GameHeroSpawner _levelManager;
         [SerializeField] private GameStateMachine _stateManager;
-
-        private IHeroFactory _heroFactory = new HeroFactory();
 
         private void OnEnable()
         {

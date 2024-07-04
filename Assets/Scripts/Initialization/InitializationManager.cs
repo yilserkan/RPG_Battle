@@ -20,6 +20,7 @@ namespace RPGGame.Initialization
 
         void Start()
         {
+            Application.targetFrameRate = 60;
             Initialize();
         }
 

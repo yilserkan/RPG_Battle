@@ -29,16 +29,20 @@ namespace RPGGame.CloudServices
             var settings = PlayerData.HeroSettingsContainer;
 
             var playerHeroes = new GameHeroData[selectedHeroIds.Length];
+            float selectedPlayersAvgLevel = 0;
             for (int i = 0; i < selectedHeroIds.Length; i++)
             {
                 var heroData = FindHeroDataByID(allPlayerHeroesDatas, selectedHeroIds[i]);
                 playerHeroes[i] = new GameHeroData(heroData);
+                selectedPlayersAvgLevel += playerHeroes[i].Level;
             }
+            selectedPlayersAvgLevel /= selectedHeroIds.Length;
 
-            var enemyHeroes = new GameHeroData[2];
+            var randomEnemyCount = Random.Range(1, 4);
+            var enemyHeroes = new GameHeroData[3];
             for (int i = 0; i < enemyHeroes.Length; i++)
             {
-                var randomHero = _heroFactory.CreateRandomHeroData(HeroTeam.Enemy, enemyHeroes);
+                var randomHero = _heroFactory.CreateRandomHeroData(HeroTeam.Enemy, enemyHeroes, (int)selectedPlayersAvgLevel);
                 enemyHeroes[i] = new GameHeroData(randomHero);
             }
 

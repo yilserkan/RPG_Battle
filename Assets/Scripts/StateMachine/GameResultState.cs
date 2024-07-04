@@ -15,6 +15,7 @@ namespace RPGGame.StateMachine
         public override void OnEnter()
         {
             ShowResultScreen();
+            PlayerData.LocallyIncreasePlayedMatchCounts();
         }
 
   

@@ -60,7 +60,7 @@ namespace RPGGame.Game
         {
             var pos = Camera.main.WorldToScreenPoint(_gameHero.SpawnPoint.GetPosition());
             var data = FeedbackManager.CreateFeedbackData(
-                $"-{damage}",
+                $"-{damage:f2}",
                 pos,
                 1,
                 Color.red

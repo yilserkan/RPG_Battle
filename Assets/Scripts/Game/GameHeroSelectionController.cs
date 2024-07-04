@@ -27,29 +27,23 @@ namespace RPGGame.Game
             RemoveListeners();
         }
 
-        private void Awake()
-        {
-            _selectionArrow.DisableArrow();
-        }
-
         private void HandleOnEnablePlayerSelection()
         {
-            SetIsHeroSelectable(true);
+            var isHeroSelectable = _gameHero.Team == HeroTeam.Player && !_gameHero.HealthController.IsDead;
+            SetIsHeroSelectable(isHeroSelectable);
 
-            if(_gameHero.Team == HeroTeam.Player && !_gameHero.HealthController.IsDead)
+            if(isHeroSelectable)
                 _selectionArrow.EnableArrow();
         }
         private void HandleOnDisablePlayerSelection()
         {
             SetIsHeroSelectable(false);
-
-            if (_gameHero.Team == HeroTeam.Player && !_gameHero.HealthController.IsDead)
-                _selectionArrow.DisableArrow();
+            _selectionArrow.DisableArrow();
         }
 
-        private void SetIsHeroSelectable(bool value)
+        private void SetIsHeroSelectable(bool isSelectable)
         {
-            _isSelectable = value && _gameHero.Team == HeroTeam.Player;
+            _isSelectable = isSelectable;
         }
 
         private void HandleOnPlayerClicked()

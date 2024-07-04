@@ -13,6 +13,7 @@ namespace RPGGame.HeroSelection
         [SerializeField] private Image _selectedSlotBgImg;
         [SerializeField] private Image _heroIcon;
         [SerializeField] private TextMeshProUGUI _heroNameText;
+        [SerializeField] private TextMeshProUGUI _heroLevelText;
 
         public void SetupUI(Hero.Hero hero)
         {
@@ -31,6 +32,7 @@ namespace RPGGame.HeroSelection
         public void ResetUI()
         {
             _heroNameText.text = $"";
+            _heroLevelText.text = $"";
             _heroIcon.sprite = null;
             SetupEmptySlot();
         }
@@ -40,6 +42,7 @@ namespace RPGGame.HeroSelection
             _heroIcon.gameObject.SetActive(true);
             _heroIcon.sprite = hero.Settings.HeroSprite;
             _heroNameText.text = hero.Settings.Name;
+            _heroLevelText.text = $"{hero.Level}";
 
             ShowUnselectedUI();
             ShowSelectableUI();

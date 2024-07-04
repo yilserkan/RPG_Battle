@@ -1,3 +1,4 @@
+using RPGGame.Config;
 using RPGGame.Game;
 using RPGGame.Player;
 using System.Collections;
@@ -28,7 +29,7 @@ namespace RPGGame.Hero
             return hero;
         }
 
-        public HeroData CreateRandomHeroData(HeroTeam team, HeroData[] heroesToIgnore = null)
+        public HeroData CreateRandomHeroData(HeroTeam team, HeroData[] heroesToIgnore = null, int startLevel = 1)
         {
             var availableHeroes = GetAvailableHeroes(heroesToIgnore);
             if (availableHeroes == null || availableHeroes.Length == 0)
@@ -37,6 +38,9 @@ namespace RPGGame.Hero
             var randomIndex = Random.Range(0, availableHeroes.Length);
             var heroSettings = availableHeroes[randomIndex];
             var heroData = new HeroData(heroSettings.ID, team);
+            heroData.Level = startLevel;
+            heroData.Experience = heroData.Level * GameConfig.Data.LevelIncreaseInterval;
+
             return heroData;
         }
 
@@ -62,7 +66,7 @@ namespace RPGGame.Hero
     {
         Hero CreateHero(HeroData heroData);
         Hero CreateRandomHero(HeroTeam team, HeroData[] heroesToIgnore = null);
-        HeroData CreateRandomHeroData(HeroTeam team, HeroData[] heroesToIgnore = null);
+        HeroData CreateRandomHeroData(HeroTeam team, HeroData[] heroesToIgnore = null, int startLevel = 1);
         
     }
 }

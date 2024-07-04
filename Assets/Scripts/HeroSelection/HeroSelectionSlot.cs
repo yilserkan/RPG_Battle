@@ -59,7 +59,7 @@ namespace RPGGame.HeroSelection
                 _slotUI.ShowUnselectableUI();
                 ToggleSlotButtonInteractable(false);
             }
-            else if (!hasSelectedAllHeroes)
+            else if (!hasSelectedAllHeroes && _hero != null)
             {
                 _slotUI.ShowSelectableUI();
                 ToggleSlotButtonInteractable(true);
