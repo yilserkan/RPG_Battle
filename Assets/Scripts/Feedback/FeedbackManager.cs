@@ -1,4 +1,5 @@
 using RPGGame.Game;
+using RPGGame.HeroSelection;
 using RPGGame.Pool;
 using RPGGame.StateMachine;
 using System.Collections;
@@ -33,12 +34,14 @@ namespace RPGGame.Feedback
         {
             GameHeroHealthController.RequestTakeDamageFeedbackEvent += HandleOnRequestFeedback;
             LevelUpFeedbackController.RequestLevelUpFeedback += HandleOnRequestFeedback;
+            HeroSelectionManager.RequestSelectHeroesFeedbackEvent += HandleOnRequestFeedback;
         }
 
         private void RemoveListeners()
         {
             GameHeroHealthController.RequestTakeDamageFeedbackEvent -= HandleOnRequestFeedback;
             LevelUpFeedbackController.RequestLevelUpFeedback -= HandleOnRequestFeedback;
+            HeroSelectionManager.RequestSelectHeroesFeedbackEvent -= HandleOnRequestFeedback;
         }
     }
 

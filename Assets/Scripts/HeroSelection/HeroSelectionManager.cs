@@ -7,10 +7,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPGGame.Feedback;
 
 namespace RPGGame.HeroSelection
 {
-    public class HeroSelectionManager : MonoBehaviour, Observer.IObserver<bool>
+    public class HeroSelectionManager : MonoBehaviour
     {
         [SerializeField] private HeroSelectionSlot[] _heroSlots;
         [SerializeField] private CustomButton _playButton;
@@ -21,6 +22,7 @@ namespace RPGGame.HeroSelection
         private const int MAX_SELECTABLE_HEROES_COUNT = 3;
 
         public static event Action<List<Hero.Hero>> OnStartGameEvent;
+        public static event Action<FeedbackData> RequestSelectHeroesFeedbackEvent;
 
         private void OnEnable()
         {
@@ -34,7 +36,8 @@ namespace RPGGame.HeroSelection
 
         private void Start()
         {
-            _hasSelectedAllHeroes = new Observable<bool>(false, this);
+            _playButton.Interactable = true;
+            _hasSelectedAllHeroes = new Observable<bool>(false);
             InitializeSlots();
             _selectedHeroes = new List<Hero.Hero>();
 
@@ -71,9 +74,14 @@ namespace RPGGame.HeroSelection
 
         private void HandleOnPlayButtonClicked()
         {
+            if(_selectedHeroes.Count < 3)
+            {
+                RequestSelectHeroesFeedback();
+                return;
+            }
+
             OnStartGameEvent?.Invoke(_selectedHeroes);
             ResetSelections();
-           
         }
 
         private void ResetSelections()
@@ -105,9 +113,17 @@ namespace RPGGame.HeroSelection
             EnableHeroSelectionPanel(false);
         }
 
-        public void Notify(bool hasSelectedAllHeroes)
+        private void RequestSelectHeroesFeedback()
         {
-            _playButton.Interactable = hasSelectedAllHeroes;
+            var feedbackData = new FeedbackData()
+            {
+                Text = "SELECT 3 HEROES TO START",
+                Color = Color.white,
+                Position = Vector2.zero,
+                PositionType = FeedbackPositionType.AnchoredPostiion,
+                Duration = 1
+            };
+            RequestSelectHeroesFeedbackEvent?.Invoke(feedbackData);
         }
 
         private void AddListeners()
