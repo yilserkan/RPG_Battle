@@ -7411,7 +7411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &237297773
 Transform:
   m_ObjectHideFlags: 0
@@ -11643,6 +11643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a781971410d104f867a72bc49e73e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameWorldParent: {fileID: 237297772}
   _heroSpawner: {fileID: 1098414808}
 --- !u!1 &1376135315
 GameObject:
