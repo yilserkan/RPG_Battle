@@ -37,6 +37,9 @@ namespace RPGGame.HeroSelection
             _hasSelectedAllHeroes = new Observable<bool>(false, this);
             InitializeSlots();
             _selectedHeroes = new List<Hero.Hero>();
+
+            if(!PlayerData.HasActiveLevelData())
+                EnableHeroSelectionPanel(true);
         }
 
         private async void InitializeSlots()
@@ -50,8 +53,6 @@ namespace RPGGame.HeroSelection
                 _heroSlots[i].SetupSlot(hero);
                 _hasSelectedAllHeroes.AddListener(_heroSlots[i]);
             }
-
-            EnableHeroSelectionPanel(true);
         }
 
         private void HandleOnSlotSelected(Hero.Hero hero)
