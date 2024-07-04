@@ -12,6 +12,7 @@ namespace RPGGame.Game
     {
         [SerializeField] private GameHeroAnimationController _animationController;
         [SerializeField] private GameHeroHealthController _healthController;
+        [SerializeField] private GameHeroLevelController _levelController;
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private HeroTeam _team;
@@ -26,6 +27,7 @@ namespace RPGGame.Game
         public SpawnPoint SpawnPoint => _spawnPoint;
         public GameHeroAnimationController AnimationController => _animationController;
         public GameHeroHealthController HealthController => _healthController;
+        public GameHeroLevelController LevelController => _levelController;
         public GameHeroSkillController SkillController => _skillController;
 
         public void Initialize(Hero.Hero hero, GameHeroData gameHeroData)
@@ -40,6 +42,7 @@ namespace RPGGame.Game
             _animationController.PlayAnimation(GameHeroAnimationController.AnimationType.Idle);
 
             HealthController.Initialize();
+            LevelController.Initialize();
 
             SetSpriteOrientation();
         }

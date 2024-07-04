@@ -10,7 +10,7 @@ namespace RPGGame.Stats
     public class CharacterStat
     {
         Dictionary<StatTypes, CharacterAttribute> _characterAttributesDict;
-        public event Action OnCharacterAttributesChanged;
+        public Action<AttributeModifiedData[]> OnCharacterAttributesChanged;
 
         public CharacterStat(CharacterBaseStats baseStats, int level)
         {
@@ -28,29 +28,38 @@ namespace RPGGame.Stats
             var characterAttribute = _characterAttributesDict[modifier.StatType.Type];
             if (characterAttribute != null)
             {
-                characterAttribute.AddAttributeModifier(modifier);
-                OnCharacterAttributesChanged?.Invoke();
+                var modifiedAmount = characterAttribute.AddAttributeModifier(modifier);
+                var attrModifyData = new AttributeModifiedData[1];
+                attrModifyData[0] =  new AttributeModifiedData(){Type = characterAttribute.StatType.Type, IncreaseAmount = modifiedAmount };
+                OnCharacterAttributesChanged?.Invoke(attrModifyData);
             }
         }
 
         public void RemoveModifier(AttributeModifier modifier)
         {
+            var levelUpdatas = new AttributeModifiedData[1];
             var characterAttribute = _characterAttributesDict[modifier.StatType.Type];
             if (characterAttribute != null)
             {
-                characterAttribute.RemoveAttributeModifier(modifier);
-                OnCharacterAttributesChanged?.Invoke();
+                var modifiedAmount = characterAttribute.RemoveAttributeModifier(modifier);
+                var attrModifyData = new AttributeModifiedData[1];
+                attrModifyData[0] = new AttributeModifiedData() { Type = characterAttribute.StatType.Type, IncreaseAmount = modifiedAmount };
+                OnCharacterAttributesChanged?.Invoke(attrModifyData);
             }
         }
 
-        public void HandleOnPlayerLeveldUp()
+        public AttributeModifiedData[] HandleOnPlayerLeveldUp()
         {
+            var levelUpdatas = new AttributeModifiedData[_characterAttributesDict.Values.Count];
+            int i = 0;
             foreach (var attr in _characterAttributesDict.Values)
             {
-                attr.IncreaseBaseValue();
+                var amount = attr.IncreaseBaseValue();
+                levelUpdatas[i] = new AttributeModifiedData() { Type = attr.StatType.Type, IncreaseAmount = amount };
+                 i++;
             }
 
-            OnCharacterAttributesChanged?.Invoke();
+            return levelUpdatas;
         }
 
         public float GetAttributeValue(StatTypes statType)
@@ -58,6 +67,12 @@ namespace RPGGame.Stats
             var characterAttribute = _characterAttributesDict[statType];
             return characterAttribute.GetAttributeValue();
         }
+    }
+
+    public struct AttributeModifiedData
+    {
+        public StatTypes Type;
+        public float IncreaseAmount;
     }
 }
 

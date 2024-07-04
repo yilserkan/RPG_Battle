@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 7157719128208325596}
   - component: {fileID: 4051306317372150115}
   - component: {fileID: 8550192989828738584}
+  - component: {fileID: 6012477626181470288}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -410,6 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationController: {fileID: 6347031550028583093}
   _healthController: {fileID: 8550192989828738584}
+  _levelController: {fileID: 6012477626181470288}
   _spriteRenderer: {fileID: 3716816599837526094}
 --- !u!114 &4051306317372150115
 MonoBehaviour:
@@ -440,6 +442,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameHero: {fileID: 7157719128208325596}
   _healthBarImage: {fileID: 1760030285764583217}
+--- !u!114 &6012477626181470288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837545608807948715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb8f4d596bb20f4ca858235a3aff66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameHero: {fileID: 7157719128208325596}
   _levelText: {fileID: 5076385087240358995}
 --- !u!1 &5506939570795345609
 GameObject:

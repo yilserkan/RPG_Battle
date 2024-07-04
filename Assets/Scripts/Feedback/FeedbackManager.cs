@@ -1,5 +1,6 @@
 using RPGGame.Game;
 using RPGGame.Pool;
+using RPGGame.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,17 +21,7 @@ namespace RPGGame.Feedback
         {
             RemoveListeners();
         }
-        public static FeedbackData CreateFeedbackData(string text, Vector2 position = default, float duration = 1, Color color = default)
-        {
-            var data = new FeedbackData();
-            data.Text = text;
-            data.Position = position == default ? Vector2.zero : position;
-            data.Duration = duration;
-            data.Color = color == default ? Color.white : color;
-
-            return data;
-        }
-
+   
         private void HandleOnRequestFeedback(FeedbackData feedbackData)
         {
             var pooled = ObjectPool.Spawn(_poolSettings, _feedbackParent);
@@ -41,11 +32,13 @@ namespace RPGGame.Feedback
         private void AddListeners()
         {
             GameHeroHealthController.RequestTakeDamageFeedbackEvent += HandleOnRequestFeedback;
+            LevelUpFeedbackController.RequestLevelUpFeedback += HandleOnRequestFeedback;
         }
 
         private void RemoveListeners()
         {
             GameHeroHealthController.RequestTakeDamageFeedbackEvent -= HandleOnRequestFeedback;
+            LevelUpFeedbackController.RequestLevelUpFeedback -= HandleOnRequestFeedback;
         }
     }
 
@@ -55,6 +48,13 @@ namespace RPGGame.Feedback
         public Color Color;
         public float Duration;
         public Vector2 Position;
+        public FeedbackPositionType PositionType;
+    }
+
+    public enum FeedbackPositionType
+    {
+        Position, 
+        AnchoredPostiion
     }
 }
 

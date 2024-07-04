@@ -13,7 +13,6 @@ namespace RPGGame.Game
     {
         [SerializeField] private GameHero _gameHero;
         [SerializeField] private Image _healthBarImage;
-        [SerializeField] private TextMeshProUGUI _levelText;
 
         private float _vitality;
         private float _maxVitality;
@@ -26,7 +25,6 @@ namespace RPGGame.Game
 
         public void Initialize()
         {
-            _levelText.text = $"{_gameHero.Hero.Level}";
             SetVitality();
             CheckIfHeroDied();
         }
@@ -58,15 +56,17 @@ namespace RPGGame.Game
         private void RequestTakeDamageFeedback(float damage)
         {
             var pos = Camera.main.WorldToScreenPoint(_gameHero.SpawnPoint.GetPosition());
-            var data = FeedbackManager.CreateFeedbackData(
-                $"-{damage:f2}",
-                pos,
-                1,
-                Color.red
-                );
-            RequestTakeDamageFeedbackEvent?.Invoke( data );
-        }
+            var feedbackData = new FeedbackData()
+            {
+                Text = $"-{ damage:f2}",
+                Position = pos ,
+                PositionType = FeedbackPositionType.Position,
+                Color = Color.red,
+                Duration = 1
+            };
 
+            RequestTakeDamageFeedbackEvent?.Invoke(feedbackData);
+        }
 
         private void Die()
         {

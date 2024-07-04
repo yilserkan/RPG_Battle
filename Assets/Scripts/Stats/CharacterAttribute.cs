@@ -15,7 +15,6 @@ namespace RPGGame.Stats
         private List<AttributeModifier> _percentModifiers = new List<AttributeModifier>();
 
         private float _attributeValue;
-        private bool _isDirty;
 
         public CharacterAttribute(CharacterBaseAttribute characterBaseAttribute, int level)
         {
@@ -31,41 +30,50 @@ namespace RPGGame.Stats
             return mulitplier * baseValue;
         }
 
-        public void AddAttributeModifier(AttributeModifier attributeModifier)
+        public float AddAttributeModifier(AttributeModifier attributeModifier)
         {
-            if (attributeModifier == null) { return; }
+            if (attributeModifier == null) { return 0; }
+            var startVal = _attributeValue;
             if (attributeModifier.Type == AttributeModifierType.Additive)
             {
                 _additiveModifiers.Add(attributeModifier);
-                _isDirty = true;
+                UpdateAttributeValue();
             }
             else
             {
                 _percentModifiers.Add(attributeModifier);
-                _isDirty = true;
+                UpdateAttributeValue();
             }
+            var modifiedVal = _attributeValue;
+            return modifiedVal - startVal;
         }
 
-        public void RemoveAttributeModifier(AttributeModifier attributeModifier) 
+        public float RemoveAttributeModifier(AttributeModifier attributeModifier) 
         {  
-            if (attributeModifier == null) { return;} 
-        
-            if(attributeModifier.Type == AttributeModifierType.Additive && _additiveModifiers.Contains(attributeModifier))
+            if (attributeModifier == null) { return 0;}
+            var startVal = _attributeValue;
+            if (attributeModifier.Type == AttributeModifierType.Additive && _additiveModifiers.Contains(attributeModifier))
             {
                 _additiveModifiers.Remove(attributeModifier);
-                _isDirty = true;
+                UpdateAttributeValue();
             }
             else if(attributeModifier.Type == AttributeModifierType.Percent && _percentModifiers.Contains(attributeModifier)) 
             { 
                 _percentModifiers.Remove(attributeModifier);
-                _isDirty = true;
+                UpdateAttributeValue();
             }
+            var modifiedVal = _attributeValue;
+            return modifiedVal - startVal;
         }
 
-        public void IncreaseBaseValue()
+        public float IncreaseBaseValue()
         {
+            var startVal = _attributeValue; 
             BaseValue *= (100 + StatType.LevelUpMultiplier) / 100;
             UpdateAttributeValue();
+
+            var increaseAmount = _attributeValue - startVal;
+            return increaseAmount;
         }
 
         private void UpdateAttributeValue()
@@ -77,12 +85,6 @@ namespace RPGGame.Stats
 
         public float GetAttributeValue()
         {
-            if(_isDirty)
-            {
-                UpdateAttributeValue();
-                _isDirty = false;
-            }
-
             return _attributeValue;
         }
 

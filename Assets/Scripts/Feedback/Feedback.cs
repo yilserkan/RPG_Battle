@@ -20,7 +20,12 @@ namespace RPGGame.Feedback
             _data = data;
             _feedbackText.text = data.Text;
             _feedbackText.color = data.Color;
-            _rectTransform.position = data.Position;
+
+            if(data.PositionType == FeedbackPositionType.AnchoredPostiion)
+                _rectTransform.anchoredPosition = data.Position;
+            else
+                _rectTransform.position = data.Position;
+
             StartAnimation();
             StartCoroutine(StartLifeTime());
         }
