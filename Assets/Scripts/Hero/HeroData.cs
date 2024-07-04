@@ -1,4 +1,5 @@
-﻿using RPGGame.Game;
+﻿using RPGGame.Config;
+using RPGGame.Game;
 using System;
 
 namespace RPGGame.Hero
@@ -11,12 +12,20 @@ namespace RPGGame.Hero
         public int Experience;
         public int HeroTeam;
 
-        public HeroData(string id, HeroTeam team)
+        public HeroData(string id, HeroTeam team, int startLevel = 1)
         {
             ID = id;
-            Level = 1;
-            Experience = 0;
             HeroTeam = (int)team;
+            if(startLevel > 1)
+            {
+                Level = startLevel;
+                Experience = Level * GameConfig.Data.LevelIncreaseInterval;
+            }
+            else
+            {
+                Level = 1;
+                Experience = 0;
+            }
         }
 
         public HeroData(Hero hero)
