@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 8118723037020143137}
   - component: {fileID: 6776709815833755908}
   m_Layer: 0
-  m_Name: FlyweightFactory
+  m_Name: ObjectPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

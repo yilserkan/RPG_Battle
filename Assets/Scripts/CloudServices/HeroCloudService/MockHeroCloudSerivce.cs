@@ -93,7 +93,6 @@ namespace RPGGame.CloudServices
 
         private HeroData[] CreateInitialRandomHeroes()
         {
-            var heroSettingsContainer = PlayerData.HeroSettingsContainer;
             var initialHeroCount = GameConfig.Data.StartHeroCount;
             var intialPlayerHeroes = new HeroData[initialHeroCount];
             for (int i = 0; i < initialHeroCount; i++)

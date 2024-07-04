@@ -37,7 +37,7 @@ namespace RPGGame.CloudServices
             }
             selectedPlayersAvgLevel /= selectedHeroIds.Length;
 
-            var enemyHeroes = new GameHeroData[3];
+            var enemyHeroes = new GameHeroData[SPAWNED_ENEMY_COUNT];
             for (int i = 0; i < enemyHeroes.Length; i++)
             {
                 var randomHero = _heroFactory.CreateRandomHeroData(HeroTeam.Enemy, enemyHeroes, (int)selectedPlayersAvgLevel);

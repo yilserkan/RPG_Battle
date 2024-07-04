@@ -129,7 +129,7 @@ namespace RPGGame.StateMachine
 
             for (int i = 0; i < heroes.Length; i++)
             {
-                if (heroes[i].HeroData.ID == id)
+                if (heroes[i].Hero.Settings.ID == id)
                     return heroes[i];
             }
 

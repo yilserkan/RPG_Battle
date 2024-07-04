@@ -72,6 +72,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ced0a10d9f4eb14fa6b6c90438b3443
+    m_Address: Assets/ScriptableObjects/Stats/CharacterAttribute/Character Base Stats.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad2def709c5f7b04f8f3f650217effc7
+    m_Address: Assets/ScriptableObjects/Stats/StatTypes/Attack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccefe57484fe97949b4f64150640c7af
+    m_Address: Assets/ScriptableObjects/Stats/StatTypes/Vitality.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a095d4686121b0e4daa592e7572c43ed, type: 2}
   m_SchemaSet:
