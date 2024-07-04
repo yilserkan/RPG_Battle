@@ -12,11 +12,12 @@ namespace RPGGame.Stats
     public class StatInfoPopup : MonoBehaviour
     {
         [SerializeField] private GameObject _parent;
-        [SerializeField] private StatInfo[] statInfos;
-
+     
         [SerializeField] private TextMeshProUGUI _heroNameText;
         [SerializeField] private TextMeshProUGUI _heroLevelText;
         [SerializeField] private TextMeshProUGUI _heroExpText;
+        [SerializeField] private TextMeshProUGUI _heroAttackValueText;
+        [SerializeField] private TextMeshProUGUI _heroVitalityValueText;
         [SerializeField] private Image _heroSprite;
 
         [SerializeField] private CustomButton _closeButton;
@@ -34,12 +35,6 @@ namespace RPGGame.Stats
         public void HandleOnInfoPopupRequested(Hero.Hero hero)
         {
             SetPlayerDetails(hero);
-            for (int i = 0; i < statInfos.Length; i++)
-            {
-                var statType = statInfos[i].Type;
-                var attrValue = hero.Stats.CalculateAttributeValue(statType);
-                statInfos[i].Setup(attrValue);
-            }
 
             _parent.SetActive(true);
         }
@@ -54,9 +49,10 @@ namespace RPGGame.Stats
             _heroNameText.text = $"{hero.Settings.Name}";
             _heroLevelText.text = $"{hero.Level}";
             _heroExpText.text = $"{hero.Experience}";
+            _heroAttackValueText.text = $"{hero.Stats.GetAttributeValue(StatTypes.Attack)}";
+            _heroVitalityValueText.text = $"{hero.Stats.GetAttributeValue(StatTypes.Vitality)}";
             _heroSprite.sprite = hero.Settings.HeroSprite;
         }
-
 
         private void AddListeners()
         {
